@@ -1,23 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using FMODUnity;
+using UnityEngine;
 
 public class FmodDistanceParameter : MonoBehaviour
 {
-    public Transform Target;
-    public EmitterRef Ref;
-    public float min;
-    public float max;
+    [field: Header("Fmod")]
+    [field: SerializeField] public StudioEventEmitter emitter { get; set; }
+    [field: SerializeField] public string parameter { get; set; }
+
+    [field: Header("Target")]
+    [field: SerializeField] public Transform target { get; set; }
+    [field: SerializeField] public float minDistance { get; set; }
+    [field: SerializeField] public float maxDistance { get; set; }
 
     void Update()
     {
-        var distance = (Target.position - transform.position).magnitude;
-        var value = Mathf.InverseLerp(min,max,distance);
-        if (Ref.Target.EventInstance.isValid())
+        if (emitter == null || !emitter.EventInstance.isValid())
         {
-            Ref.Target.EventInstance.setParameterByName(Ref.Params[0].Name,value);
+            return;
         }
-    }
 
+        var distance = (target.position - transform.position).magnitude;
+        var value = Mathf.InverseLerp(minDistance, maxDistance, distance);
+        emitter.EventInstance.setParameterByName(parameter, value);
+    }
 }
