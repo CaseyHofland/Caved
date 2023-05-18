@@ -1,9 +1,0 @@
-[submodule "Packages/UnityExtras"]
-	path = Packages/UnityExtras
-	url = https://github.com/Casey-Hofland/UnityExtras.git
-[submodule "Packages/NamingValidator"]
-	path = Packages/NamingValidator
-	url = https://github.com/Casey-Hofland/NamingValidator.git
-[submodule "FMOD"]
-	path = FMOD
-	url = https://github.com/Casey-Hofland/ADarkFairytaleAudio.git

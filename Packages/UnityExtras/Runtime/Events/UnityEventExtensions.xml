@@ -1,8 +1,0 @@
-﻿<docs>
-    <GetPersistentEventIndex>
-        <summary>
-            Get a listeners index.
-        </summary>
-        <param name="call">The listener to query.</param>
-    </GetPersistentEventIndex>
-</docs>
