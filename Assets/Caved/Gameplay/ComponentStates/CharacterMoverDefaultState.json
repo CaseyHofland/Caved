@@ -1,0 +1,7 @@
+{
+    "$type": "UnityExtras.CharacterMover, CaseyDeCoder.UnityExtras.Physics",
+    "<rotationSpeed>k__BackingField": 800,
+    "<moveSpeed>k__BackingField": 0.5,
+    "<sprintBoost>k__BackingField": 1,
+    "<jumpHeight>k__BackingField": 1.2
+}

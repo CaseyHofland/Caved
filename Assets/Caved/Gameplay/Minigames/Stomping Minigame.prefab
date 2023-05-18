@@ -1,0 +1,230 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1829292202915414719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1829292202915414714}
+  - component: {fileID: 1829292202915414717}
+  - component: {fileID: 1829292202915414716}
+  m_Layer: 0
+  m_Name: Stomping Minigame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1829292202915414714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829292202915414719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1829292203743557771}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1829292202915414717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829292202915414719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1666927242
+      Data2: 1081195831
+      Data3: -781433428
+      Data4: -1370550844
+    Path: event:/Casey Prototype/Haaienhapje Hard
+  Event: 
+  PlayEvent: 11
+  StopEvent: 12
+  AllowFadeout: 0
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 3
+  OverrideMaxDistance: 15
+--- !u!114 &1829292202915414716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829292202915414719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a9dd78b4823db44b994ca22e7f62e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitter: {fileID: 1829292202915414717}
+  <completionCount>k__BackingField: 1
+  <msMargin>k__BackingField: 200
+  <audibility>k__BackingField: 0.9
+  leftSignature: Left
+  leftStompInput:
+    enableOnStart: 1
+    inputActionProperty:
+      m_UseReference: 0
+      m_Action:
+        m_Name: Input Action Property
+        m_Type: 1
+        m_ExpectedControlType: Button
+        m_Id: 09b9ce43-4da2-4716-a226-5d2039913cdb
+        m_Processors: 
+        m_Interactions: 
+        m_SingletonActionBindings:
+        - m_Name: 
+          m_Id: 9e101aa9-e601-46a2-96ee-182c9bb27974
+          m_Path: <Mouse>/leftButton
+          m_Interactions: 
+          m_Processors: 
+          m_Groups: 
+          m_Action: Input Action Property
+          m_Flags: 0
+        - m_Name: 
+          m_Id: da35b7a4-272a-4319-8c52-45776a4abaac
+          m_Path: <Gamepad>/leftShoulder
+          m_Interactions: 
+          m_Processors: 
+          m_Groups: 
+          m_Action: Input Action Property
+          m_Flags: 0
+        - m_Name: 
+          m_Id: b5dc077d-3ca7-4f66-a12a-856df99a7846
+          m_Path: <Gamepad>/leftTrigger
+          m_Interactions: 
+          m_Processors: 
+          m_Groups: 
+          m_Action: Input Action Property
+          m_Flags: 0
+        m_Flags: 0
+      m_Reference: {fileID: 0}
+  leftLowFrequency: 0.2
+  leftHighFrequency: 0.4
+  rightSignature: Right
+  rightStompInput:
+    enableOnStart: 1
+    inputActionProperty:
+      m_UseReference: 0
+      m_Action:
+        m_Name: Input Action Property
+        m_Type: 1
+        m_ExpectedControlType: Button
+        m_Id: 41e12714-38ae-4ad7-8d2f-7865ff9a9da5
+        m_Processors: 
+        m_Interactions: 
+        m_SingletonActionBindings:
+        - m_Name: 
+          m_Id: c01baeed-f7b6-4268-96fb-751f8c582c22
+          m_Path: <Mouse>/rightButton
+          m_Interactions: 
+          m_Processors: 
+          m_Groups: 
+          m_Action: Input Action Property
+          m_Flags: 0
+        - m_Name: 
+          m_Id: 121f5a3e-ea56-4767-8122-9ab09cc4c391
+          m_Path: <Gamepad>/rightShoulder
+          m_Interactions: 
+          m_Processors: 
+          m_Groups: 
+          m_Action: Input Action Property
+          m_Flags: 0
+        - m_Name: 
+          m_Id: 032bf978-fa2e-4700-ba54-3414ebf4d43e
+          m_Path: <Gamepad>/rightTrigger
+          m_Interactions: 
+          m_Processors: 
+          m_Groups: 
+          m_Action: Input Action Property
+          m_Flags: 0
+        m_Flags: 0
+      m_Reference: {fileID: 0}
+  rightLowFrequency: 0.5
+  rightHighFrequency: 1
+  completionSound: {fileID: 1829292203743557768}
+  reward: {fileID: 4373982743305186015, guid: 5cabe264b615f3d42964b01db1ed0d99, type: 3}
+  completedLowFrequency: 1
+  completedHighFrequency: 1
+--- !u!1 &1829292203743557770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1829292203743557771}
+  - component: {fileID: 1829292203743557768}
+  m_Layer: 0
+  m_Name: Completion Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1829292203743557771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829292203743557770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1829292202915414714}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1829292203743557768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829292203743557770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 563652947
+      Data2: 1139667958
+      Data3: -2118486616
+      Data4: -1461923288
+    Path: event:/Casey Prototype/HOO
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 1
+  Preload: 1
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 3
+  OverrideMaxDistance: 15

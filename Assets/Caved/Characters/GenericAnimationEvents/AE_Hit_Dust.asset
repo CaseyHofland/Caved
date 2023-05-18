@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b40b0ed05b6664097838a6c35410d2, type: 3}
+  m_Name: AE_Hit_Dust
+  m_EditorClassIdentifier: 
+  childEvents: []
+  texturePrefabs: []
+  prefab: {fileID: 1667534834981817785, guid: aef44c244f402d54b8c2d520eeeeb4f1, type: 3}
+  destroyDelay: 4

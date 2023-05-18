@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec310469276469b449b06f94317ec9b4, type: 3}
+  m_Name: AssetNamingModifiers
+  m_EditorClassIdentifier: 
+  namingRules:
+  - _assetType: UnityEngine.Object
+    pattern: ^[A-Z]([a-zA-Z0-9]|_[A-Z])*$
+  - _assetType: UnityEngine.Material
+    pattern: ^(M|SB|DC)_
+  - _assetType: UnityEngine.Texture
+    pattern: ^T_.+_(D|N|M|AO|S|MAOS|E|UI)$
+  - _assetType: UnityEngine.LightingSettings
+    pattern: ^LS_
+  - _assetType: UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset
+    pattern: ^URP_
+  - _assetType: UnityEngine.Rendering.Universal.UniversalRendererData
+    pattern: ^URP_.+_Renderer
+  - _assetType: UnityEngine.Rendering.VolumeProfile
+    pattern: ^V_
+  - _assetType: UnityEngine.PhysicMaterial
+    pattern: ^PM_
+  - _assetType: UnityEngine.PhysicsMaterial2D
+    pattern: ^PM_
+  - _assetType: UnityEngine.Font
+    pattern: ^FT_
+  - _assetType: UnityEngine.AnimationClip
+    pattern: ^A_
+  - _assetType: UnityEditor.Animations.AnimatorController
+    pattern: ^AC_
+  - _assetType: UnityEngine.AvatarMask
+    pattern: ^AM_
+  - _assetType: UnityEngine.Timeline.TimelineAsset
+    pattern: ^TL_
+  - _assetType: UnityEngine.GameObject
+    pattern: ^(ST|SK|CH)_
+  - _assetType: UnityExtras.ScriptableAnimationEvent
+    pattern: ^AE_
+  - _assetType: UnityEngine.ReflectionProbe
+    pattern: ^LR_
+  - _assetType: VolumetricLights.VolumetricLightProfile
+    pattern: ^VL_
+  - _assetType: VolumetricFogAndMist2.VolumetricFogProfile
+    pattern: ^VF_

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c115689b3e6e11d41b00cf1bc3228dbf, type: 3}
+  m_Name: AE_Hit_LeftFoot
+  m_EditorClassIdentifier: 
+  childEvents:
+  - {fileID: 11400000, guid: 6729292cad558164aa4ba3f562316c93, type: 2}
+  <bone>k__BackingField: 5
+  <useRootBasedDirection>k__BackingField: 1
+  <rayDirection>k__BackingField:
+    _value: {x: 0, y: -1, z: 0}
+  <maxDistance>k__BackingField: 0.25
+  <layerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  queryTriggerInteraction: 1
