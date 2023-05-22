@@ -12,12 +12,6 @@ EditorBuildSettings:
     path: Assets/Caved/Areas/S_Opening.unity
     guid: 3bc5b1b116f5fdd4ca807bec4a0c6bb1
   - enabled: 1
-    path: Assets/Caved/Areas/S_Unknown.unity
-    guid: ac11694d8dc80874d8eec98b54748811
-  - enabled: 1
-    path: Assets/Caved/Areas/S_RunningAndScreaming.unity
-    guid: 5f02318dcc58d204fae0db99e521b5b7
-  - enabled: 1
-    path: Assets/Caved/Areas/S_EndingCutscene.unity
-    guid: be85c86e105505b47b34a17274bc3ed3
+    path: Assets/Caved/Areas/S_TempEnd.unity
+    guid: c97eff0b65462bb49ba37a289281ef20
   m_configObjects: {}
