@@ -4,11 +4,13 @@ Shader "Hidden/VolumetricFog2/DepthOnly"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _AlphaCutOff("Alpha CutOff", Float) = 0
+        _Cull("Culling", Int) = 2
     }
     SubShader
     {
         ColorMask 0
         ZWrite On
+        Cull [_Cull]
 
         Pass
         {

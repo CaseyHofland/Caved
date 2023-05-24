@@ -23,7 +23,7 @@ namespace VolumetricFogAndMist2 {
 
         RenderTexture rt;
 
-        Camera cam;
+        Camera surfaceCam;
         Matrix4x4 camMatrix;
         Vector3 lastCamPos;
 
@@ -35,11 +35,11 @@ namespace VolumetricFogAndMist2 {
         }
 
         void CheckSurfaceCapture() {
-            if (cam == null) {
+            if (surfaceCam == null) {
                 Transform childCam = transform.Find(SURFACE_CAM_NAME);
                 if (childCam != null) {
-                    cam = childCam.GetComponent<Camera>();
-                    if (cam == null) {
+                    surfaceCam = childCam.GetComponent<Camera>();
+                    if (surfaceCam == null) {
                         DestroyImmediate(childCam.gameObject);
                     }
                 }
@@ -51,7 +51,7 @@ namespace VolumetricFogAndMist2 {
 
             Transform childCam = transform.Find(SURFACE_CAM_NAME);
             if (childCam != null) {
-                cam = childCam.GetComponent<Camera>();
+                surfaceCam = childCam.GetComponent<Camera>();
             }
 
             if (!activeProfile.terrainFit) {
@@ -59,26 +59,26 @@ namespace VolumetricFogAndMist2 {
                 return;
             }
 
-            if (cam == null) {
+            if (surfaceCam == null) {
                 if (childCam != null) {
                     DestroyImmediate(childCam.gameObject);
                 }
-                if (cam == null) {
+                if (surfaceCam == null) {
                     GameObject camObj = new GameObject(SURFACE_CAM_NAME, typeof(Camera));
                     camObj.transform.SetParent(transform, false);
-                    cam = camObj.GetComponent<Camera>();
-                    cam.depthTextureMode = DepthTextureMode.None;
-                    cam.clearFlags = CameraClearFlags.Depth;
-                    cam.allowHDR = false;
-                    cam.allowMSAA = false;
+                    surfaceCam = camObj.GetComponent<Camera>();
+                    surfaceCam.depthTextureMode = DepthTextureMode.None;
+                    surfaceCam.clearFlags = CameraClearFlags.Depth;
+                    surfaceCam.allowHDR = false;
+                    surfaceCam.allowMSAA = false;
                 }
 
-                cam.stereoTargetEye = StereoTargetEyeMask.None;
+                surfaceCam.stereoTargetEye = StereoTargetEyeMask.None;
             }
 
-            UniversalAdditionalCameraData camData = cam.GetComponent<UniversalAdditionalCameraData>();
+            UniversalAdditionalCameraData camData = surfaceCam.GetComponent<UniversalAdditionalCameraData>();
             if (camData == null) {
-                camData = cam.gameObject.AddComponent<UniversalAdditionalCameraData>();
+                camData = surfaceCam.gameObject.AddComponent<UniversalAdditionalCameraData>();
             }
             if (camData != null) {
                 camData.dithering = false;
@@ -93,13 +93,13 @@ namespace VolumetricFogAndMist2 {
 #endif
             }
 
-            cam.orthographic = true;
-            cam.nearClipPlane = 1f;
-            cam.enabled = false;
+            surfaceCam.orthographic = true;
+            surfaceCam.nearClipPlane = 1f;
+            surfaceCam.enabled = false;
 
             if (rt != null && rt.width != (int)activeProfile.terrainFitResolution) {
-                if (cam.targetTexture == rt) {
-                    cam.targetTexture = null;
+                if (surfaceCam.targetTexture == rt) {
+                    surfaceCam.targetTexture = null;
                 }
                 rt.Release();
                 DestroyImmediate(rt);
@@ -115,8 +115,8 @@ namespace VolumetricFogAndMist2 {
                 activeProfile.terrainLayerMask &= ~thisLayer; // exclude fog layer
             }
 
-            cam.cullingMask = activeProfile.terrainLayerMask;
-            cam.targetTexture = rt;
+            surfaceCam.cullingMask = activeProfile.terrainLayerMask;
+            surfaceCam.targetTexture = rt;
 
             if (activeProfile.terrainFit) {
                 ScheduleHeightmapCapture();
@@ -160,9 +160,9 @@ namespace VolumetricFogAndMist2 {
         /// Updates terrain heightmap on this volumetric fog
         /// </summary>
         public void ScheduleHeightmapCapture() {
-            if (cam != null) {
-                cam.Render();
-                cam.enabled = false;
+            if (surfaceCam != null) {
+                surfaceCam.Render();
+                surfaceCam.enabled = false;
                 if (!fogMat.IsKeywordEnabled(ShaderParams.SKW_SURFACE)) {
                     fogMat.EnableKeyword(ShaderParams.SKW_SURFACE);
                 }
@@ -174,28 +174,27 @@ namespace VolumetricFogAndMist2 {
         void SetupCameraCaptureMatrix() {
 
             Vector3 camPos = transform.position + new Vector3(0, transform.lossyScale.y * 0.51f, 0);
-            cam.farClipPlane = 10000;
-            cam.transform.position = camPos;
-            cam.transform.eulerAngles = new Vector3(90, 0, 0);
+            surfaceCam.farClipPlane = 10000;
+            surfaceCam.transform.position = camPos;
+            surfaceCam.transform.eulerAngles = new Vector3(90, 0, 0);
             Vector3 size = transform.lossyScale;
-            cam.orthographicSize = Mathf.Max(size.x * 0.5f, size.z * 0.5f);
+            surfaceCam.orthographicSize = Mathf.Max(size.x * 0.5f, size.z * 0.5f);
 
-            ComputeSufaceTransform(cam.projectionMatrix, cam.worldToCameraMatrix);
+            ComputeSufaceTransform(surfaceCam.projectionMatrix, surfaceCam.worldToCameraMatrix);
 
             fogMat.SetMatrix(ShaderParams.SurfaceCaptureMatrix, camMatrix);
-            fogMat.SetTexture(ShaderParams.SurfaceDepthTexture, cam.targetTexture);
+            fogMat.SetTexture(ShaderParams.SurfaceDepthTexture, surfaceCam.targetTexture);
             fogMat.SetVector(ShaderParams.SurfaceData, new Vector4(camPos.y, activeProfile.terrainFogHeight, activeProfile.terrainFogMinAltitude, activeProfile.terrainFogMaxAltitude));
         }
 
         void SurfaceCaptureUpdate() {
 
-            if (!activeProfile.terrainFit) return;
-            if (cam == null) return;
+            if (surfaceCam == null) return;
 
             SetupCameraCaptureMatrix();
 
-            if (!cam.enabled && lastCamPos != cam.transform.position) {
-                lastCamPos = cam.transform.position;
+            if (!surfaceCam.enabled && lastCamPos != surfaceCam.transform.position) {
+                lastCamPos = surfaceCam.transform.position;
                 ScheduleHeightmapCapture();
                 requireUpdateMaterial = true;
             }

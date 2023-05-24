@@ -89,8 +89,9 @@ namespace VolumetricFogAndMist2 {
                 context.ExecuteCommandBuffer(cmd);
                 cmd.Clear();
 
+                VolumetricFogManager manager = VolumetricFogManager.GetManagerIfExists();
+
                 if (alphaCutoutLayerMask != 0) {
-                    VolumetricFogManager manager = VolumetricFogManager.GetManagerIfExists();
                     if (manager != null) {
                         if (depthOnlyMaterialCutOff == null) {
                             Shader depthOnlyCutOff = Shader.Find(m_DepthOnlyShader);
@@ -116,6 +117,9 @@ namespace VolumetricFogAndMist2 {
                                     } else if (mat.HasProperty(ShaderParams.MainTex)) {
                                         overrideMaterial.SetTexture(ShaderParams.MainTex, mat.GetTexture(ShaderParams.MainTex));
                                     }
+                                    if (mat.HasProperty(ShaderParams.CullMode)) {
+                                        overrideMaterial.SetInt(ShaderParams.CullMode, mat.GetInt(ShaderParams.CullMode));
+                                    }
                                     cmd.DrawRenderer(renderer, overrideMaterial);
                                 }
                             }
@@ -130,6 +134,9 @@ namespace VolumetricFogAndMist2 {
                     if (depthOnlyMaterial == null) {
                         Shader depthOnly = Shader.Find(m_DepthOnlyShader);
                         depthOnlyMaterial = new Material(depthOnly);
+                    }
+                    if (manager != null) {
+                        depthOnlyMaterial.SetInt(ShaderParams.CullMode, (int)manager.transparentCullMode);
                     }
                     drawSettings.overrideMaterial = depthOnlyMaterial;
                     context.DrawRenderers(renderingData.cullResults, ref drawSettings, ref m_FilteringSettings);

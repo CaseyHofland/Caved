@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DistanceFog
   m_EditorClassIdentifier: 
   raymarchQuality: 6
-  raymarchMinStep: 0.2
-  jittering: 1
+  raymarchMinStep: 0.25
+  jittering: 1.25
   dithering: 1
   renderQueue: 3100
   sortingLayerID: 0
@@ -34,6 +34,8 @@ MonoBehaviour:
   verticalOffset: 0
   distance: 0
   distanceFallOff: 1
+  maxDistance: 10000
+  maxDistanceFallOff: 0
   terrainFit: 0
   terrainFitResolution: 128
   terrainLayerMask:
@@ -111,10 +113,24 @@ MonoBehaviour:
   specularIntensity: 0.428
   turbulence: 0.73
   windDirection: {x: -0.02, y: 0, z: 0}
+  useCustomDetailNoiseWindDirection: 0
+  detailNoiseWindDirection: {x: 0.02, y: 0, z: 0}
   dayNightCycle: 1
+  sunDirection: {x: 0, y: 1, z: 0}
+  sunColor: {r: 0, g: 0.9568, b: 0.8392, a: 1}
+  sunIntensity: 1
   ambientLightMultiplier: 0
   lightDiffusionPower: 32
   lightDiffusionIntensity: 0.4
   receiveShadows: 1
   shadowIntensity: 0.5
+  shadowCancellation: 0
+  shadowMaxDistance: 250
   cookie: 0
+  distantFog: 0
+  distantFogStartDistance: 1000
+  distantFogDistanceDensity: 0.5
+  distantFogMaxHeight: 4000
+  distantFogHeightDensity: 0.5
+  distantFogColor: {r: 0.358, g: 0.358, b: 0.358, a: 1}
+  distantFogDiffusionIntensity: 0.4

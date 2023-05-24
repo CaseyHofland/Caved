@@ -1,6 +1,7 @@
 ﻿//#define FOG_VOID_ROTATION
 
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace VolumetricFogAndMist2 {
 
@@ -29,11 +30,14 @@ namespace VolumetricFogAndMist2 {
         public bool mainManager;
         [Tooltip("Optionally specify which transparent layers must be included in the depth prepass. Use only to avoid fog clipping with certain transparent objects.")]
         public LayerMask includeTransparent;
+        [Tooltip("Cull mode for the transparent depth prepass")]
+        public CullMode transparentCullMode = CullMode.Back;
         [Tooltip("Optionally specify which semi-transparent (materials using alpha clipping or cut-off) must be included in the depth prepass. Use only to avoid fog clipping with certain transparent objects.")]
         public LayerMask includeSemiTransparent;
         [Tooltip("Optionally determines the alpha cut off for semitransparent objects")]
         [Range(0, 1)]
         public float alphaCutOff;
+
         [Tooltip("Light scattering effect through fog")]
         [Range(0, 1)]
         public float scattering;

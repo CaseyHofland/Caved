@@ -1,4 +1,4 @@
-Shader "VolumetricFog2/FoWBlur" {
+Shader "Hidden/VolumetricFog2/FoWBlur" {
 Properties {
 	_MainTex ("", 2D) = "white" {}
 	_Color ("", Color) = (1,1,1,1)

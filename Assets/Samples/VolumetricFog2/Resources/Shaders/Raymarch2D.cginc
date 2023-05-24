@@ -8,12 +8,16 @@ float _NoiseScale;
 half4 _Color;
 
 float3 _SunDir;
-half _ShadowIntensity, _ShadowCancellation;
 half _DeepObscurance;
 half _LightDiffusionIntensity, _LightDiffusionPower;
 float3 _WindDirection, _DetailWindDirection;
 half4 _LightColor;
 half  _Density;
+
+half3 _ShadowData;
+#define SHADOW_INTENSITY _ShadowData.x
+#define SHADOW_CANCELLATION _ShadowData.y
+#define SHADOW_MAX_DISTANCE _ShadowData.z
 
 float2 _MaxDistanceData;
 #define FOG_MAX_LENGTH _MaxDistanceData.x
@@ -167,11 +171,13 @@ void AddFog(float3 rayStart, float3 wpos, float rs, half4 baseColor, inout half4
    if (density.a > 0) {
         half4 fgCol = baseColor * half4((1.0 - density.a * _DeepObscurance).xxx, density.a);
         #if VF2_RECEIVE_SHADOWS
-            half shadowAtten = GetLightAttenuation(wpos);
-            fgCol.rgb *= lerp(1.0, shadowAtten, _ShadowIntensity);
-            #if defined(FOG_SHADOW_CANCELLATION)
-                fgCol.a *= lerp(1.0, shadowAtten, _ShadowCancellation);
-            #endif
+            if (dot2(wpos - _WorldSpaceCameraPos) < SHADOW_MAX_DISTANCE) {
+                half shadowAtten = GetLightAttenuation(wpos);
+                fgCol.rgb *= lerp(1.0, shadowAtten, SHADOW_INTENSITY);
+                #if defined(FOG_SHADOW_CANCELLATION)
+                    fgCol.a *= lerp(1.0, shadowAtten, SHADOW_CANCELLATION);
+                #endif
+            }
         #endif
         #if VF2_NATIVE_LIGHTS
             int additionalLightCount = GetAdditionalLightsCount();
@@ -211,6 +217,15 @@ void AddFog(float3 rayStart, float3 wpos, float rs, half4 baseColor, inout half4
    }
 }
 
+half GetDiffusionIntensity(float3 viewDir) {
+    return pow(max(dot(viewDir, _SunDir.xyz), 0), _LightDiffusionPower) * _LightDiffusionIntensity;
+}
+
+half3 GetDiffusionColor(float3 viewDir) {
+    half diffusion = 1.0 + GetDiffusionIntensity(viewDir);
+    half3 diffusionColor = _LightColor.rgb * diffusion;
+    return diffusionColor;
+}
 
 half4 GetFogColor(float3 rayStart, float3 viewDir, float t0, float t1) {
 
@@ -218,8 +233,7 @@ half4 GetFogColor(float3 rayStart, float3 viewDir, float t0, float t1) {
     float len = t1 - t0;
     float rs = MIN_STEPPING + max(log(len), 0) / FOG_STEPPING;     // stepping ratio with atten detail with distance
     half4 sum = half4(0,0,0,0);
-    half diffusion = 1.0 + pow(max(dot(viewDir, _SunDir.xyz), 0), _LightDiffusionPower) * _LightDiffusionIntensity;
-    half3 diffusionColor = _LightColor.rgb * diffusion;
+    half3 diffusionColor = GetDiffusionColor(viewDir);
     half4 lightColor = half4(diffusionColor, 1.0);
 
     float3 wpos = rayStart + viewDir * t0;
