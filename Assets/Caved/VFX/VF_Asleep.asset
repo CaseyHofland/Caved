@@ -28,7 +28,7 @@ MonoBehaviour:
   detailScale: 0.35
   detailStrength: 0.5
   detailOffset: -0.5
-  density: 0.18
+  density: 1.44
   shape: 0
   border: 0.05
   verticalOffset: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  brightness: 1.02
+  brightness: 0.8
   deepObscurance: 1
   specularColor: {r: 1, g: 1, b: 0.8, a: 1}
   specularThreshold: 0.637

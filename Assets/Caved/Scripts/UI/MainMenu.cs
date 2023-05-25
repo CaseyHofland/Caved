@@ -8,23 +8,39 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [Header("Screens")]
+    public GameObject _startScreen;
     public GameObject _mainScreen;
     public GameObject _optionsScreen;
+    public GameObject _controlsInfo;
 
     [Header("Conditions")]
     [SerializeField] private float _setupTime = 2.5f;
+    [SerializeField] private bool _startScreenFinished;
+    [SerializeField] private bool _readytoStart;
+    private bool _mainActive;
+    private bool _optionsActive;
 
     [Header("Opening Settings")]
     public Button _mainPrimaryButton;
     public Slider _settingsPrimaryButton;
 
-    PlayerInput _menuNaviator;
+    EmInput _menuNaviator;
+
+    [Header("Animations")]
+    public Animator _startScreenAnimations;
+
 
     private void Start()
     {
         _optionsScreen.SetActive(false);
-        _mainPrimaryButton.Select();
-        _menuNaviator = new PlayerInput();
+        _mainScreen.SetActive(false);
+        _controlsInfo.SetActive(false);
+        _menuNaviator = new EmInput();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) OnConfirm();
     }
 
     public void StartGame()
@@ -32,11 +48,22 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void ShowControls()
+    {
+        _optionsScreen.SetActive(false);
+        _mainScreen.SetActive(false);
+        _controlsInfo.SetActive(true);
+        _readytoStart = true;
+
+    }
+
     public void ShowOptions()
     {
         _mainScreen.SetActive(false);
         _optionsScreen.SetActive(true);
         _settingsPrimaryButton.Select();
+        _mainActive = false;
+        _optionsActive= true;
     }
 
     public void BackToMain()
@@ -44,6 +71,8 @@ public class MainMenu : MonoBehaviour
         _mainScreen.SetActive(true);
         _optionsScreen.SetActive(false);
         _mainPrimaryButton.Select();
+        _mainActive = true;
+        _optionsActive= false;
     }
 
     public void QuitGame()
@@ -53,4 +82,45 @@ public class MainMenu : MonoBehaviour
 #endif
         Application.Quit();
     }
+
+    //TRANSITIONS
+    private IEnumerator startToMain()
+    {
+        _startScreenAnimations.SetTrigger("isClicked");
+
+        yield return new WaitForSeconds(2f);
+
+        _startScreen.SetActive(false);
+
+        BackToMain();
+    }
+
+    //INPUT
+    void OnConfirm()
+    {
+        Debug.Log("Confirm pressed");
+        if(!_startScreenFinished)
+        {
+            _startScreenFinished = true;
+            StartCoroutine(startToMain());
+        }
+        else if(_readytoStart) 
+        { 
+            StartGame();  
+        }
+    }
+
+    void OnBack()
+    {
+        if(_optionsActive)
+        {
+            BackToMain();
+        }
+        else if(_mainActive)
+        {
+            Debug.Log("Request quit");
+        }
+    }
+
+
 }
