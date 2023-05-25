@@ -223,7 +223,7 @@ namespace VolumetricFogAndMist2 {
 
         void SetFowBlurTexture() {
             if (fowBlur == null) {
-                fowBlur = new Material(Shader.Find("VolumetricFog2/FoWBlur"));
+                fowBlur = new Material(Shader.Find("Hidden/VolumetricFog2/FoWBlur"));
                 fowBlur.hideFlags = HideFlags.DontSave;
             }
             if (fowBlur == null)

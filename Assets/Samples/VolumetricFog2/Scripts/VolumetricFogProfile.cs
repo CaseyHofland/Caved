@@ -84,6 +84,10 @@ namespace VolumetricFogAndMist2 {
         public bool dayNightCycle = true;
         [Tooltip("When day/night cycle option is disabled, customize the direction of the Sun light.")]
         public Vector3 sunDirection = Vector3.up;
+        [Tooltip("Custom sun color when day/night cycle is disabled")]
+        public Color sunColor = new Color(0, 0.9568f, 0.8392f);
+        [Tooltip("Custom sun intensity when day/night cycle is disabled")]
+        public float sunIntensity = 1f;
         [Tooltip("Ambient light influence")]
         public float ambientLightMultiplier;
         [Range(0, 64)] public float lightDiffusionPower = 32;
@@ -92,8 +96,19 @@ namespace VolumetricFogAndMist2 {
         [Range(0, 1)] public float shadowIntensity = 0.5f;
         [Tooltip("Removes shadowed fog")]
         [Range(0, 1)] public float shadowCancellation;
+        public float shadowMaxDistance = 250f;
         [Tooltip("Uses the directional light cookie")]
         public bool cookie;
+
+        [Header("Distant Fog")]
+        [Tooltip("Enables exponential distant fog. Use this option to cover horizon/sky/far distances with optimal performance")]
+        public bool distantFog;
+        public float distantFogStartDistance = 1000f;
+        public float distantFogDistanceDensity = 0.5f;
+        public float distantFogMaxHeight = 4000;
+        public float distantFogHeightDensity = 0.5f;
+        public Color distantFogColor = new Color(0.358f, 0.358f, 0.358f);
+        public float distantFogDiffusionIntensity = 0.4f;
 
         public event OnSettingsChanged onSettingsChanged;
 
@@ -148,6 +163,13 @@ namespace VolumetricFogAndMist2 {
             }
             depthGradientMaxDistance = Mathf.Max(0, depthGradientMaxDistance);
             ambientLightMultiplier = Mathf.Max(0, ambientLightMultiplier);
+            sunIntensity = Mathf.Max(0, sunIntensity);
+            shadowMaxDistance = Mathf.Max(0, shadowMaxDistance);
+            distantFogStartDistance = Mathf.Max(0, distantFogStartDistance);
+            distantFogDistanceDensity = Mathf.Max(0, distantFogDistanceDensity);
+            distantFogMaxHeight = Mathf.Max(0, distantFogMaxHeight);
+            distantFogHeightDensity = Mathf.Max(0, distantFogHeightDensity);
+            distantFogDiffusionIntensity = Mathf.Max(0, distantFogDiffusionIntensity);
 
             if (enableDepthGradient) {
                 const int DEPTH_GRADIENT_TEX_SIZE = 32;
@@ -249,6 +271,8 @@ namespace VolumetricFogAndMist2 {
             lightDiffusionIntensity = p1.lightDiffusionIntensity * t0 + p2.lightDiffusionIntensity * t;
             receiveShadows = t < 0.5f ? p1.receiveShadows : p2.receiveShadows;
             shadowIntensity = p1.shadowIntensity * t0 + p2.shadowIntensity * t;
+            shadowCancellation = t < 0.5f ? p1.shadowCancellation : p2.shadowCancellation;
+            shadowMaxDistance = p1.shadowMaxDistance * t0 + p2.shadowMaxDistance * t;
             terrainFit = t < 0.5f ? p1.terrainFit : p2.terrainFit;
             terrainFitResolution = t < 0.5 ? p1.terrainFitResolution : p2.terrainFitResolution;
             terrainFogHeight = p1.terrainFogHeight * t0 + p2.terrainFogHeight * t;
@@ -257,8 +281,17 @@ namespace VolumetricFogAndMist2 {
             terrainLayerMask = t < 0.5f ? p1.terrainLayerMask : p2.terrainLayerMask;
             dayNightCycle = t < 0.5f ? p1.dayNightCycle : p2.dayNightCycle;
             sunDirection = Vector3.Slerp(p1.sunDirection, p2.sunDirection, t);
+            sunColor = p1.sunColor * t0 + p2.sunColor * t;
+            sunIntensity = p1.sunIntensity * t0 + p2.sunIntensity * t;
             ambientLightMultiplier = p1.ambientLightMultiplier * t0 + p2.ambientLightMultiplier * t;
             cookie = t < 0.5f ? p1.cookie : p2.cookie;
+            distantFog = t < 0.5f ? p1.distantFog : p2.distantFog;
+            distantFogStartDistance = p1.distantFogStartDistance * t0 + p2.distantFogStartDistance * t;
+            distantFogDistanceDensity = p1.distantFogDistanceDensity * t0 + p2.distantFogDistanceDensity * t;
+            distantFogMaxHeight = p1.distantFogMaxHeight * t0 + p2.distantFogMaxHeight * t;
+            distantFogHeightDensity = p1.distantFogHeightDensity * t0 + p2.distantFogHeightDensity * t;
+            distantFogColor = p1.distantFogColor * t0 + p2.distantFogColor * t;
+            distantFogDiffusionIntensity = p1.distantFogDiffusionIntensity * t0 + p2.distantFogDiffusionIntensity * t;
 
             ValidateSettings();
         }

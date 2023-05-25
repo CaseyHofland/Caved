@@ -22,9 +22,11 @@ namespace VolumetricFogAndMist2 {
 
         SerializedProperty turbulence, windDirection, useCustomDetailNoiseWindDirection, detailNoiseWindDirection;
 
-        SerializedProperty dayNightCycle, sunDirection, lightDiffusionPower, lightDiffusionIntensity;
-        SerializedProperty receiveShadows, shadowIntensity, shadowCancellation;
+        SerializedProperty dayNightCycle, sunDirection, sunColor, sunIntensity, lightDiffusionPower, lightDiffusionIntensity;
+        SerializedProperty receiveShadows, shadowIntensity, shadowCancellation, shadowMaxDistance;
         SerializedProperty cookie;
+
+        SerializedProperty distantFog, distantFogColor, distantFogStartDistance, distantFogDistanceDensity, distantFogMaxHeight, distantFogHeightDensity, distantFogDiffusionIntensity;
 
         private void OnEnable() {
             raymarchQuality = serializedObject.FindProperty("raymarchQuality");
@@ -56,6 +58,7 @@ namespace VolumetricFogAndMist2 {
             distanceFallOff = serializedObject.FindProperty("distanceFallOff");
             maxDistance = serializedObject.FindProperty("maxDistance");
             maxDistanceFallOff = serializedObject.FindProperty("maxDistanceFallOff");
+
             terrainFit = serializedObject.FindProperty("terrainFit");
             terrainFitResolution = serializedObject.FindProperty("terrainFitResolution");
             terrainLayerMask = serializedObject.FindProperty("terrainLayerMask");
@@ -84,14 +87,26 @@ namespace VolumetricFogAndMist2 {
 
             dayNightCycle = serializedObject.FindProperty("dayNightCycle");
             sunDirection = serializedObject.FindProperty("sunDirection");
+            sunColor = serializedObject.FindProperty("sunColor");
+            sunIntensity = serializedObject.FindProperty("sunIntensity");
+
             lightDiffusionPower = serializedObject.FindProperty("lightDiffusionPower");
             lightDiffusionIntensity = serializedObject.FindProperty("lightDiffusionIntensity");
 
             receiveShadows = serializedObject.FindProperty("receiveShadows");
             shadowIntensity = serializedObject.FindProperty("shadowIntensity");
             shadowCancellation = serializedObject.FindProperty("shadowCancellation");
+            shadowMaxDistance = serializedObject.FindProperty("shadowMaxDistance");
 
             cookie = serializedObject.FindProperty("cookie");
+
+            distantFog = serializedObject.FindProperty("distantFog");
+            distantFogColor = serializedObject.FindProperty("distantFogColor");
+            distantFogStartDistance = serializedObject.FindProperty("distantFogStartDistance");
+            distantFogDistanceDensity = serializedObject.FindProperty("distantFogDistanceDensity");
+            distantFogMaxHeight = serializedObject.FindProperty("distantFogMaxHeight");
+            distantFogHeightDensity = serializedObject.FindProperty("distantFogHeightDensity");
+            distantFogDiffusionIntensity = serializedObject.FindProperty("distantFogDiffusionIntensity");
         }
 
 
@@ -188,6 +203,8 @@ namespace VolumetricFogAndMist2 {
                 }
             } else { 
                 EditorGUILayout.PropertyField(sunDirection);
+                EditorGUILayout.PropertyField(sunColor);
+                EditorGUILayout.PropertyField(sunIntensity);
             }
             EditorGUILayout.PropertyField(ambientLightMultiplier, new GUIContent("Ambient Light", "Amount of ambient light that influences fog colors"));
             EditorGUILayout.PropertyField(lightDiffusionPower);
@@ -203,7 +220,18 @@ namespace VolumetricFogAndMist2 {
 #if FOG_SHADOW_CANCELLATION
                 EditorGUILayout.PropertyField(shadowCancellation);
 #endif
+                EditorGUILayout.PropertyField(shadowMaxDistance);
                 EditorGUI.indentLevel--;
+            }
+
+            EditorGUILayout.PropertyField(distantFog, new GUIContent("Enable Distant Fog"));
+            if (distantFog.boolValue) {
+                EditorGUILayout.PropertyField(distantFogColor, new GUIContent("Color"));
+                EditorGUILayout.PropertyField(distantFogStartDistance, new GUIContent("Start Distance"));
+                EditorGUILayout.PropertyField(distantFogDistanceDensity, new GUIContent("Distance Density"));
+                EditorGUILayout.PropertyField(distantFogMaxHeight, new GUIContent("Max Height"));
+                EditorGUILayout.PropertyField(distantFogHeightDensity, new GUIContent("Height Density"));
+                EditorGUILayout.PropertyField(distantFogDiffusionIntensity, new GUIContent("Diffusion Intensity Multiplier"));
             }
 
             serializedObject.ApplyModifiedProperties();

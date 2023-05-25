@@ -179,3 +179,8 @@ Temporary Items
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+
+# Add Bakery to the gitignore because it contains an oversized dll that shouldn't be part of git lfs
+**/[Bb]akery/
+**/[Bb]akery.meta
+bakery_times.log

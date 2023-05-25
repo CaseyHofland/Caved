@@ -18,6 +18,7 @@ namespace VolumetricFogAndMist2 {
 
     [ExecuteInEditMode]
     [DefaultExecutionOrder(100)]
+    [HelpURL("https://kronnect.com/guides/volumetric-fog-urp-introduction/")]
     public partial class VolumetricFog : MonoBehaviour {
 
         public VolumetricFogProfile profile;
@@ -46,6 +47,7 @@ namespace VolumetricFogAndMist2 {
 
         [NonSerialized]
         public MeshRenderer meshRenderer;
+        MeshFilter mf;
         Material fogMat, noiseMat, turbulenceMat;
         Shader fogShader;
         RenderTexture rtNoise, rtTurbulence;
@@ -54,12 +56,14 @@ namespace VolumetricFogAndMist2 {
         Vector3 sunDir;
         float dayLight, moonLight;
         List<string> shaderKeywords;
+        string[] keywordsArray;
         Texture3D detailTex, refDetailTex;
         Mesh debugMesh;
         Material fogDebugMat;
         VolumetricFogProfile activeProfile, lerpProfile;
         Vector3 lastControllerPosition;
         float alphaMultiplier = 1f;
+        Material distantFogMat;
 
         bool profileIsInstanced;
         bool requireUpdateMaterial;
@@ -107,18 +111,18 @@ namespace VolumetricFogAndMist2 {
             UpdateMaterialPropertiesNow();
         }
 
-       void OnDisable() {
+        void OnDisable() {
             if (volumetricFogs.Contains(this)) volumetricFogs.Remove(this);
             if (profile != null) {
                 profile.onSettingsChanged -= UpdateMaterialProperties;
             }
         }
 
-       void OnValidate() {
+        void OnValidate() {
             UpdateMaterialProperties();
         }
 
-       void OnDestroy() {
+        void OnDestroy() {
             if (rtNoise != null) {
                 rtNoise.Release();
             }
@@ -128,6 +132,10 @@ namespace VolumetricFogAndMist2 {
             if (fogMat != null) {
                 DestroyImmediate(fogMat);
                 fogMat = null;
+            }
+            if (distantFogMat != null) {
+                DestroyImmediate(distantFogMat);
+                distantFogMat = null;
             }
             FogOfWarDestroy();
             DisposeSurfaceCapture();
@@ -203,9 +211,15 @@ namespace VolumetricFogAndMist2 {
             float sunIntensity;
 
             if (sun != null) {
-                sunDir = activeProfile.dayNightCycle ? -sun.transform.forward : activeProfile.sunDirection.normalized;
-                sunColor = sun.color;
-                sunIntensity = sun.intensity;
+                if (activeProfile.dayNightCycle) {
+                    sunDir = -sun.transform.forward;
+                    sunColor = sun.color;
+                    sunIntensity = sun.intensity;
+                } else {
+                    sunDir = activeProfile.sunDirection.normalized;
+                    sunColor = activeProfile.sunColor;
+                    sunIntensity = activeProfile.sunIntensity;
+                }
             } else {
                 sunDir = activeProfile.sunDirection.normalized;
                 sunColor = Color.white;
@@ -272,7 +286,6 @@ namespace VolumetricFogAndMist2 {
                     fogDebugMat = new Material(Shader.Find("Hidden/VolumetricFog2/VolumeDebug"));
                 }
                 if (debugMesh == null) {
-                    MeshFilter mf = GetComponent<MeshFilter>();
                     if (mf != null) {
                         debugMesh = mf.sharedMesh;
                     }
@@ -289,7 +302,18 @@ namespace VolumetricFogAndMist2 {
                 FogVoidManager.usingVoids = true;
             }
 
-            SurfaceCaptureUpdate();
+            if (activeProfile.terrainFit) {
+                SurfaceCaptureUpdate();
+            }
+
+            if (activeProfile.distantFog) {
+                if (mf != null && distantFogMat != null) {
+                    Matrix4x4 m = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(50000, 50000, 50000));
+                    distantFogMat.SetVector(ShaderParams.SunDir, sunDir);
+                    distantFogMat.SetVector(ShaderParams.LightColor, lightColor);
+                    Graphics.DrawMesh(mf.sharedMesh, m, distantFogMat, gameObject.layer);
+                }
+            }
         }
 
 
@@ -340,6 +364,11 @@ namespace VolumetricFogAndMist2 {
 
 
         public void UpdateMaterialProperties() {
+#if UNITY_EDITOR
+    if (!Application.isPlaying && activeProfile != null && activeProfile.distantFog) {
+        UpdateDistantFogPropertiesNow();
+    }
+#endif
             requireUpdateMaterial = true;
         }
 
@@ -352,10 +381,11 @@ namespace VolumetricFogAndMist2 {
             fadeDistance = Mathf.Max(0.1f, fadeDistance);
 
             meshRenderer = GetComponent<MeshRenderer>();
+            mf = GetComponent<MeshFilter>();
 
             if (profile == null) {
                 if (fogMat == null && meshRenderer != null) {
-                    fogMat = new Material(Shader.Find("VolumetricFog2/Empty"));
+                    fogMat = new Material(Shader.Find("Hidden/VolumetricFog2/Empty"));
                     fogMat.hideFlags = HideFlags.DontSave;
                     meshRenderer.sharedMaterial = fogMat;
                 }
@@ -376,21 +406,28 @@ namespace VolumetricFogAndMist2 {
             }
 
             if (turbulenceMat == null) {
-                turbulenceMat = new Material(Shader.Find("VolumetricFog2/Turbulence2D"));
+                turbulenceMat = new Material(Shader.Find("Hidden/VolumetricFog2/Turbulence2D"));
             }
             if (noiseMat == null) {
-                noiseMat = new Material(Shader.Find("VolumetricFog2/Noise2DGen"));
+                noiseMat = new Material(Shader.Find("Hidden/VolumetricFog2/Noise2DGen"));
             }
             if (blueNoiseTex == null) {
                 blueNoiseTex = Resources.Load<Texture2D>("Textures/BlueNoiseVF128");
             }
 
             if (meshRenderer != null) {
+                fogMat = meshRenderer.sharedMaterial;
                 if (fogShader == null) {
                     fogShader = Shader.Find("VolumetricFog2/VolumetricFog2DURP");
                     if (fogShader == null) return;
+                    // make sure this fog material doesn't copy other fog volumes (occurs when duplicating a fog volume in the scene)
+                    foreach (VolumetricFog fog in volumetricFogs) {
+                        if (fog != null && fog != this && fog.fogMat == fogMat) {
+                            fogMat = null;
+                            break;
+                        }
+                    }
                 }
-                fogMat = meshRenderer.sharedMaterial;
                 if (fogMat == null || fogMat.shader != fogShader) {
                     fogMat = new Material(fogShader);
                     meshRenderer.sharedMaterial = fogMat;
@@ -487,8 +524,7 @@ namespace VolumetricFogAndMist2 {
             fogMat.SetFloat(ShaderParams.DeepObscurance, activeProfile.deepObscurance * (currentAppliedColorSpace == ColorSpace.Gamma ? 1f : 1.2f));
             fogMat.SetFloat(ShaderParams.LightDiffusionIntensity, activeProfile.lightDiffusionIntensity);
             fogMat.SetFloat(ShaderParams.LightDiffusionPower, activeProfile.lightDiffusionPower);
-            fogMat.SetFloat(ShaderParams.ShadowIntensity, activeProfile.shadowIntensity);
-            fogMat.SetFloat(ShaderParams.ShadowCancellation, activeProfile.shadowCancellation);
+            fogMat.SetVector(ShaderParams.ShadowData, new Vector4(activeProfile.shadowIntensity, activeProfile.shadowCancellation, activeProfile.shadowMaxDistance * activeProfile.shadowMaxDistance, 0));
             fogMat.SetFloat(ShaderParams.Density, activeProfile.density);
             fogMat.SetVector(ShaderParams.RaymarchSettings, new Vector4(activeProfile.raymarchQuality, activeProfile.dithering * 0.01f, activeProfile.jittering, activeProfile.raymarchMinStep));
 
@@ -553,7 +589,7 @@ namespace VolumetricFogAndMist2 {
             if (enableVoids) {
                 shaderKeywords.Add(ShaderParams.SKW_VOIDS);
             }
-            if (activeProfile.receiveShadows) {
+            if (activeProfile.receiveShadows && activeProfile.shadowMaxDistance > 0) {
                 shaderKeywords.Add(ShaderParams.SKW_RECEIVE_SHADOWS);
             }
 #if UNITY_2021_3_OR_NEWER
@@ -575,7 +611,34 @@ namespace VolumetricFogAndMist2 {
 #if UNITY_2021_3_OR_NEWER
             fogMat.enabledKeywords = null;
 #endif
-            fogMat.shaderKeywords = shaderKeywords.ToArray();
+
+            int keywordsCount = shaderKeywords.Count;
+            if (keywordsArray == null || keywordsArray.Length < keywordsCount) {
+                keywordsArray = new string[keywordsCount];
+            }
+            int keywordsArrayLength = keywordsArray.Length;
+            for (int k = 0; k < keywordsArrayLength; k++) {
+                if (k < keywordsCount) {
+                    keywordsArray[k] = shaderKeywords[k];
+                } else {
+                    keywordsArray[k] = "";
+                }
+            }
+            fogMat.shaderKeywords = keywordsArray;
+
+            if (activeProfile.distantFog) {
+                UpdateDistantFogPropertiesNow();
+            }
+        }
+
+        void UpdateDistantFogPropertiesNow() {
+            if (distantFogMat == null) {
+                distantFogMat = new Material(Shader.Find("Hidden/VolumetricFog2/DistantFog"));
+            }
+            distantFogMat.SetColor(ShaderParams.Color, activeProfile.distantFogColor);
+            distantFogMat.SetVector(ShaderParams.DistantFogData, new Vector4(activeProfile.distantFogStartDistance, activeProfile.distantFogDistanceDensity, activeProfile.distantFogMaxHeight, activeProfile.distantFogHeightDensity));
+            distantFogMat.SetFloat(ShaderParams.LightDiffusionIntensity, activeProfile.distantFogDiffusionIntensity * activeProfile.lightDiffusionIntensity);
+            distantFogMat.SetFloat(ShaderParams.LightDiffusionPower, activeProfile.lightDiffusionPower);
         }
 
         void UpdateFogOfWarMaterialBoundsProperties() {

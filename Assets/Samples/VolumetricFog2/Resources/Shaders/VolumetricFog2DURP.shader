@@ -13,12 +13,11 @@ Shader "VolumetricFog2/VolumetricFog2DURP"
 		[HideInInspector] _LightColor("Light Color", Color) = (1,1,1)
 		[HideInInspector] _LightDiffusionPower("Sun Diffusion Power", Range(1, 64)) = 32
 		[HideInInspector] _LightDiffusionIntensity("Sun Diffusion Intensity", Range(0, 1)) = 0.4
-		[HideInInspector] _ShadowIntensity("Sun Shadow Intensity", Range(0, 1)) = 0.5
-		[HideInInspector] _ShadowCancellation("Sun Shadow Cancellation", Range(0, 1)) = 0
+		[HideInInspector] _SunDir("Sun Direction", Vector) = (1,0,0)
+		[HideInInspector] _ShadowData("Shadow Data", Vector) = (0.5, 0, 62500)
 		[HideInInspector] _WindDirection("Wind Direction", Vector) = (1, 0, 0)
 		[HideInInspector] _DetailWindDirection("Detail Wind Direction", Vector) = (1, 0, 0)
 		[HideInInspector] _RayMarchSettings("Raymarch Settings", Vector) = (2, 0.01, 1.0, 0.1)
-		[HideInInspector] _SunDir("Sun Direction", Vector) = (1,0,0)
 		[HideInInspector] _BoundsCenter("Bounds Center", Vector) = (0,0,0)
 		[HideInInspector] _BoundsExtents("Bounds Size", Vector) = (0,0,0)
 		[HideInInspector] _BoundsBorder("Bounds Border", Vector) = (0,1,0)
@@ -56,8 +55,7 @@ Shader "VolumetricFog2/VolumetricFog2DURP"
 				#pragma target 3.0
 				#pragma vertex vert
 				#pragma fragment frag
-				#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
-				#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+				#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
                 #pragma multi_compile _ _ADDITIONAL_LIGHTS
 				#pragma multi_compile _ _ADDITIONAL_LIGHT_SHADOWS
                 #pragma multi_compile _ VF2_DEPTH_PREPASS

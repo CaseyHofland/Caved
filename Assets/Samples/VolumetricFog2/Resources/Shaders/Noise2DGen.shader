@@ -1,4 +1,4 @@
-Shader "VolumetricFog2/Noise2DGen" {
+Shader "Hidden/VolumetricFog2/Noise2DGen" {
     Properties {
       _MainTex ("Texture", 2D) = "white" {}
       _Color ("Color", Color) = (1,1,1)

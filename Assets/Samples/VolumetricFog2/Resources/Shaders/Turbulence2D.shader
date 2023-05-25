@@ -1,4 +1,4 @@
-Shader "VolumetricFog2/Turbulence2D"
+Shader "Hidden/VolumetricFog2/Turbulence2D"
 {
 Properties {
     _MainTex ("Noise", 2D) = "white" {}
