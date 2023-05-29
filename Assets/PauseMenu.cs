@@ -13,6 +13,7 @@ public class PauseMenu : MonoBehaviour
 
 
     public static bool _gameIsPaused = false;
+    private bool _showingMain;
     //private bool _buttonPressed = false;
 
     public GameObject _pauseMenuUI;
@@ -22,11 +23,13 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         _menuNavigation = new EmInput();
+        _pauseMenuUI.SetActive(false);
     }
 
     public void Resume()
     {
         _pauseMenuUI.SetActive(false);
+        _showingMain = false;
         Time.timeScale = 1f;
         _gameIsPaused = false;
     }
@@ -35,6 +38,7 @@ public class PauseMenu : MonoBehaviour
     {
         _mainPause.SetActive(false);
         _pauseSettings.SetActive(true);
+        _showingMain = false;
         //_settingsPrimaryButton.Select();
         //_mainActive = false;
         //_optionsActive = true;
@@ -44,6 +48,7 @@ public class PauseMenu : MonoBehaviour
     {
         _mainPause.SetActive(true);
         _pauseSettings.SetActive(false);
+        _showingMain = true;
         //_mainPrimaryButton.Select();
         //_mainActive = true;
         //_optionsActive = false;
@@ -52,6 +57,8 @@ public class PauseMenu : MonoBehaviour
     public IEnumerator Pause()
     {
         _pauseMenuUI.SetActive(true);
+        
+        BackToMain();
 
         yield return new WaitForSeconds(.5f);
 
