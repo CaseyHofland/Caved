@@ -7,7 +7,7 @@ namespace VolumetricFogAndMist2 {
     [CustomEditor(typeof(VolumetricFogManager))]
     public class VolumetricFogManagerEditor : Editor {
 
-        SerializedProperty sun, moon, fogLayer, includeTransparent, includeSemiTransparent, alphaCutOff, flipDepthTexture, mainManager;
+        SerializedProperty sun, moon, fogLayer, includeTransparent, transparentCullMode, includeSemiTransparent, alphaCutOff, flipDepthTexture, mainManager;
         SerializedProperty scattering, scatteringThreshold, scatteringIntensity, scatteringAbsorption, scatteringTint, scatteringHighQuality;
         SerializedProperty downscaling, blurPasses, blurDownscaling, blurSpread, blurHDR, blurEdgePreserve, blurEdgeDepthThreshold, ditherStrength;
 
@@ -20,6 +20,7 @@ namespace VolumetricFogAndMist2 {
             moon = serializedObject.FindProperty("moon");
             fogLayer = serializedObject.FindProperty("fogLayer");
             includeTransparent = serializedObject.FindProperty("includeTransparent");
+            transparentCullMode = serializedObject.FindProperty("transparentCullMode");
             includeSemiTransparent = serializedObject.FindProperty("includeSemiTransparent");
             alphaCutOff = serializedObject.FindProperty("alphaCutOff");
             flipDepthTexture = serializedObject.FindProperty("flipDepthTexture");
@@ -91,6 +92,11 @@ namespace VolumetricFogAndMist2 {
             DrawSectionField(includeTransparent, new GUIContent("Transparent Objects", "Specify which layers contain transparent objects that should be covered by fog"), transparentLayerMask != 0);
             if ((transparentLayerMask & (1 << fogLayer.intValue)) != 0) {
                 EditorGUILayout.HelpBox("Do not include the layer used for fog volumes (Fog Layer).", MessageType.Warning);
+            }
+            if (transparentLayerMask != 0) {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(transparentCullMode, new GUIContent("Cull Mode"));
+                EditorGUI.indentLevel--;
             }
             int includeSemiTransparentMask = includeSemiTransparent.intValue;
             DrawSectionField(includeSemiTransparent, new GUIContent("Alpha Clipping", "Specify which smi-transparent objects (cutout materials) should be covered by fog."), includeSemiTransparentMask != 0);

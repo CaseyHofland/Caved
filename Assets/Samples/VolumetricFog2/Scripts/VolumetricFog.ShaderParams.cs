@@ -7,8 +7,7 @@ namespace VolumetricFogAndMist2 {
         public static int DetailColor = Shader.PropertyToID("_DetailColor");
         public static int DetailData = Shader.PropertyToID("_DetailData");
         public static int Density = Shader.PropertyToID("_Density");
-        public static int ShadowIntensity = Shader.PropertyToID("_ShadowIntensity");
-        public static int ShadowCancellation = Shader.PropertyToID("_ShadowCancellation");
+        public static int ShadowData = Shader.PropertyToID("_ShadowData");
         public static int LightDiffusionIntensity = Shader.PropertyToID("_LightDiffusionIntensity");
         public static int LightDiffusionPower = Shader.PropertyToID("_LightDiffusionPower");
         public static int DeepObscurance = Shader.PropertyToID("_DeepObscurance");
@@ -61,6 +60,8 @@ namespace VolumetricFogAndMist2 {
         public static int SpotLightDirections = Shader.PropertyToID("_VF2_FogSpotLightDirection");
         public static int SpotLightColors = Shader.PropertyToID("_VF2_SpotLightColor");
         public static int BlueNoiseTexture = Shader.PropertyToID("_BlueNoise");
+        public static int DistantFogData = Shader.PropertyToID("_DistantFogData");
+        public static int CullMode = Shader.PropertyToID("_Cull");
 
         public const string SKW_CUSTOM_DEPTH_ALPHA_TEST = "DEPTH_PREPASS_ALPHA_TEST";
 

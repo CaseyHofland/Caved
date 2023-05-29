@@ -44,6 +44,19 @@ Version history
 ---------------
 
 Current version
+- Added "Cull Mode" option for depth prepass render feature (set in Volumetric Fog Manager)
+- [Fix] Fixed an issue with an allocation in Volumetric Fog Render Feature when no scattering, blur or downscaling was used
+- [Fix] Fixed shadows issue with Unity 2021.3.x in builds due to shader keyword changes in URP codebase vs 2020
+
+V11.0
+- Added "Distant Fog" feature (new section in fog profile)
+- Added "Shadows Max Distance" parameter (for optimization purposes)
+
+V10.2
+- Added SunColor and SunIntensity profile properties (can be used when Day/Night Cycle option is disabled)
+- [Fix] Fixed a material reference issue when duplicating fog volumes
+
+V10.1
 - Added "Shadow Fog Cancellation" option. Enable it in Shader Options inside Volumetric Fog Manager
 - Added "Directional Light Cookie Fog Cancellation" option. Enable it in Shader Options inside Volumetric Fog Manager
 - Added scattering "High Quality" option

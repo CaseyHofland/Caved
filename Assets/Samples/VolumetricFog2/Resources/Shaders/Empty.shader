@@ -1,4 +1,4 @@
-Shader "VolumetricFog2/Empty"
+Shader "Hidden/VolumetricFog2/Empty"
 {
     Properties
     {

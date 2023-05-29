@@ -14,7 +14,7 @@ namespace VolumetricFogAndMist2 {
 
         [MenuItem("GameObject/Effects/Volumetric Fog 2/Fog Volume", false, 120)]
         public static void CreateFogVolume(MenuCommand menuCommand) {
-            GameObject go = VolumetricFogManager.CreateFogVolume("Fog Volume");
+            GameObject go = VolumetricFogManager.CreateFogVolume("Volumetric Fog Volume");
             GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
             Undo.RegisterCreatedObjectUndo(go, "Create Fog Volume");
             Selection.activeObject = go;
@@ -31,7 +31,7 @@ namespace VolumetricFogAndMist2 {
 
         [MenuItem("GameObject/Effects/Volumetric Fog 2/Fog Sub-Volume", false, 122)]
         public static void CreateFogSubVolume(MenuCommand menuCommand) {
-            GameObject go = VolumetricFogManager.CreateFogSubVolume("Fog Sub-Volume");
+            GameObject go = VolumetricFogManager.CreateFogSubVolume("Volumetric Fog Sub-Volume");
             GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
             Undo.RegisterCreatedObjectUndo(go, "Create Volumetric Fog Sub-Volume");
             Selection.activeObject = go;
