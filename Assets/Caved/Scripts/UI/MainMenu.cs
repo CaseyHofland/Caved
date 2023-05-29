@@ -43,8 +43,10 @@ public class MainMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) OnConfirm();
     }
 
-    public void StartGame()
+    private IEnumerator StartGame()
     {
+        yield return new WaitForSeconds(_setupTime);
+
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -106,7 +108,7 @@ public class MainMenu : MonoBehaviour
         }
         else if(_readytoStart) 
         { 
-            StartGame();  
+            StartCoroutine(StartGame());  
         }
     }
 

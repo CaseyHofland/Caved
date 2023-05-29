@@ -137,7 +137,6 @@ public class EmMovement : MonoBehaviour
         {
             _shouldBeCrouching = false;
         }
-        Debug.Log("Shoulbe be crouching = " + _shouldBeCrouching);
 
         //WALKING
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized; //walking around
