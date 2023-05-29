@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder;
 using UnityExtras;
 
 public class EmMovement : MonoBehaviour
@@ -46,6 +47,16 @@ public class EmMovement : MonoBehaviour
     [SerializeField] private float _currentHeight;
     [SerializeField] private float _normalHeight;
     [SerializeField] private float _crouchingHeight;
+    [SerializeField] Vector3 _currentCenter;
+    [SerializeField] Vector3 _normalCenter;
+    [SerializeField] Vector3 _crouchingCenter;
+    private bool _shouldBeCrouching = false;
+    public float _crawlingSpeed;
+
+    public GameObject _headRay;
+    public GameObject _headRay2;
+    public GameObject _footRay;
+    public GameObject _footRay2;
 
     private void Start()
     {
@@ -62,6 +73,9 @@ public class EmMovement : MonoBehaviour
         _jumpControls = new EmInput();
 
         _characterController = GetComponent<CharacterController>();
+        _characterController.height = _normalHeight; //height character controller
+        _characterController.center = _normalCenter; //center character controller
+
         _yVelocity = _gravity;
 
         _isGrounded = false;
@@ -72,19 +86,58 @@ public class EmMovement : MonoBehaviour
     [SerializeField]
     LayerMask mask;
     [SerializeField]
-    float maxCast = 2;
+    float maxCastFloor = 0.01f;
+    [SerializeField]
+    float _maxCastCeiling = 4;
     void Update()
     {
+        //RAYCASTS
+        //Raycast floor for jumping
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit, maxCast, mask))
+        RaycastHit hit0;
+        if (Physics.Raycast(_footRay.transform.position, -Vector3.up, out hit0, maxCastFloor, mask))
         {
-            Debug.DrawLine(transform.position, hit.point, Color.red);
+            Debug.DrawLine(_footRay.transform.position, hit0.point, Color.yellow);
+            _isGrounded = true;
+        }
+        else if(Physics.Raycast(_footRay2.transform.position, -Vector3.up, out hit, maxCastFloor, mask))
+        {
+            Debug.DrawLine(_footRay2.transform.position, hit.point, Color.yellow);
             _isGrounded = true;
         }
         else
         {
             _isGrounded = false;
         }
+
+        /*if (Physics.Raycast(transform.position, -Vector3.up, out hit, maxCastFloor, mask))
+        {
+            Debug.DrawLine(transform.position, hit.point, Color.yellow);
+            _isGrounded = true;
+        }
+        else
+        {
+            _isGrounded = false;
+        }*/
+
+        //Raycast ceiling for crouching
+        RaycastHit hit2;
+        RaycastHit hit3;
+        if (Physics.Raycast(_headRay.transform.position, Vector3.up, out hit2, _maxCastCeiling, mask))
+        {
+            Debug.DrawLine(_headRay.transform.position, hit2.point, Color.red);
+
+            _shouldBeCrouching = true;
+        }else if (Physics.Raycast(_headRay2.transform.position, Vector3.up, out hit3, _maxCastCeiling, mask))
+        {
+            Debug.DrawLine(_headRay2.transform.position, hit3.point, Color.red);
+            _shouldBeCrouching = true;
+        }
+        else
+        {
+            _shouldBeCrouching = false;
+        }
+        Debug.Log("Shoulbe be crouching = " + _shouldBeCrouching);
 
         //WALKING
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized; //walking around
@@ -93,32 +146,26 @@ public class EmMovement : MonoBehaviour
         else
             _characterController.Move(Vector3.zero);
 
-        Debug.Log(_characterController.isGrounded);
-
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
         var characterMovement = new Vector3(horizontal, 0, vertical); //walking around
+
+
+        //SPEED
+        float distance = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(_prevPosition.x, 0, _prevPosition.z));
+        float time = Time.deltaTime;
+        _speed2 = distance / time;
 
         //Check animation
         var _xzVelocity = _characterController.velocity;
         _xzVelocity.y = 0;
         var _velSpeed = _xzVelocity.magnitude;
-        //if (_isSprinting)
-        //{
-        //    _speedFinal += 0.375f;
-        //}
-        //_animator.SetFloat(_move, _speed > 0f ? ExtraMath.Round(_velSpeed / _speedFinal, 6) : 0f);
 
-        //Speed stuff
-        float distance = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(_prevPosition.x, 0, _prevPosition.z));
-        float time = Time.deltaTime;
-        _speed2 = distance / time;
-
-        // Update prevPosition
+        //UPDATING PREVIOUS POSITION
         _prevPosition = transform.position;
 
         float blendValue = Unity.Mathematics.math.round(_speed2 / (_speed * 2) * 100) / 100;
-        Debug.Log(blendValue);
+        //Debug.Log(blendValue);
         if (_speed == _walkingSpeed)
         {
             if (blendValue > 0.5f)
@@ -148,10 +195,14 @@ public class EmMovement : MonoBehaviour
 
 
         //SPRINTING
-        if (_isSprinting)
+        if (_isSprinting && !_characterCrouching)
         {
             //change speed to running
             _speed = _sprintingSpeed;
+        }
+        else if(_characterCrouching)
+        {
+            _speed = _crawlingSpeed;
         }
         else
         {
@@ -174,36 +225,15 @@ public class EmMovement : MonoBehaviour
         if (_isFalling)
         {
             _isJumping = false;
-            _animator.SetBool("IsJumping", false);
             _animator.SetBool("IsFalling", true);
         }
         else if (_isJumping)
         {
             //_isGrounded = false;
             _animator.SetBool("IsGrounded", false);
-            _animator.SetBool("IsJumping", true);
         }
+        
     }
-
-
-    //IS THE PLAYER STANDING ON THE FLOOR?
-    //public void OnTriggerEnter(Collider collision)
-    //{
-    //    if (collision.gameObject.tag == "Floor")
-    //    {
-    //        _isGrounded = true;
-    //        Debug.Log("smack");
-    //    }
-    //}
-
-    //public void OnTriggerExit(Collider collision)
-    //{
-    //    if (collision.gameObject.tag == "Floor")
-    //    {
-    //        _isGrounded = false;
-    //        Debug.Log("yeet");
-    //    }
-    //}
 
     private void MovementJump()
     {
@@ -222,7 +252,7 @@ public class EmMovement : MonoBehaviour
     public void OnJump()
     {
         Debug.Log("am trying to jumping");
-        if (_isGrounded)
+        if (_isGrounded && !_characterCrouching)
         {
             playerVelocity.y = _jumpForce;
             _jumpPressed = true;
@@ -233,29 +263,38 @@ public class EmMovement : MonoBehaviour
     public void OnSprintStart()
     {
         if(!_characterCrouching) _isSprinting = true;
-        Debug.Log("am sprinting");
     }
 
     public void OnSprintStop()
     {
         _isSprinting = false;
-        Debug.Log("stopped sprinting");
     }
 
     public void OnCrouch()
     {
-        if(!_characterCrouching)
+        Vector3 crouchPos = new Vector3(0, _crouchingHeight, 0);
+        Vector3 normalPos = new Vector3(0, _normalHeight, 0);
+
+        if (!_characterCrouching)
         {
             _animator.SetBool("IsCrouching", true);
+
             _characterCrouching = true;
-            _currentHeight = _crouchingHeight;
+
+            _characterController.height = _crouchingHeight; //height character controller
+            _characterController.center = _crouchingCenter; //center character controller
+
+
             Debug.Log("I'm crouching");
         }
-        else
+        else if(_characterCrouching && !_shouldBeCrouching)
         {
             _animator.SetBool("IsCrouching", false);
             _characterCrouching = false;
-            _currentHeight = _normalHeight;
+
+            _characterController.height = _normalHeight; //height character controller
+            _characterController.center = _normalCenter; //center character controller
+
             Debug.Log("I stopped crouching");
         }
     }
