@@ -55,6 +55,8 @@ public class EmMovement : MonoBehaviour
 
     public GameObject _headRay;
     public GameObject _headRay2;
+    public GameObject _footRay;
+    public GameObject _footRay2;
 
     private void Start()
     {
@@ -90,11 +92,17 @@ public class EmMovement : MonoBehaviour
     void Update()
     {
         //RAYCASTS
-        //Raycast floor
+        //Raycast floor for jumping
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit, maxCastFloor, mask))
+        RaycastHit hit0;
+        if (Physics.Raycast(_footRay.transform.position, -Vector3.up, out hit0, maxCastFloor, mask))
         {
-            Debug.DrawLine(transform.position, hit.point, Color.yellow);
+            Debug.DrawLine(_footRay.transform.position, hit0.point, Color.yellow);
+            _isGrounded = true;
+        }
+        else if(Physics.Raycast(_footRay2.transform.position, -Vector3.up, out hit, maxCastFloor, mask))
+        {
+            Debug.DrawLine(_footRay2.transform.position, hit.point, Color.yellow);
             _isGrounded = true;
         }
         else
@@ -102,7 +110,17 @@ public class EmMovement : MonoBehaviour
             _isGrounded = false;
         }
 
-        //Raycast ceiling
+        /*if (Physics.Raycast(transform.position, -Vector3.up, out hit, maxCastFloor, mask))
+        {
+            Debug.DrawLine(transform.position, hit.point, Color.yellow);
+            _isGrounded = true;
+        }
+        else
+        {
+            _isGrounded = false;
+        }*/
+
+        //Raycast ceiling for crouching
         RaycastHit hit2;
         RaycastHit hit3;
         if (Physics.Raycast(_headRay.transform.position, Vector3.up, out hit2, _maxCastCeiling, mask))
@@ -191,12 +209,6 @@ public class EmMovement : MonoBehaviour
             //change speed to walking
             _speed = _walkingSpeed;
         }
-
-        /*//CROUCHING
-        if(_shouldBeCrouching) 
-        { 
-            OnCrouch(); 
-        }*/
 
         //ANIMATIONS
         if (_isGrounded)
