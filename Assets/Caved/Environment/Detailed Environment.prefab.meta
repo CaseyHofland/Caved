@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Zim1.mat.meta
-guid: e959945e2c41dc34b9ae777a966e46f9
-NativeFormatImporter:
-========
 guid: 236444d6b7cfcc547824915fb5d03141
 PrefabImporter:
->>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/Environment/Detailed Environment.prefab.meta
   externalObjects: {}
-  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
