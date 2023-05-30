@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VF_Asleep
   m_EditorClassIdentifier: 
   raymarchQuality: 6
-  raymarchMinStep: 9.16
+  raymarchMinStep: 0.1
   jittering: 0.5
   dithering: 0.03
   renderQueue: 3100
