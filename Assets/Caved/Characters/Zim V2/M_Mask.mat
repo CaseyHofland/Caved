@@ -1,6 +1,10 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Mask.mat
 --- !u!114 &-3832214128855150990
+========
+--- !u!114 &-2500857658658172382
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/MaterialLibrary/Global/M_DemazanaV2.mat
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,14 +24,23 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Mask.mat
   m_Name: M_Mask
+========
+  m_Name: M_DemazanaV2
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/MaterialLibrary/Global/M_DemazanaV2.mat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Mask.mat
   - _EMISSION
+========
+  - _NORMALMAP
+  - _OCCLUSIONMAP
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/MaterialLibrary/Global/M_DemazanaV2.mat
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -39,11 +52,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Mask.mat
         m_Texture: {fileID: 2800000, guid: 815f5e75b1b4fdd4fb8301691d210ae3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+========
+        m_Texture: {fileID: 2800000, guid: 7041bd0ea73d830458fbdb4e5e8860f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 78ff0bbab5eb918439cd2f340b641af2, type: 3}
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/MaterialLibrary/Global/M_DemazanaV2.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -59,11 +80,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Mask.mat
         m_Texture: {fileID: 2800000, guid: 69ea48eb4c2978146ab70a53d2f3f693, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 815f5e75b1b4fdd4fb8301691d210ae3, type: 3}
+========
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 7041bd0ea73d830458fbdb4e5e8860f1, type: 3}
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/MaterialLibrary/Global/M_DemazanaV2.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -71,7 +100,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Mask.mat
         m_Texture: {fileID: 0}
+========
+        m_Texture: {fileID: 2800000, guid: 15e64e27c46ad4f47ac1e2e8f4bd7180, type: 3}
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/MaterialLibrary/Global/M_DemazanaV2.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -131,6 +164,10 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_Mask.mat
     - _EmissionColor: {r: 0.60226756, g: 1.3192965, b: 1.7411011, a: 1}
+========
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/MaterialLibrary/Global/M_DemazanaV2.mat
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Caved/Characters/Zim V2/M_MaskWeapon.mat.meta
 guid: ecb8656e13712604eb7040d2e0c8ba3d
 NativeFormatImporter:
+========
+guid: 30838dd6d9baf664bbf37dd66de7ccd6
+DefaultImporter:
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/Areas/S_Climax.unity.meta
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 

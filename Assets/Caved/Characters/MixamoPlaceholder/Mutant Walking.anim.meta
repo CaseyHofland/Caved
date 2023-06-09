@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Caved/Characters/MixamoPlaceholder/Mutant Walking.anim.meta
 guid: 40ca0f693aa5c934ebdd445b4318a7ea
 NativeFormatImporter:
+========
+guid: b7194a85c124e7c4e8387cfc3efffd52
+PrefabImporter:
+>>>>>>>> f5506c4eb5aa4c4969be5e7c27f53b0657bfee78:Assets/Caved/Environment/Cube_1.prefab.meta
   externalObjects: {}
   mainObjectFileID: 7400000
   userData: 
