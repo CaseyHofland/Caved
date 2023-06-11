@@ -64,10 +64,10 @@ public class EmMovement : MonoBehaviour
     public GameObject _headRay2;
     public GameObject _footRay;
     public GameObject _footRay2;
-    public GameObject _edgeRayDown1;
+    /*public GameObject _edgeRayDown1;
     public GameObject _edgeRayDown2;
     public GameObject _edgeRayUp1;
-    public GameObject _edgeRayUp2;
+    public GameObject _edgeRayUp2;*/
 
     [SerializeField] LayerMask mask;
     [SerializeField] float maxCastFloor = 0.01f;
@@ -225,7 +225,7 @@ public class EmMovement : MonoBehaviour
             _shouldBeCrouching = false;
         }
 
-        //Raycast floor for edge detection
+        /*//Raycast floor for edge detection
         RaycastHit hit4;
         RaycastHit hit5;
 
@@ -246,7 +246,7 @@ public class EmMovement : MonoBehaviour
                 _isStep = false;
                 //stop character from walking
             }
-        }
+        }*/
 
         //ANIMATIONS
         if (_isGrounded)
