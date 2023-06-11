@@ -28,7 +28,7 @@ MonoBehaviour:
   detailScale: 0.91
   detailStrength: 0.266
   detailOffset: -0.5
-  density: 0.06
+  density: 0.03
   shape: 0
   border: 0.05
   verticalOffset: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   terrainFogHeight: 25
   terrainFogMinAltitude: 0
   terrainFogMaxAltitude: 150
-  albedo: {r: 0.62203544, g: 0.47058564, b: 0.7075472, a: 1}
+  albedo: {r: 0.8991763, g: 1, b: 0.5990566, a: 1}
   enableDepthGradient: 0
   depthGradient:
     serializedVersion: 2
@@ -108,8 +108,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  brightness: 2.04
-  deepObscurance: 0.38
+  brightness: 0.13
+  deepObscurance: 0.539
   specularColor: {r: 1, g: 0.9468694, b: 0.8, a: 1}
   specularThreshold: 0.637
   specularIntensity: 0.428
@@ -119,8 +119,8 @@ MonoBehaviour:
   detailNoiseWindDirection: {x: 0.02, y: 0, z: 0}
   dayNightCycle: 0
   sunDirection: {x: 0, y: 1, z: 0}
-  sunColor: {r: 0.6313041, g: 0.7663126, b: 0.8962264, a: 1}
-  sunIntensity: 0.34
+  sunColor: {r: 0.69803923, g: 0.49803922, b: 0.4, a: 1}
+  sunIntensity: 4.59
   ambientLightMultiplier: 0
   lightDiffusionPower: 32
   lightDiffusionIntensity: 0.4

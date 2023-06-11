@@ -41,7 +41,7 @@ MonoBehaviour:
   noiseScale: 5
   noiseFinalMultiplier: 1
   density: 0.38
-  mediumAlbedo: {r: 0.9144879, g: 0.8235294, b: 1, a: 1}
+  mediumAlbedo: {r: 0.9960785, g: 0.6431373, b: 0.06666667, a: 1}
   brightness: 0.46
   attenuationMode: 0
   attenCoefConstant: 1

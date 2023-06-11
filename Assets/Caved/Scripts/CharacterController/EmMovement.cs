@@ -41,6 +41,8 @@ public class EmMovement : MonoBehaviour
     public bool _isSprinting = false;
     public float _sprintingSpeed;
     [SerializeField] private float _walkingSpeed;
+    Vector3 _prevPosition;
+    float _speed2;
 
     [Header("Crouching")]
     private bool _characterCrouching;
@@ -53,10 +55,30 @@ public class EmMovement : MonoBehaviour
     private bool _shouldBeCrouching = false;
     public float _crawlingSpeed;
 
+    [Header("Climbing")]
+    [SerializeField] private bool _isFloor;
+    [SerializeField] private bool _isStep;
+
+    [Header("Raycasts")]
     public GameObject _headRay;
     public GameObject _headRay2;
     public GameObject _footRay;
     public GameObject _footRay2;
+    public GameObject _edgeRayDown1;
+    public GameObject _edgeRayDown2;
+    public GameObject _edgeRayUp1;
+    public GameObject _edgeRayUp2;
+
+    [SerializeField] LayerMask mask;
+    [SerializeField] float maxCastFloor = 0.01f;
+    [SerializeField] float _maxCastCeiling = 4;
+    [SerializeField] float _maxStepFloor;
+
+    [SerializeField] bool _left;
+    [SerializeField] bool _right;
+    [SerializeField] bool _up;
+    [SerializeField] bool _down;
+
 
     private void Start()
     {
@@ -81,63 +103,8 @@ public class EmMovement : MonoBehaviour
         _isGrounded = false;
     }
 
-    Vector3 _prevPosition;
-    float _speed2;
-    [SerializeField]
-    LayerMask mask;
-    [SerializeField]
-    float maxCastFloor = 0.01f;
-    [SerializeField]
-    float _maxCastCeiling = 4;
     void Update()
     {
-        //RAYCASTS
-        //Raycast floor for jumping
-        RaycastHit hit;
-        RaycastHit hit0;
-        if (Physics.Raycast(_footRay.transform.position, -Vector3.up, out hit0, maxCastFloor, mask))
-        {
-            Debug.DrawLine(_footRay.transform.position, hit0.point, Color.yellow);
-            _isGrounded = true;
-        }
-        else if(Physics.Raycast(_footRay2.transform.position, -Vector3.up, out hit, maxCastFloor, mask))
-        {
-            Debug.DrawLine(_footRay2.transform.position, hit.point, Color.yellow);
-            _isGrounded = true;
-        }
-        else
-        {
-            _isGrounded = false;
-        }
-
-        /*if (Physics.Raycast(transform.position, -Vector3.up, out hit, maxCastFloor, mask))
-        {
-            Debug.DrawLine(transform.position, hit.point, Color.yellow);
-            _isGrounded = true;
-        }
-        else
-        {
-            _isGrounded = false;
-        }*/
-
-        //Raycast ceiling for crouching
-        RaycastHit hit2;
-        RaycastHit hit3;
-        if (Physics.Raycast(_headRay.transform.position, Vector3.up, out hit2, _maxCastCeiling, mask))
-        {
-            Debug.DrawLine(_headRay.transform.position, hit2.point, Color.red);
-
-            _shouldBeCrouching = true;
-        }else if (Physics.Raycast(_headRay2.transform.position, Vector3.up, out hit3, _maxCastCeiling, mask))
-        {
-            Debug.DrawLine(_headRay2.transform.position, hit3.point, Color.red);
-            _shouldBeCrouching = true;
-        }
-        else
-        {
-            _shouldBeCrouching = false;
-        }
-
         //WALKING
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized; //walking around
         if(move.magnitude > 0)
@@ -148,6 +115,15 @@ public class EmMovement : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
         var characterMovement = new Vector3(horizontal, 0, vertical); //walking around
+
+        if (characterMovement == Vector3.back) Debug.Log("down");
+        else if (characterMovement == Vector3.forward) Debug.Log("up");
+        else if (characterMovement == Vector3.left) Debug.Log("left");
+        else if(characterMovement == Vector3.right) Debug.Log("right");
+
+        //Debug.Log(characterMovement);
+        
+
 
 
         //SPEED
@@ -207,6 +183,69 @@ public class EmMovement : MonoBehaviour
         {
             //change speed to walking
             _speed = _walkingSpeed;
+        }
+
+
+
+        //RAYCASTS
+        //Raycast floor for jumping
+        RaycastHit hit;
+        RaycastHit hit0;
+        if (Physics.Raycast(_footRay.transform.position, -Vector3.up, out hit0, maxCastFloor, mask))
+        {
+            Debug.DrawLine(_footRay.transform.position, hit0.point, Color.yellow);
+            _isGrounded = true;
+        }
+        else if (Physics.Raycast(_footRay2.transform.position, -Vector3.up, out hit, maxCastFloor, mask))
+        {
+            Debug.DrawLine(_footRay2.transform.position, hit.point, Color.yellow);
+            _isGrounded = true;
+        }
+        else
+        {
+            _isGrounded = false;
+        }
+
+        //Raycast ceiling for crouching
+        RaycastHit hit2;
+        RaycastHit hit3;
+        if (Physics.Raycast(_headRay.transform.position, Vector3.up, out hit2, _maxCastCeiling, mask))
+        {
+            Debug.DrawLine(_headRay.transform.position, hit2.point, Color.red);
+
+            _shouldBeCrouching = true;
+        }
+        else if (Physics.Raycast(_headRay2.transform.position, Vector3.up, out hit3, _maxCastCeiling, mask))
+        {
+            Debug.DrawLine(_headRay2.transform.position, hit3.point, Color.red);
+            _shouldBeCrouching = true;
+        }
+        else
+        {
+            _shouldBeCrouching = false;
+        }
+
+        //Raycast floor for edge detection
+        RaycastHit hit4;
+        RaycastHit hit5;
+
+        if (Physics.Raycast(_edgeRayDown1.transform.position, -Vector3.up, out hit4, maxCastFloor, mask))
+        {
+            _isFloor = true;
+        }
+        else
+        {
+            _isFloor = false;
+
+            if (Physics.Raycast(_edgeRayDown1.transform.position, -Vector3.up, out hit4, _maxStepFloor, mask))
+            {
+                _isStep = true;
+            }
+            else
+            {
+                _isStep = false;
+                //stop character from walking
+            }
         }
 
         //ANIMATIONS
@@ -282,9 +321,6 @@ public class EmMovement : MonoBehaviour
 
             _characterController.height = _crouchingHeight; //height character controller
             _characterController.center = _crouchingCenter; //center character controller
-
-
-            Debug.Log("I'm crouching");
         }
         else if(_characterCrouching && !_shouldBeCrouching)
         {
@@ -293,8 +329,6 @@ public class EmMovement : MonoBehaviour
 
             _characterController.height = _normalHeight; //height character controller
             _characterController.center = _normalCenter; //center character controller
-
-            Debug.Log("I stopped crouching");
         }
     }
 }
