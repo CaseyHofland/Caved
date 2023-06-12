@@ -15,6 +15,7 @@ public class EmMovement : MonoBehaviour
     public CharacterController _characterController;
     public Animator _animator;
     private CharacterStance _stance;
+    private EmEventCurrator _eventCurrator;
 
     [Header("Movement")]
     private float yVelocity = 0.0f;
@@ -24,28 +25,36 @@ public class EmMovement : MonoBehaviour
     private Vector3 playerVelocity;
 
     [Header("Speed")]
+    private float _targetSpeed;
     public float _speed; //movement speed
-    [SerializeField] private Vector2 _standingSpeed = new Vector2(0,0);
-    public float _sprintingSpeed;
+    private float _runSpeed;
+    private float _sprintingSpeed;
     public float _crawlingSpeed;
+
+    private Vector3 _newVelocity;
+    private float _newSpeed;
 
     public float _turnSmoothTime = 0.1f;
     float _turnSmoothVelocity;
 
     public AnimatorHash _move;
 
+    [Header("Speed (Normal, Sprinting")]
+    [SerializeField] private Vector2 _standingSpeed = new Vector2(0, 0);
+    [SerializeField] private Vector2 _crouchingSpeed = new Vector2(0, 0);
+
     [Header("Capsule (Radius, Height, YOffset")]
-    [SerializeField]private Vector3 _standingCapsule = Vector3.zero;
+    [SerializeField] private Vector3 _standingCapsule = Vector3.zero;
     [SerializeField] private Vector3 _crouchingCapsule = Vector3.zero;
 
-    [Header("Jumping")]
     EmInput _jumpControls;
+    /*[Header("Jumping")]
     private bool _jumpPressed = false;
     private bool _isGrounded;
     private bool _isJumping;
     private bool _isFalling;
     [SerializeField]
-    private float _jumpForce = 1f;
+    private float _jumpForce = 1f;*/
 
     [SerializeField] private float _yVelocity;
     [SerializeField] private float _gravity = -5f;
@@ -75,6 +84,13 @@ public class EmMovement : MonoBehaviour
     [SerializeField] private float _groundAngleMax;
     [SerializeField] private LayerMask _layerMaskClimb;
 
+    //Animator state names
+    private const string _standToCrouch = "Base Layer.Base_Crouching";
+    private const string _crouchToStand = "Base Layer.Base_Standing";
+
+    //animation settings
+    private bool _proning;
+
     private bool _climbing;
 
     private Vector3 _endPosition;
@@ -83,7 +99,6 @@ public class EmMovement : MonoBehaviour
     private RaycastHit _forwardRaycastHit;
 
     private Vector3 _matchTargetPosition;
-
     private Quaternion _matchTargetRotation;
     private Quaternion _forwardNormalXZRotation;
 
@@ -130,12 +145,17 @@ public class EmMovement : MonoBehaviour
     {
         _stance = CharacterStance.Standing;
 
+        _runSpeed = _standingSpeed.x;
+        _sprintingSpeed = _standingSpeed.y;
+        //_eventCurrator.Event.AddListener(OnSMBEvent);
+        
+
         //set defaults
         SetCapsuleDimensions(_standingCapsule);
 
         int _mask = 0;
         for (int i = 0; i < 32; i++)
-            if(!(Physics.GetIgnoreLayerCollision(gameObject.layer, i)))
+            if (!(Physics.GetIgnoreLayerCollision(gameObject.layer, i)))
                 _mask |= 1 << i;
 
         _layerMask = _mask;
@@ -143,7 +163,7 @@ public class EmMovement : MonoBehaviour
 
     private void Awake()
     {
-        _speed = _walkingSpeed;
+        //_speed = _walkingSpeed;
 
         _jumpControls = new EmInput();
 
@@ -153,19 +173,21 @@ public class EmMovement : MonoBehaviour
 
         _yVelocity = _gravity;
 
-        _isGrounded = false;
+        //_isGrounded = false;
     }
 
     void Update()
     {
-        Debug.Log(_stance);
-
         if (!_climbing)
         {
+            //SPEED
+            float blendValue = Unity.Mathematics.math.round(_newSpeed / (_runSpeed * 2) * 100) / 100;
+
             //WALKING
             Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized; //walking around
             if (move.magnitude > 0)
-                _characterController.Move(move * Time.deltaTime * _speed);
+                //_characterController.Move(move * Time.deltaTime * _runSpeed);
+                _characterController.Move(move * Time.deltaTime * _newSpeed);
             else
                 _characterController.Move(Vector3.zero);
 
@@ -174,34 +196,38 @@ public class EmMovement : MonoBehaviour
             var characterMovement = new Vector3(horizontal, 0, vertical); //walking around
 
 
-            //SPEED
-            float distance = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(_prevPosition.x, 0, _prevPosition.z));
-            float time = Time.deltaTime;
-            _speed2 = distance / time;
-
-            //Check animation
-            var _xzVelocity = _characterController.velocity;
-            _xzVelocity.y = 0;
-            var _velSpeed = _xzVelocity.magnitude;
-
-            //UPDATING PREVIOUS POSITION
-            _prevPosition = transform.position;
-
-            float blendValue = Unity.Mathematics.math.round(_speed2 / (_speed * 2) * 100) / 100;
-            //Debug.Log(blendValue);
-            if (_speed == _walkingSpeed)
+            if (move.magnitude > 0)
             {
-                if (blendValue > 0.5f)
+                if (_isSprinting)
                 {
-                    blendValue = math.lerp(blendValue, 0.5f, Time.deltaTime);
+                    _targetSpeed = _sprintingSpeed;
+
+                    blendValue = blendValue * 2;
+                    _animator.SetFloat(_move, blendValue);
                 }
-                _animator.SetFloat(_move, blendValue);
+                else
+                {
+                    _targetSpeed = _runSpeed;
+
+                    if (blendValue > 0.5f)
+                    {
+                        blendValue = math.lerp(blendValue, 0.5f, Time.deltaTime * 2);
+                    }
+
+                    _animator.SetFloat(_move, blendValue);
+                }
             }
             else
             {
-                blendValue = blendValue * 2;
+                blendValue = 0f; // math.lerp(blendValue, 0f, Time.deltaTime*2);
                 _animator.SetFloat(_move, blendValue);
             }
+            _newSpeed = Mathf.Lerp(_newSpeed, _targetSpeed, Time.deltaTime * 2);
+
+            //Velocity
+            _targetSpeed = move != Vector3.zero ? _runSpeed : 0f;
+            _newVelocity = move * _newSpeed;
+            transform.Translate(_newVelocity * Time.deltaTime, Space.World);
 
 
             //JUMPING
@@ -216,23 +242,7 @@ public class EmMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
 
-
-            //SPRINTING
-            if (_isSprinting && !_characterCrouching)
-            {
-                //change speed to running
-                _speed = _sprintingSpeed;
-            }
-            else if (_characterCrouching)
-            {
-                _speed = _crawlingSpeed;
-            }
-            else
-            {
-                //change speed to walking
-                _speed = _walkingSpeed;
-            }
-
+            /*
             //RAYCASTS
             //Raycast floor for jumping
             RaycastHit hit;
@@ -250,30 +260,10 @@ public class EmMovement : MonoBehaviour
             else
             {
                 _isGrounded = false;
-            }
-
-            /*
-            //Raycast ceiling for crouching
-            RaycastHit hit2;
-            RaycastHit hit3;
-            if (Physics.Raycast(_headRay.transform.position, Vector3.up, out hit2, _maxCastCeiling, mask))
-            {
-                Debug.DrawLine(_headRay.transform.position, hit2.point, Color.red);
-
-                _shouldBeCrouching = true;
-            }
-            else if (Physics.Raycast(_headRay2.transform.position, Vector3.up, out hit3, _maxCastCeiling, mask))
-            {
-                Debug.DrawLine(_headRay2.transform.position, hit3.point, Color.red);
-                _shouldBeCrouching = true;
-            }
-            else
-            {
-                _shouldBeCrouching = false;
             }*/
 
             //ANIMATIONS
-            if (_isGrounded)
+            /*if (_isGrounded)
             {
                 _isFalling = false;
                 _animator.SetBool("IsGrounded", true);
@@ -293,12 +283,13 @@ public class EmMovement : MonoBehaviour
             {
                 //_isGrounded = false;
                 _animator.SetBool("IsGrounded", false);
-            }
+            }*/
 
         }
 
 
     }
+
 
     RaycastHit downRaycastHit;
     RaycastHit forwardRaycastHit;
@@ -329,7 +320,7 @@ public class EmMovement : MonoBehaviour
         Vector3 _downOrigin = transform.TransformPoint(_climbOriginDown);
 
         _downHit = Physics.Raycast(_downOrigin, _downDirection, out _downRaycastHit, _climbOriginDown.y - _stepHeight, _layerMaskClimb);
-        
+
         //Debug.DrawLine(_downOrigin.transform.position, downRaycastHit.point, Color.yellow);
 
         if (_downHit)
@@ -457,10 +448,11 @@ public class EmMovement : MonoBehaviour
         _climbing = true;
         _speed = 0f;
         _animator.SetFloat(_move, 0);
-        _characterController.enabled = false;
+        //_characterController.enabled = false;
         //Rigidbody.isKinematic = true;
 
         float _climbHeight = downRaycastHit.point.y - transform.position.y;
+        _endPosition = downRaycastHit.point;
         Vector3 _forwardNormalXZ = Vector3.ProjectOnPlane(_forwardRaycastHit.normal, Vector3.up);
         _forwardNormalXZRotation = Quaternion.LookRotation(-_forwardNormalXZ, Vector3.up);
 
@@ -468,6 +460,7 @@ public class EmMovement : MonoBehaviour
         {
             _matchTargetPosition = forwardRaycastHit.point + _forwardNormalXZRotation * _hangOffset;
             _matchTargetRotation = _forwardNormalXZRotation;
+            _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_standToFreeHandSettings);
             Debug.Log("hanging");//never called
 
@@ -477,6 +470,10 @@ public class EmMovement : MonoBehaviour
         {
             _matchTargetPosition = _endPosition;
             _matchTargetRotation = _forwardNormalXZRotation;
+
+            _animator.rootPosition = transform.position;
+            _animator.rootRotation = transform.rotation;
+            _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_climbUpSettings);
 
             Debug.Log("climb up");
@@ -485,7 +482,7 @@ public class EmMovement : MonoBehaviour
         {
             _matchTargetPosition = _endPosition;
             _matchTargetRotation = _forwardNormalXZRotation;
-
+            _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_vaultSettings);
             Debug.Log("vault");
         }
@@ -493,12 +490,13 @@ public class EmMovement : MonoBehaviour
         {
             _matchTargetPosition = _endPosition;
             _matchTargetRotation = _forwardNormalXZRotation;
-
+            _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_stepUpSettings);
             Debug.Log("steppng");
         }
         else
         {
+            _characterController.Move(_animator.rootPosition);
             _characterController.enabled = true;
             _climbing = false;
         }
@@ -507,10 +505,10 @@ public class EmMovement : MonoBehaviour
     {
         //_isGrounded = _characterController.isGrounded;
 
-        if (_isGrounded && playerVelocity.y < 0)
+        /*if (_isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
-        }
+        }*/
 
         playerVelocity.y += _gravity * Time.deltaTime;
 
@@ -519,14 +517,14 @@ public class EmMovement : MonoBehaviour
 
     public void OnJump()
     {
-        Debug.Log("am trying to jumping");
+        /*Debug.Log("am trying to jumping");
         if (_isGrounded && !_characterCrouching)
         {
             playerVelocity.y = _jumpForce;
             _jumpPressed = true;
             Debug.Log("am jumping");
 
-        }
+        }*/
         //forward is being pressed
         if (CanClimb())
         {
@@ -547,37 +545,16 @@ public class EmMovement : MonoBehaviour
 
     public void OnCrouch()
     {
-        /*Vector3 crouchPos = new Vector3(0, _crouchingHeight, 0);
-        Vector3 normalPos = new Vector3(0, _normalHeight, 0);*/
-        Debug.Log("a");
         switch (_stance)
         {
             case CharacterStance.Standing:
                 RequestStanceChange(CharacterStance.Crouching);
-               break;
+                break;
 
             case CharacterStance.Crouching:
                 RequestStanceChange(CharacterStance.Standing);
                 break;
         }
-
-        /*if (!_characterCrouching)
-        {
-            _animator.SetBool("IsCrouching", true);
-
-            _characterCrouching = true;
-
-            _characterController.height = _crouchingHeight; //height character controller
-            _characterController.center = _crouchingCenter; //center character controller
-        }
-        else if (_characterCrouching && !_shouldBeCrouching)
-        {
-            _animator.SetBool("IsCrouching", false);
-            _characterCrouching = false;
-
-            _characterController.height = _normalHeight; //height character controller
-            _characterController.center = _normalCenter; //center character controller
-        }*/
     }
 
     public bool RequestStanceChange(CharacterStance newStance)
@@ -585,24 +562,22 @@ public class EmMovement : MonoBehaviour
         if (_stance == newStance)
             return true;
 
-        switch(_stance)
+        switch (_stance)
         {
             case CharacterStance.Standing:
-                if(newStance == CharacterStance.Crouching)
+                if (newStance == CharacterStance.Crouching)
                 {
-                        _animator.SetBool("IsCrouching", true);
+                    //_animator.SetBool("IsCrouching", true);
 
-                        _characterCrouching = true;
+                    _characterCrouching = true;
 
-                        SetCapsuleDimensions(_crouchingCapsule);
+                    _runSpeed = _crouchingSpeed.x;
+                    _sprintingSpeed = _crouchingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+                    SetCapsuleDimensions(_crouchingCapsule);
 
-                        /*_characterController.height = _crouchingHeight; //height character controller
-                        _characterController.center = _crouchingCenter; //center character controller
-                        */
-                        Debug.Log("crouch");
-                        _stance = CharacterStance.Crouching;
-
-                        return true;
+                    return true;
                 }
                 break;
 
@@ -611,21 +586,18 @@ public class EmMovement : MonoBehaviour
                 {
                     if (!CharacterOverlap())
                     {
-                        _animator.SetBool("IsCrouching", false);
+                        //_animator.SetBool("IsCrouching", false);
 
                         _characterCrouching = false;
 
+                        _runSpeed = _standingSpeed.x;
+                        _sprintingSpeed = _standingSpeed.y;
+                        _stance = newStance;
+                        _animator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
                         SetCapsuleDimensions(_standingCapsule);
-
-                        /*_characterController.height = _normalHeight; //height character controller
-                        _characterController.center = _normalCenter; //center character controller
-                        */
-                        Debug.Log("stand");
-                        _stance = CharacterStance.Standing;
 
                         return true;
                     }
-
                 }
                 break;
         }
@@ -636,36 +608,6 @@ public class EmMovement : MonoBehaviour
     //character crouch check
     private bool CharacterOverlap()
     {
-        /*
-        float _radius = dimensions.x;
-        float _height = dimensions.y;
-        Vector3 _center = new Vector3(_characterController.center.x, dimensions.z, _characterController.center.z);
-
-        Vector3 _point0;
-        Vector3 _point1;
-        if(_height<_radius * 2)
-        {
-            _point0 = transform.position + _center;
-            _point1 = transform.position + _center;
-        }
-        else
-        {
-            _point0= transform.position + _center + (transform.up * (_height * .5f - _radius));
-            _point1 = transform.position + _center - (transform.up * (_height * .5f - _radius));
-        }
-
-        int _numOverlaps = Physics.OverlapCapsuleNonAlloc(_point0, _point1, _radius, _obstructions, _layerMask);
-        for(int i = 0; i<_numOverlaps; i++)
-        {
-            if (_obstructions[1] == _characterController)
-            {
-                _numOverlaps--;
-                
-            }
-        }
-        return _numOverlaps > 0;
-        */
-
         RaycastHit hit2;
         RaycastHit hit3;
 
@@ -695,5 +637,39 @@ public class EmMovement : MonoBehaviour
         _characterController.center = new Vector3(_characterController.center.x, dimensions.z, _characterController.center.z);
         _characterController.radius = dimensions.x;
         _characterController.height = dimensions.y;
+    }
+
+    public void OnSMBEvent(string eventName)
+    {
+        switch (eventName)
+        {
+            case "StandToFreeHangEnter":
+                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .3f, .65f);
+                break;
+            case "ClimbUpEnter":
+                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .9f);
+                break;
+            case "VaultEnter":
+                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .65f);
+                break;
+            case "StepUpEnter":
+                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .3f, .8f);
+                break;
+            case "DropEnter":
+                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .2f, .5f);
+                break;
+            case "StandToFreeHangExit":
+                break;
+            case "ClimbUpExit":
+            case "VaultExit":
+            case "StepUpExit":
+            case "DropExit":
+                _climbing = false;
+                _characterController.enabled = true;
+                _animator.applyRootMotion = false;
+                //rb is kinematic = false;
+                break;
+
+        }
     }
 }
