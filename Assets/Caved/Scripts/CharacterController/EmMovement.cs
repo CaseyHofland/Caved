@@ -48,16 +48,25 @@ public class EmMovement : MonoBehaviour
     [SerializeField] private Vector3 _crouchingCapsule = Vector3.zero;
 
     EmInput _jumpControls;
-    /*[Header("Jumping")]
+    
+    [Header("Jumping")]
     private bool _jumpPressed = false;
-    private bool _isGrounded;
+    float _initialJumpingVelocity;
+    float _maxJumpHeight = 1f;
+    float _maxJumpTime = .5f;
     private bool _isJumping;
+
+    [Header("Gravity")]
+    [SerializeField] private float _gravity = 9f;
+    [SerializeField]
+    float _groundedGravity;
+
+    private bool _isGrounded;
     private bool _isFalling;
     [SerializeField]
-    private float _jumpForce = 1f;*/
+    private float _jumpForce = 1f;
 
     [SerializeField] private float _yVelocity;
-    [SerializeField] private float _gravity = -5f;
 
     [Header("Sprinting")]
     public bool _isSprinting = false;
@@ -82,7 +91,9 @@ public class EmMovement : MonoBehaviour
     //tutorial: https://www.youtube.com/watch?v=opj5NdqsVWM
     [SerializeField] private float _wallAngleMax;
     [SerializeField] private float _groundAngleMax;
+    [SerializeField] private float _dropCheckDistance;
     [SerializeField] private LayerMask _layerMaskClimb;
+    private Coroutine _hangRoutine;
 
     //Animator state names
     private const string _standToCrouch = "Base Layer.Base_Crouching";
@@ -91,14 +102,18 @@ public class EmMovement : MonoBehaviour
     //animation settings
     private bool _proning;
 
+    [Header("Climb Settings")]
     private bool _climbing;
-
-    private Vector3 _endPosition;
+    private bool _isHanging;
+    private bool _climbingMove;
+    private bool _dropDown;
 
     private RaycastHit _downRaycastHit;
     private RaycastHit _forwardRaycastHit;
 
+    private Vector3 _endPosition;
     private Vector3 _matchTargetPosition;
+
     private Quaternion _matchTargetRotation;
     private Quaternion _forwardNormalXZRotation;
 
@@ -115,6 +130,7 @@ public class EmMovement : MonoBehaviour
     [SerializeField] private Vector3 _climbOriginDown;
     [SerializeField] private Vector3 _endOffset;
     [SerializeField] private Vector3 _hangOffset;
+    [SerializeField] private Vector3 _dropOffset;
 
     [Header("Animation settings")]
     public CrossFadeSettingsEm _standToFreeHandSettings;
@@ -123,6 +139,7 @@ public class EmMovement : MonoBehaviour
     public CrossFadeSettingsEm _dropSettings;
     public CrossFadeSettingsEm _dropToAirSettings;
     public CrossFadeSettingsEm _stepUpSettings;
+    public CrossFadeSettingsEm _jumpSettings;
 
     [Header("Raycasts")]
     public GameObject _headRay;
@@ -148,7 +165,7 @@ public class EmMovement : MonoBehaviour
         _runSpeed = _standingSpeed.x;
         _sprintingSpeed = _standingSpeed.y;
         //_eventCurrator.Event.AddListener(OnSMBEvent);
-        
+
 
         //set defaults
         SetCapsuleDimensions(_standingCapsule);
@@ -171,29 +188,30 @@ public class EmMovement : MonoBehaviour
         _characterController.height = _normalHeight; //height character controller
         _characterController.center = _normalCenter; //center character controller
 
-        _yVelocity = _gravity;
-
-        //_isGrounded = false;
+        SetJumpVariables();
+        _isGrounded = false;
     }
 
     void Update()
     {
+        //SPEED
+        float blendValue = Unity.Mathematics.math.round(_newSpeed / (_runSpeed * 2) * 100) / 100;
+
+        //WALKING
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized; //walking around
+
+        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxis("Horizontal");
+        var characterMovement = new Vector3(horizontal, 0, vertical); //walking around
+
         if (!_climbing)
         {
-            //SPEED
-            float blendValue = Unity.Mathematics.math.round(_newSpeed / (_runSpeed * 2) * 100) / 100;
-
-            //WALKING
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized; //walking around
             if (move.magnitude > 0)
                 //_characterController.Move(move * Time.deltaTime * _runSpeed);
                 _characterController.Move(move * Time.deltaTime * _newSpeed);
             else
                 _characterController.Move(Vector3.zero);
 
-            float vertical = Input.GetAxis("Vertical");
-            float horizontal = Input.GetAxis("Horizontal");
-            var characterMovement = new Vector3(horizontal, 0, vertical); //walking around
 
 
             if (move.magnitude > 0)
@@ -230,8 +248,6 @@ public class EmMovement : MonoBehaviour
             transform.Translate(_newVelocity * Time.deltaTime, Space.World);
 
 
-            //JUMPING
-            MovementJump();
 
 
             //TURNING CHARACTER
@@ -242,7 +258,7 @@ public class EmMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
 
-            /*
+            
             //RAYCASTS
             //Raycast floor for jumping
             RaycastHit hit;
@@ -260,7 +276,10 @@ public class EmMovement : MonoBehaviour
             else
             {
                 _isGrounded = false;
-            }*/
+            }
+
+            //if the player is moving downwards
+            
 
             //ANIMATIONS
             /*if (_isGrounded)
@@ -285,6 +304,17 @@ public class EmMovement : MonoBehaviour
                 _animator.SetBool("IsGrounded", false);
             }*/
 
+            
+            //JUMPING
+            HandleGravity();
+            HandleJump();
+
+        }
+        else if (_climbing && _isHanging)
+        {
+            if (vertical < 0)
+                _dropDown = true;
+            Debug.Log("falling");
         }
 
 
@@ -311,6 +341,7 @@ public class EmMovement : MonoBehaviour
         RaycastHit _downRaycastHit;
         RaycastHit _forwardRaycastHit;
         RaycastHit _overpassRaycastHit;
+        ClimbModifier _climbModifier;
 
         Vector3 _endPosition;
         Vector3 _forwardDirectionXZ;
@@ -320,88 +351,93 @@ public class EmMovement : MonoBehaviour
         Vector3 _downOrigin = transform.TransformPoint(_climbOriginDown);
 
         _downHit = Physics.Raycast(_downOrigin, _downDirection, out _downRaycastHit, _climbOriginDown.y - _stepHeight, _layerMaskClimb);
+        _climbModifier = _downHit ? _downRaycastHit.collider.GetComponent<ClimbModifier>() : null;
 
         //Debug.DrawLine(_downOrigin.transform.position, downRaycastHit.point, Color.yellow);
 
         if (_downHit)
         {
-            //forward + overpass cast
-            float _forwardDistance = _climbOriginDown.z;
-            Vector3 _forwardOrigin = new Vector3(transform.position.x, _downRaycastHit.point.y - 0.1f, transform.position.z);
-            Vector3 _overpassOrigin = new Vector3(transform.position.x, _overPassHeight - 0.1f, transform.position.z);
-
-            _forwardDirectionXZ = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-            _forwardHit = Physics.Raycast(_forwardOrigin, _forwardDirectionXZ, out _forwardRaycastHit, _forwardDistance, _layerMaskClimb);
-            _overpassHit = Physics.Raycast(_overpassOrigin, _forwardDirectionXZ, out _overpassRaycastHit, _forwardDistance, _layerMaskClimb);
-            _climbHeight = _downRaycastHit.point.y - transform.position.y;
-
-            if (_forwardHit)
+            if (_climbModifier == null || _climbModifier.Climable)
             {
-                if (_overpassHit || _climbHeight < _overPassHeight)
+                //forward + overpass cast
+                float _forwardDistance = _climbOriginDown.z;
+                Vector3 _forwardOrigin = new Vector3(transform.position.x, _downRaycastHit.point.y - 0.1f, transform.position.z);
+                Vector3 _overpassOrigin = new Vector3(transform.position.x, _overPassHeight - 0.1f, transform.position.z);
+
+                _forwardDirectionXZ = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+                _forwardHit = Physics.Raycast(_forwardOrigin, _forwardDirectionXZ, out _forwardRaycastHit, _forwardDistance, _layerMaskClimb);
+                _overpassHit = Physics.Raycast(_overpassOrigin, _forwardDirectionXZ, out _overpassRaycastHit, _forwardDistance, _layerMaskClimb);
+                _climbHeight = _downRaycastHit.point.y - transform.position.y;
+
+                if (_forwardHit)
                 {
-                    //Angles
-                    _forwardNormalXZ = Vector3.ProjectOnPlane(_forwardRaycastHit.normal, Vector3.up);
-                    _groundAngle = Vector3.Angle(_downRaycastHit.normal, Vector3.up);
-                    _wallAngle = Vector3.Angle(-_forwardNormalXZ, _forwardDirectionXZ);
-
-                    if (_wallAngle <= _wallAngleMax)
+                    if (_overpassHit || _climbHeight < _overPassHeight)
                     {
-                        if (_groundAngle <= _groundAngleMax)
+                        //Angles
+                        _forwardNormalXZ = Vector3.ProjectOnPlane(_forwardRaycastHit.normal, Vector3.up);
+                        _groundAngle = Vector3.Angle(_downRaycastHit.normal, Vector3.up);
+                        _wallAngle = Vector3.Angle(-_forwardNormalXZ, _forwardDirectionXZ);
+
+                        if (_wallAngle <= _wallAngleMax)
                         {
-                            //end offset
-                            Vector3 _vectSurface = Vector3.ProjectOnPlane(_forwardDirectionXZ, _downRaycastHit.normal);
-                            _endPosition = _downRaycastHit.point + Quaternion.LookRotation(_vectSurface, Vector3.up) * _endOffset;
-
-                            //de-penetration
-                            Collider _colliderB = _downRaycastHit.collider;
-                            bool _penetrationOverlap = Physics.ComputePenetration(
-                                colliderA: _characterController,
-                                positionA: _endPosition,
-                                rotationA: transform.rotation,
-                                colliderB: _colliderB,
-                                positionB: _colliderB.transform.position,
-                                rotationB: _colliderB.transform.rotation,
-                                direction: out Vector3 _penetrationDirection,
-                                distance: out float _penetrationDistance);
-                            if (_penetrationOverlap)
+                            if (_groundAngle <= _groundAngleMax)
                             {
-                                _endPosition += _penetrationDirection * _penetrationDistance;
-                            }
+                                //end offset
+                                Vector3 _vectSurface = Vector3.ProjectOnPlane(_forwardDirectionXZ, _downRaycastHit.normal);
+                                _endPosition = _downRaycastHit.point + Quaternion.LookRotation(_vectSurface, Vector3.up) * _endOffset;
 
-                            //Up sweep
-                            float _inflate = -0.05f;
-                            float _upsweepDistance = _downRaycastHit.point.y - transform.position.y;
-                            Vector3 _upSweepDirection = transform.up;
-                            Vector3 _upSweepOrigin = transform.position;
-                            bool _upSweepHit = CharacterSweep(
-                                position: _upSweepOrigin,
-                                rotation: transform.rotation,
-                                direction: _upSweepDirection,
-                                distance: _upsweepDistance,
-                                layerMask: _layerMaskClimb,
-                                inflate: _inflate);
+                                //de-penetration
+                                Collider _colliderB = _downRaycastHit.collider;
+                                bool _penetrationOverlap = Physics.ComputePenetration(
+                                    colliderA: _characterController,
+                                    positionA: _endPosition,
+                                    rotationA: transform.rotation,
+                                    colliderB: _colliderB,
+                                    positionB: _colliderB.transform.position,
+                                    rotationB: _colliderB.transform.rotation,
+                                    direction: out Vector3 _penetrationDirection,
+                                    distance: out float _penetrationDistance);
+                                if (_penetrationOverlap)
+                                {
+                                    _endPosition += _penetrationDirection * _penetrationDistance;
+                                }
 
-                            //Forward sweep
-                            Vector3 _forwardSweepOrigin = transform.position + _upSweepDirection * _upsweepDistance;
-                            Vector3 _forwardSweepVector = _endPosition - _forwardSweepOrigin;
-                            bool _forwardSweepHit = CharacterSweep(
-                                position: _forwardSweepOrigin,
-                                rotation: transform.rotation,
-                                direction: _forwardSweepVector.normalized,
-                                distance: _forwardSweepVector.magnitude,
-                                layerMask: _layerMaskClimb,
-                                inflate: _inflate);
+                                //Up sweep
+                                float _inflate = -0.05f;
+                                float _upsweepDistance = _downRaycastHit.point.y - transform.position.y;
+                                Vector3 _upSweepDirection = transform.up;
+                                Vector3 _upSweepOrigin = transform.position;
+                                bool _upSweepHit = CharacterSweep(
+                                    position: _upSweepOrigin,
+                                    rotation: transform.rotation,
+                                    direction: _upSweepDirection,
+                                    distance: _upsweepDistance,
+                                    layerMask: _layerMaskClimb,
+                                    inflate: _inflate);
 
-                            if (!_upSweepHit && !_forwardSweepHit)
-                            {
-                                endPosition = _endPosition;
-                                downRaycastHit = _downRaycastHit;
-                                forwardRaycastHit = _forwardRaycastHit;
+                                //Forward sweep
+                                Vector3 _forwardSweepOrigin = transform.position + _upSweepDirection * _upsweepDistance;
+                                Vector3 _forwardSweepVector = _endPosition - _forwardSweepOrigin;
+                                bool _forwardSweepHit = CharacterSweep(
+                                    position: _forwardSweepOrigin,
+                                    rotation: transform.rotation,
+                                    direction: _forwardSweepVector.normalized,
+                                    distance: _forwardSweepVector.magnitude,
+                                    layerMask: _layerMaskClimb,
+                                    inflate: _inflate);
 
-                                return true;
+                                if (!_upSweepHit && !_forwardSweepHit)
+                                {
+                                    endPosition = _endPosition;
+                                    downRaycastHit = _downRaycastHit;
+                                    forwardRaycastHit = _forwardRaycastHit;
+
+                                    return true;
+                                }
+                                else return false;
+
                             }
                             else return false;
-
                         }
                         else return false;
                     }
@@ -410,10 +446,7 @@ public class EmMovement : MonoBehaviour
                 else return false;
             }
             else
-            {
                 return false;
-            }
-
         }
         else
             return false;
@@ -462,9 +495,10 @@ public class EmMovement : MonoBehaviour
             _matchTargetRotation = _forwardNormalXZRotation;
             _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_standToFreeHandSettings);
+
+            _isHanging = true;
+
             Debug.Log("hanging");//never called
-
-
         }
         else if (_climbHeight > _climbUpHeight)
         {
@@ -501,35 +535,74 @@ public class EmMovement : MonoBehaviour
             _climbing = false;
         }
     }
-    private void MovementJump()
+    
+    private void SetJumpVariables()
     {
-        //_isGrounded = _characterController.isGrounded;
+        float _timeToApex = _maxJumpTime / 2;
+        //_gravity = (-2 * _maxJumpHeight) / Mathf.Pow(_timeToApex, 2); //ergens schiet de gravity ver het negatief in
+        _initialJumpingVelocity = (2 * _maxJumpHeight) / _timeToApex;
+    }
 
-        /*if (_isGrounded && playerVelocity.y < 0)
+    private void HandleGravity()
+    {
+        bool isFalling = playerVelocity.y <= 0.0f || !_jumpPressed;
+        float _fallMultiplier = 2f;
+
+        //apply proper gravity if the player is grounded or not
+        if(_isGrounded)
         {
-            playerVelocity.y = 0f;
-        }*/
-
-        playerVelocity.y += _gravity * Time.deltaTime;
+            playerVelocity.y = 0;
+        }
+        else if (isFalling)
+        {
+            float _previousYVelocity = playerVelocity.y;
+            float _newYVelocity = playerVelocity.y + (_gravity * _fallMultiplier * Time.deltaTime);
+            float _nextYVelocity = (_previousYVelocity + _newYVelocity) * .5f;
+            playerVelocity.y += _nextYVelocity;
+        }
+        else
+        {
+            float _previousYVelocity = playerVelocity.y;
+            float _newYVelocity = playerVelocity.y + (_gravity * Time.deltaTime);
+            float _nextYVelocity = (_previousYVelocity + _newYVelocity) * .5f;
+            playerVelocity.y += _nextYVelocity;
+        }
 
         _characterController.Move(playerVelocity * Time.deltaTime);
     }
 
+    private void HandleJump()
+    {
+        if(!_isJumping && _characterController.isGrounded && _jumpPressed)
+        {
+            _isJumping = true;
+            playerVelocity.y = _initialJumpingVelocity * .5f;
+            _animator.CrossFadeInFixedTimeEm(_jumpSettings);
+
+        }
+        else if(!_jumpPressed && _isJumping && _characterController.isGrounded)
+        {
+            _isJumping = false;
+        }
+    }
+
     public void OnJump()
     {
-        /*Debug.Log("am trying to jumping");
-        if (_isGrounded && !_characterCrouching)
-        {
-            playerVelocity.y = _jumpForce;
-            _jumpPressed = true;
-            Debug.Log("am jumping");
-
-        }*/
         //forward is being pressed
         if (CanClimb())
         {
             Debug.Log("am climbing");
             InitiateClimb();
+        }
+        else if (_climbing && _isHanging)
+        {
+            _climbingMove = true;
+        }
+        else if(_isGrounded && !_characterCrouching)
+        {
+            //playerVelocity.y = _jumpForce;
+            _jumpPressed = true;
+            Debug.Log("am jumping");
         }
     }
 
@@ -658,7 +731,9 @@ public class EmMovement : MonoBehaviour
             case "DropEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .2f, .5f);
                 break;
+
             case "StandToFreeHangExit":
+                _hangRoutine = StartCoroutine(HangingRoutine());
                 break;
             case "ClimbUpExit":
             case "VaultExit":
@@ -669,7 +744,52 @@ public class EmMovement : MonoBehaviour
                 _animator.applyRootMotion = false;
                 //rb is kinematic = false;
                 break;
+            case "DropToAir":
+                _climbing = false;
+                _characterController.enabled = true;
+                _animator.applyRootMotion = false;
+                //rb is kinematic = false;
+                break;
 
         }
+    }
+
+    private IEnumerator HangingRoutine()
+    {
+        //wait for input
+        while (!_isHanging)
+            yield return null;
+
+        //climb up
+        if (_climbingMove)
+        {
+            _matchTargetPosition = _endPosition;
+            _matchTargetRotation = _forwardNormalXZRotation;
+
+            _animator.rootPosition = transform.position;
+            _animator.rootRotation = transform.rotation;
+            _animator.applyRootMotion = true;
+            _animator.CrossFadeInFixedTimeEm(_climbUpSettings);
+        }
+
+        //drop down
+        if (_dropDown)
+        {
+            if (!Physics.Raycast(transform.position, Vector3.down, out RaycastHit _hitInfo, _dropCheckDistance, _layerMaskClimb))
+            {
+                _animator.CrossFadeEm(_dropToAirSettings);
+            }
+            else
+            {
+                _matchTargetPosition = _hitInfo.point + _forwardNormalXZRotation * _dropOffset;
+                _matchTargetRotation = _forwardNormalXZRotation;
+                _animator.CrossFadeInFixedTimeEm(_dropSettings);
+            }
+        }
+
+        _climbingMove = false;
+        _dropDown = false;
+        _hangRoutine = null;
+
     }
 }

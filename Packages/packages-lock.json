@@ -42,7 +42,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.4",
+      "version": "1.8.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -389,14 +389,6 @@
       "dependencies": {
         "com.unity.shadergraph": "14.0.8",
         "com.unity.render-pipelines.core": "14.0.8"
-      }
-    },
-    "com.unityextras.namingvalidator": {
-      "version": "file:NamingValidator",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.settings-manager": "2.0.1"
       }
     },
     "com.unityfx.outline": {
