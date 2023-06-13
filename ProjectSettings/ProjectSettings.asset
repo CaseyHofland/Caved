@@ -820,8 +820,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: A_Dark_Fairytale
-  metroPackageVersion: 
+  metroPackageName: ADarkFairytale
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -829,7 +829,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: A_Dark_Fairytale
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Caved
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
