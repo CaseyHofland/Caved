@@ -7051,6 +7051,10 @@ PrefabInstance:
       value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 8503406922476333092, guid: a28d7757577a5be408dbf98861ccd3ef, type: 3}
+      propertyPath: _dropOffset.z
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503406922476333092, guid: a28d7757577a5be408dbf98861ccd3ef, type: 3}
       propertyPath: _hangOffset.y
       value: -1.8
       objectReference: {fileID: 0}
@@ -7097,6 +7101,10 @@ PrefabInstance:
     - target: {fileID: 8503406922476333092, guid: a28d7757577a5be408dbf98861ccd3ef, type: 3}
       propertyPath: _climbOriginDown.z
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503406922476333092, guid: a28d7757577a5be408dbf98861ccd3ef, type: 3}
+      propertyPath: _dropCheckDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8503406922476333092, guid: a28d7757577a5be408dbf98861ccd3ef, type: 3}
       propertyPath: _standingCapsule.x
