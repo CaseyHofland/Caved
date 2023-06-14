@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Unity.Cinemachine;
+using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 public class MemoryTrigger : MonoBehaviour
 {
@@ -15,11 +18,29 @@ public class MemoryTrigger : MonoBehaviour
     bool _pickedUp;
     [SerializeField]
     private GameObject _worldSpacePickup;
+    public CinemachineCamera _memoryCamera;
+    
+    EmInput _playerInputMemory;
+    
+    [SerializeField] private float _thinkingTime;
+    private bool _isInRange;
+    public GameObject _choices;
+
+    public DecalProjector _projector;
+
+
     private void Awake()
     {
         _inventoryManager = FindObjectOfType<InventorySystem>();
         _worldSpacePickup.SetActive(false);
+        _choices.SetActive(false);
+
+        _memoryCamera.enabled = false;
+        
+        _playerInputMemory = new EmInput();
+
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -50,8 +71,11 @@ public class MemoryTrigger : MonoBehaviour
         {
             _worldSpacePickup.SetActive(false);
         }
+    }
 
-        if (!_pickedUp && _memory != null && _triggerd && Input.GetKeyDown(KeyCode.F))
+    public void Remember()
+    {
+        if (!_pickedUp && _memory != null && _triggerd)
         {
             _inventoryManager.AddItemToSavedMemories(_memory.Id);
             _pickedUp = true;
@@ -60,10 +84,32 @@ public class MemoryTrigger : MonoBehaviour
                 _event.Invoke();
             }
         }
+    }
 
-        if(Input.GetKeyDown(KeyCode.V))
+    public void Forget()
+    {
+        _projector.enabled = false;
+        if (_event != null)
         {
-            SceneManager.LoadScene(2);
+            _event.Invoke();
         }
     }
+
+    private void OnConfirm()
+    {
+        if(_triggerd)
+            StartCoroutine(RememberChoice());
+    }
+
+    private IEnumerator RememberChoice()
+    {
+        _memoryCamera.enabled = true;
+
+        yield return new WaitForSeconds(_thinkingTime);
+
+        _choices.SetActive(true);
+    }
+
+
+
 }

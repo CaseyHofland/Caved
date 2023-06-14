@@ -19,6 +19,9 @@ public class InventorySystem : MonoBehaviour
     private Coroutine _coroutine;
     // Start is called before the first frame update
 
+    EmInput _memoryControls;
+    private bool _showingMemories;
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -27,6 +30,7 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         AllMemories = Resources.FindObjectsOfTypeAll<InventoryItemSO>().ToList();
+        _memoryControls = new EmInput();
     }
 
     public void AddItemToSavedMemories(int id)
@@ -43,19 +47,6 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            OpenMemories();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _target.SetActive(false);
-        }
-    }
-
     public void OpenMemories()
     {
         if (_coroutine == null)
@@ -65,8 +56,22 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    void OnBack()
+    {
+        if(_showingMemories)
+            _target.SetActive(false); _showingMemories = false;
+    }
+
+    void OnMemories()
+    {
+        if(!_showingMemories)
+            OpenMemories();
+    }
+
     private IEnumerator LoadMemoriesUI()
     {
+        _showingMemories = true;
+
         if (SavedMemories.Count > 0)
         {
             for (int i = 0; i < SavedMemories.Count; i++)

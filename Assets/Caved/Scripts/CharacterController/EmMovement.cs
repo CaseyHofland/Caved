@@ -277,33 +277,6 @@ public class EmMovement : MonoBehaviour
             {
                 _isGrounded = false;
             }
-
-            //if the player is moving downwards
-            
-
-            //ANIMATIONS
-            /*if (_isGrounded)
-            {
-                _isFalling = false;
-                _animator.SetBool("IsGrounded", true);
-                _animator.SetBool("IsFalling", false);
-            }
-            else
-            {
-                _animator.SetBool("IsGrounded", false);
-            }
-
-            if (_isFalling)
-            {
-                _isJumping = false;
-                _animator.SetBool("IsFalling", true);
-            }
-            else if (_isJumping)
-            {
-                //_isGrounded = false;
-                _animator.SetBool("IsGrounded", false);
-            }*/
-
             
             //JUMPING
             HandleGravity();
@@ -551,7 +524,7 @@ public class EmMovement : MonoBehaviour
         //apply proper gravity if the player is grounded or not
         if(_isGrounded)
         {
-            playerVelocity.y = 0;
+            playerVelocity.y = _groundedGravity;
         }
         else if (isFalling)
         {
@@ -573,14 +546,14 @@ public class EmMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if(!_isJumping && _characterController.isGrounded && _jumpPressed)
+        if(!_isJumping && _isGrounded && _jumpPressed)
         {
             _isJumping = true;
             playerVelocity.y = _initialJumpingVelocity * .5f;
             _animator.CrossFadeInFixedTimeEm(_jumpSettings);
 
         }
-        else if(!_jumpPressed && _isJumping && _characterController.isGrounded)
+        else if(!_jumpPressed && _isJumping && _isGrounded)
         {
             _isJumping = false;
         }
@@ -598,12 +571,12 @@ public class EmMovement : MonoBehaviour
         {
             _climbingMove = true;
         }
-        else if(_isGrounded && !_characterCrouching)
+        /*else if(_isGrounded && !_characterCrouching)
         {
             //playerVelocity.y = _jumpForce;
             _jumpPressed = true;
             Debug.Log("am jumping");
-        }
+        }*/
     }
 
     public void OnSprintStart()
