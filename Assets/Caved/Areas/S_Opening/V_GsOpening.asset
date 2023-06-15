@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   neutralHDRRangeReductionMode:
     m_OverrideState: 0
     m_Value: 2
@@ -102,10 +102,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 1.45
+    m_Value: 2.04
   contrast:
     m_OverrideState: 1
-    m_Value: 81
+    m_Value: -13.5
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 0.9245283, g: 0.73700607, b: 0.9120268, a: 1}
@@ -145,7 +145,7 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 4.98
+    m_Value: 3.96
   aperture:
     m_OverrideState: 1
     m_Value: 4
@@ -192,10 +192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
   m_Name: Vignette
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.12910882, g: 0.13290614, b: 0.1509434, a: 1}
+    m_Value: {r: 0.14150941, g: 0, b: 0.011412511, a: 1}
   center:
     m_OverrideState: 0
     m_Value: {x: 0.5, y: 0.5}
@@ -220,10 +220,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.6054561, y: 1, z: 0.7078263, w: 0.28735626}
+    m_Value: {x: 0.29120052, y: 0.40034807, z: 1, w: 0.28735626}
   midtones:
     m_OverrideState: 1
     m_Value: {x: 0.9754048, y: 1, z: 0.95867676, w: 0.019011404}
