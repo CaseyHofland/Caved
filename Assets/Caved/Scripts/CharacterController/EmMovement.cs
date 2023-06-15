@@ -497,7 +497,9 @@ public class EmMovement : MonoBehaviour
         {
             _matchTargetPosition = _endPosition;
             _matchTargetRotation = _forwardNormalXZRotation;
-            _animator.applyRootMotion = true;
+            //_animator.applyRootMotion = true;
+
+            StartCoroutine(stepRoot());
             _animator.CrossFadeInFixedTimeEm(_stepUpSettings);
             Debug.Log("steppng");
         }
@@ -685,6 +687,16 @@ public class EmMovement : MonoBehaviour
         _characterController.height = dimensions.y;
     }
 
+
+    private IEnumerator stepRoot()
+    {
+        yield return new WaitForSeconds(.58f);
+        _animator.applyRootMotion = true;
+        yield return new WaitForSeconds(.1f);
+        _animator.applyRootMotion = true;
+    }
+
+
     public void OnSMBEvent(string eventName)
     {
         switch (eventName)
@@ -699,7 +711,7 @@ public class EmMovement : MonoBehaviour
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .65f);
                 break;
             case "StepUpEnter":
-                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .3f, .8f);
+                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .58f, .68f);
                 break;
             case "DropEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .2f, .5f);
