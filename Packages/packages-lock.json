@@ -391,6 +391,14 @@
         "com.unity.render-pipelines.core": "14.0.8"
       }
     },
+    "com.unityextras.namingvalidator": {
+      "version": "file:NamingValidator",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.settings-manager": "2.0.1"
+      }
+    },
     "com.unityfx.outline": {
       "version": "0.8.5",
       "depth": 0,
