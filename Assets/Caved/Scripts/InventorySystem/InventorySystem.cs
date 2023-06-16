@@ -7,20 +7,22 @@ using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour
 {
+    EmInput _memoryControls;
+    
+    [Header("Memory lists")]
     public List<InventoryItemSO> AllMemories = new List<InventoryItemSO>(); 
     public List<InventoryItemSO> SavedMemories = new List<InventoryItemSO>();
     public List<GameObject> SpawnedImages = new List<GameObject>();
 
     [Header("UI")]
-    [SerializeField]
-    private GameObject _target;
-    [SerializeField]
-    private GameObject _prefab;
+    [SerializeField] private GameObject _target;
+    [SerializeField] private GameObject _prefab;
     private Coroutine _coroutine;
-    // Start is called before the first frame update
-
-    EmInput _memoryControls;
     private bool _showingMemories;
+    
+    [Header("Memory conditions")]
+    [SerializeField] private int _traumaInt;
+    public static int _memoryState = 0;
 
     private void Awake()
     {
@@ -43,6 +45,7 @@ public class InventorySystem : MonoBehaviour
             {
                 InventoryItemSO tempItem = AllMemories.Where(x => x.Id == id).FirstOrDefault();
                 SavedMemories.Add(tempItem);
+                _memoryState = _memoryState + 1;
             }
         }
     }
