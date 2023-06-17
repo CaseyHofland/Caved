@@ -10,15 +10,16 @@ using UnityEngine.Rendering.Universal;
 public class MemoryTrigger : MonoBehaviour
 {
     private bool _triggerd = false;
+
     InventorySystem _inventoryManager;
-    [SerializeField]
-    InventoryItemSO _memory;
-    [SerializeField]
-    UnityEvent _event;
+    countingMemories _seenMemoriesCheck;
+
+    [SerializeField] InventoryItemSO _memory;
+    [SerializeField] UnityEvent _event;
     bool _pickedUp;
-    [SerializeField]
-    private GameObject _worldSpacePickup;
+    [SerializeField] private GameObject _worldSpacePickup;
     public CinemachineCamera _memoryCamera;
+    public ParticleSystem _memorylights;
     
     EmInput _playerInputMemory;
     
@@ -78,6 +79,7 @@ public class MemoryTrigger : MonoBehaviour
         if (!_pickedUp && _memory != null && _triggerd)
         {
             _inventoryManager.AddItemToSavedMemories(_memory.Id);
+            _seenMemoriesCheck._count++;
             _pickedUp = true;
             if (_event != null)
             {
@@ -89,6 +91,8 @@ public class MemoryTrigger : MonoBehaviour
     public void Forget()
     {
         _projector.enabled = false;
+        _seenMemoriesCheck._count++;
+        _memorylights.Stop();
         if (_event != null)
         {
             _event.Invoke();

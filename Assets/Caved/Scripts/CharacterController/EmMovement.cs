@@ -188,7 +188,7 @@ public class EmMovement : MonoBehaviour
         _characterController.height = _normalHeight; //height character controller
         _characterController.center = _normalCenter; //center character controller
 
-        SetJumpVariables();
+        //SetJumpVariables();
         _isGrounded = false;
     }
 
@@ -248,8 +248,6 @@ public class EmMovement : MonoBehaviour
             transform.Translate(_newVelocity * Time.deltaTime, Space.World);
 
 
-
-
             //TURNING CHARACTER
             if (move != Vector3.zero) //If we're not standing still
             {
@@ -280,7 +278,7 @@ public class EmMovement : MonoBehaviour
             
             //JUMPING
             HandleGravity();
-            HandleJump();
+            //HandleJump();
 
         }
         else if (_climbing && _isHanging)
@@ -511,12 +509,12 @@ public class EmMovement : MonoBehaviour
         }
     }
     
-    private void SetJumpVariables()
+    /*private void SetJumpVariables()
     {
         float _timeToApex = _maxJumpTime / 2;
         //_gravity = (-2 * _maxJumpHeight) / Mathf.Pow(_timeToApex, 2); //ergens schiet de gravity ver het negatief in
         _initialJumpingVelocity = (2 * _maxJumpHeight) / _timeToApex;
-    }
+    }*/
 
     private void HandleGravity()
     {
@@ -528,25 +526,25 @@ public class EmMovement : MonoBehaviour
         {
             playerVelocity.y = _groundedGravity;
         }
-        else if (isFalling)
+        else
         {
             float _previousYVelocity = playerVelocity.y;
             float _newYVelocity = playerVelocity.y + (_gravity * _fallMultiplier * Time.deltaTime);
             float _nextYVelocity = (_previousYVelocity + _newYVelocity) * .5f;
             playerVelocity.y += _nextYVelocity;
         }
-        else
+        /*else
         {
             float _previousYVelocity = playerVelocity.y;
             float _newYVelocity = playerVelocity.y + (_gravity * Time.deltaTime);
             float _nextYVelocity = (_previousYVelocity + _newYVelocity) * .5f;
             playerVelocity.y += _nextYVelocity;
-        }
+        }*/
 
         _characterController.Move(playerVelocity * Time.deltaTime);
     }
 
-    private void HandleJump()
+    /*private void HandleJump()
     {
         if(!_isJumping && _isGrounded && _jumpPressed)
         {
@@ -559,7 +557,7 @@ public class EmMovement : MonoBehaviour
         {
             _isJumping = false;
         }
-    }
+    }*/
 
     public void OnJump()
     {
