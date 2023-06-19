@@ -44,7 +44,7 @@ MonoBehaviour:
   terrainFogHeight: 81.73
   terrainFogMinAltitude: 0
   terrainFogMaxAltitude: 150
-  albedo: {r: 0.5188679, g: 0.48311326, b: 0.46747062, a: 1}
+  albedo: {r: 0.5283019, g: 0.37914652, b: 0.34140262, a: 1}
   enableDepthGradient: 0
   depthGradient:
     serializedVersion: 2
@@ -108,7 +108,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  brightness: 1.42
+  brightness: 1.15
   deepObscurance: 0.38
   specularColor: {r: 1, g: 0.9468694, b: 0.8, a: 1}
   specularThreshold: 0.637
