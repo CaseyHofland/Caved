@@ -44,7 +44,7 @@ MonoBehaviour:
   terrainFogHeight: 81.73
   terrainFogMinAltitude: 0
   terrainFogMaxAltitude: 150
-  albedo: {r: 0.54716974, g: 0.684323, b: 0.8207547, a: 1}
+  albedo: {r: 0.5188679, g: 0.48311326, b: 0.46747062, a: 1}
   enableDepthGradient: 0
   depthGradient:
     serializedVersion: 2
@@ -119,7 +119,7 @@ MonoBehaviour:
   detailNoiseWindDirection: {x: 0.02, y: 0, z: 0}
   dayNightCycle: 0
   sunDirection: {x: 0, y: 1, z: 0}
-  sunColor: {r: 0.6313041, g: 0.7663126, b: 0.8962264, a: 1}
+  sunColor: {r: 1, g: 0.92156863, b: 0.87058824, a: 1}
   sunIntensity: 0.34
   ambientLightMultiplier: 0
   lightDiffusionPower: 32
