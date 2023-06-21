@@ -49,7 +49,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 1.61
+    m_Value: 2.08
   contrast:
     m_OverrideState: 1
     m_Value: 28.3
@@ -232,10 +232,10 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: -36
+    m_Value: -35.2
   tint:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 40.9
 --- !u!114 &4184983664076274126
 MonoBehaviour:
   m_ObjectHideFlags: 3

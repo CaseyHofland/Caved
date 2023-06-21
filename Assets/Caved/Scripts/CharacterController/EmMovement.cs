@@ -188,7 +188,7 @@ public class EmMovement : MonoBehaviour
         _characterController.height = _normalHeight; //height character controller
         _characterController.center = _normalCenter; //center character controller
 
-        SetJumpVariables();
+        //SetJumpVariables();
         _isGrounded = false;
     }
 
@@ -248,8 +248,6 @@ public class EmMovement : MonoBehaviour
             transform.Translate(_newVelocity * Time.deltaTime, Space.World);
 
 
-
-
             //TURNING CHARACTER
             if (move != Vector3.zero) //If we're not standing still
             {
@@ -277,37 +275,10 @@ public class EmMovement : MonoBehaviour
             {
                 _isGrounded = false;
             }
-
-            //if the player is moving downwards
-            
-
-            //ANIMATIONS
-            /*if (_isGrounded)
-            {
-                _isFalling = false;
-                _animator.SetBool("IsGrounded", true);
-                _animator.SetBool("IsFalling", false);
-            }
-            else
-            {
-                _animator.SetBool("IsGrounded", false);
-            }
-
-            if (_isFalling)
-            {
-                _isJumping = false;
-                _animator.SetBool("IsFalling", true);
-            }
-            else if (_isJumping)
-            {
-                //_isGrounded = false;
-                _animator.SetBool("IsGrounded", false);
-            }*/
-
             
             //JUMPING
             HandleGravity();
-            HandleJump();
+            //HandleJump();
 
         }
         else if (_climbing && _isHanging)
@@ -524,7 +495,9 @@ public class EmMovement : MonoBehaviour
         {
             _matchTargetPosition = _endPosition;
             _matchTargetRotation = _forwardNormalXZRotation;
-            _animator.applyRootMotion = true;
+            //_animator.applyRootMotion = true;
+
+            StartCoroutine(stepRoot());
             _animator.CrossFadeInFixedTimeEm(_stepUpSettings);
             Debug.Log("steppng");
         }
@@ -536,12 +509,12 @@ public class EmMovement : MonoBehaviour
         }
     }
     
-    private void SetJumpVariables()
+    /*private void SetJumpVariables()
     {
         float _timeToApex = _maxJumpTime / 2;
         //_gravity = (-2 * _maxJumpHeight) / Mathf.Pow(_timeToApex, 2); //ergens schiet de gravity ver het negatief in
         _initialJumpingVelocity = (2 * _maxJumpHeight) / _timeToApex;
-    }
+    }*/
 
     private void HandleGravity()
     {
@@ -551,40 +524,40 @@ public class EmMovement : MonoBehaviour
         //apply proper gravity if the player is grounded or not
         if(_isGrounded)
         {
-            playerVelocity.y = 0;
+            playerVelocity.y = _groundedGravity;
         }
-        else if (isFalling)
+        else
         {
             float _previousYVelocity = playerVelocity.y;
             float _newYVelocity = playerVelocity.y + (_gravity * _fallMultiplier * Time.deltaTime);
             float _nextYVelocity = (_previousYVelocity + _newYVelocity) * .5f;
             playerVelocity.y += _nextYVelocity;
         }
-        else
+        /*else
         {
             float _previousYVelocity = playerVelocity.y;
             float _newYVelocity = playerVelocity.y + (_gravity * Time.deltaTime);
             float _nextYVelocity = (_previousYVelocity + _newYVelocity) * .5f;
             playerVelocity.y += _nextYVelocity;
-        }
+        }*/
 
         _characterController.Move(playerVelocity * Time.deltaTime);
     }
 
-    private void HandleJump()
+    /*private void HandleJump()
     {
-        if(!_isJumping && _characterController.isGrounded && _jumpPressed)
+        if(!_isJumping && _isGrounded && _jumpPressed)
         {
             _isJumping = true;
             playerVelocity.y = _initialJumpingVelocity * .5f;
             _animator.CrossFadeInFixedTimeEm(_jumpSettings);
 
         }
-        else if(!_jumpPressed && _isJumping && _characterController.isGrounded)
+        else if(!_jumpPressed && _isJumping && _isGrounded)
         {
             _isJumping = false;
         }
-    }
+    }*/
 
     public void OnJump()
     {
@@ -598,12 +571,12 @@ public class EmMovement : MonoBehaviour
         {
             _climbingMove = true;
         }
-        else if(_isGrounded && !_characterCrouching)
+        /*else if(_isGrounded && !_characterCrouching)
         {
             //playerVelocity.y = _jumpForce;
             _jumpPressed = true;
             Debug.Log("am jumping");
-        }
+        }*/
     }
 
     public void OnSprintStart()
@@ -712,6 +685,16 @@ public class EmMovement : MonoBehaviour
         _characterController.height = dimensions.y;
     }
 
+
+    private IEnumerator stepRoot()
+    {
+        yield return new WaitForSeconds(.58f);
+        _animator.applyRootMotion = true;
+        yield return new WaitForSeconds(.1f);
+        _animator.applyRootMotion = true;
+    }
+
+
     public void OnSMBEvent(string eventName)
     {
         switch (eventName)
@@ -726,7 +709,7 @@ public class EmMovement : MonoBehaviour
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .65f);
                 break;
             case "StepUpEnter":
-                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .3f, .8f);
+                _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .58f, .68f);
                 break;
             case "DropEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .2f, .5f);

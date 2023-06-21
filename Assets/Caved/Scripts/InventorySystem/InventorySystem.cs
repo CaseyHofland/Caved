@@ -7,17 +7,22 @@ using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour
 {
+    EmInput _memoryControls;
+    
+    [Header("Memory lists")]
     public List<InventoryItemSO> AllMemories = new List<InventoryItemSO>(); 
     public List<InventoryItemSO> SavedMemories = new List<InventoryItemSO>();
     public List<GameObject> SpawnedImages = new List<GameObject>();
 
     [Header("UI")]
-    [SerializeField]
-    private GameObject _target;
-    [SerializeField]
-    private GameObject _prefab;
+    [SerializeField] private GameObject _target;
+    [SerializeField] private GameObject _prefab;
     private Coroutine _coroutine;
-    // Start is called before the first frame update
+    private bool _showingMemories;
+    
+    [Header("Memory conditions")]
+    [SerializeField] private int _traumaInt;
+    public static int _memoryState = 0;
 
     private void Awake()
     {
@@ -27,6 +32,7 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         AllMemories = Resources.FindObjectsOfTypeAll<InventoryItemSO>().ToList();
+        _memoryControls = new EmInput();
     }
 
     public void AddItemToSavedMemories(int id)
@@ -39,20 +45,8 @@ public class InventorySystem : MonoBehaviour
             {
                 InventoryItemSO tempItem = AllMemories.Where(x => x.Id == id).FirstOrDefault();
                 SavedMemories.Add(tempItem);
+                _memoryState = _memoryState + 1;
             }
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            OpenMemories();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _target.SetActive(false);
         }
     }
 
@@ -65,8 +59,22 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    void OnBack()
+    {
+        if(_showingMemories)
+            _target.SetActive(false); _showingMemories = false;
+    }
+
+    void OnMemories()
+    {
+        if(!_showingMemories)
+            OpenMemories();
+    }
+
     private IEnumerator LoadMemoriesUI()
     {
+        _showingMemories = true;
+
         if (SavedMemories.Count > 0)
         {
             for (int i = 0; i < SavedMemories.Count; i++)
