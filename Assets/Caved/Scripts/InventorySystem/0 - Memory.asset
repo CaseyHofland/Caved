@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0
   MemoryImage: {fileID: 21300000, guid: ca3efe5bd011c2d49b445d9b8c02e133, type: 3}
+  NegativeScore: 3
+  PositiveScore: 0
