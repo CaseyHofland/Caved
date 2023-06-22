@@ -7,4 +7,7 @@ public class InventoryItemSO : ScriptableObject
 {
     public int Id;
     public Sprite MemoryImage;
+    [Header("Remembering, values")]
+    public int NegativeScore;
+    public int PositiveScore;
 }
