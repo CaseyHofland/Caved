@@ -13,6 +13,9 @@ public class InventorySystem : MonoBehaviour
     public List<InventoryItemSO> AllMemories = new List<InventoryItemSO>(); 
     public List<InventoryItemSO> SavedMemories = new List<InventoryItemSO>();
     public List<GameObject> SpawnedImages = new List<GameObject>();
+    [Header("Memory count")]
+    public int PositiveMemoriesScore;
+    public int NegativeMemoriesScore;
 
     [Header("UI")]
     [SerializeField] private GameObject _target;
@@ -33,6 +36,18 @@ public class InventorySystem : MonoBehaviour
     {
         AllMemories = Resources.FindObjectsOfTypeAll<InventoryItemSO>().ToList();
         _memoryControls = new EmInput();
+    }
+
+    public bool IsInTrauma()
+    {
+        if(NegativeMemoriesScore > PositiveMemoriesScore)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void AddItemToSavedMemories(int id)
