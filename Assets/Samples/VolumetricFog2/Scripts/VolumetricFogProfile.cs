@@ -24,6 +24,8 @@ namespace VolumetricFogAndMist2 {
         public int sortingOrder;
 
         [Header("Density")]
+        [Tooltip("Do not use any noise at all")]
+        public bool constantDensity;
         public Texture2D noiseTexture;
         [Range(0, 3)] public float noiseStrength = 1f;
         public float noiseScale = 15f;
@@ -40,10 +42,13 @@ namespace VolumetricFogAndMist2 {
         [Header("Geometry")]
         public VolumetricFogShape shape = VolumetricFogShape.Box;
         [Range(0, 1f)] public float border = 0.05f;
+        [Tooltip("Ignores volume height and use a custom height defined by this profile")]
+        public bool customHeight;
+        public float height;
         public float verticalOffset;
         [Tooltip("When enabled, makes fog appear at certain distance from a camera")]
         public float distance;
-        [Range(0, 1)] public float distanceFallOff;
+        [Range(0, 1)] public float distanceFallOff = 0.93f;
         [Tooltip("Maximum distance from camera")]
         public float maxDistance = 10000;
         [Range(0, 1)]
@@ -59,8 +64,8 @@ namespace VolumetricFogAndMist2 {
         public float terrainFogMinAltitude = 0f;
         public float terrainFogMaxAltitude = 150f;
 
-
         [Header("Colors")]
+        [ColorUsage(showAlpha: false)]
         public Color albedo = new Color32(227, 227, 227, 255);
         public bool enableDepthGradient;
         [GradientUsage(hdr: true, ColorSpace.Linear)] public Gradient depthGradient;
@@ -109,6 +114,7 @@ namespace VolumetricFogAndMist2 {
         public float distantFogHeightDensity = 0.5f;
         public Color distantFogColor = new Color(0.358f, 0.358f, 0.358f);
         public float distantFogDiffusionIntensity = 0.4f;
+        public int distantFogRenderQueue = 2999;
 
         public event OnSettingsChanged onSettingsChanged;
 
@@ -139,8 +145,11 @@ namespace VolumetricFogAndMist2 {
                 UnityEditor.EditorApplication.delayCall += () => {
                     try {
                         onSettingsChanged();
+                        UnityEditor.EditorApplication.delayCall += () => UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
                     } catch { }
                 };
+#else
+                onSettingsChanged();
 #endif
             }
         }
@@ -154,6 +163,7 @@ namespace VolumetricFogAndMist2 {
             raymarchMinStep = Mathf.Max(0.1f, raymarchMinStep);
             jittering = Mathf.Max(0, jittering);
             terrainFogHeight = Mathf.Max(0, terrainFogHeight);
+            height = Mathf.Max(0, height);
             if (depthGradient == null) {
                 depthGradient = new Gradient();
                 depthGradient.colorKeys = new GradientColorKey[] {
@@ -161,6 +171,7 @@ namespace VolumetricFogAndMist2 {
                     new GradientColorKey(Color.white, 1)
                 };
             }
+            maxDistance = Mathf.Max(0.0001f, maxDistance);
             depthGradientMaxDistance = Mathf.Max(0, depthGradientMaxDistance);
             ambientLightMultiplier = Mathf.Max(0, ambientLightMultiplier);
             sunIntensity = Mathf.Max(0, sunIntensity);
@@ -252,6 +263,7 @@ namespace VolumetricFogAndMist2 {
             distance = p1.distance * t0 + p2.distance * t;
             distanceFallOff = p1.distanceFallOff * t0 + p2.distanceFallOff * t;
             albedo = p1.albedo * t0 + p2.albedo * t;
+            constantDensity = t < 0.5f ? p1.constantDensity : p2.constantDensity;
             enableDepthGradient = p1.enableDepthGradient || p2.enableDepthGradient;
             LerpGradient(depthGradient, p1.depthGradient, p2.depthGradient, t);
             depthGradientMaxDistance = p1.depthGradientMaxDistance * t0 + p2.depthGradientMaxDistance * t;

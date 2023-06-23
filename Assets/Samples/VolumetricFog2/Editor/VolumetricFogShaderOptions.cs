@@ -69,6 +69,12 @@ namespace VolumetricFogAndMist2 {
                 },
                 new ShaderAdvancedOption
                 {
+                    id = "FOG_MAX_DISTANCE_XZ",
+                    name = "Max Distance on X/Z",
+                    description = "Ignores Y-axis when applying the max distance option."
+                },
+                new ShaderAdvancedOption
+                {
                     id = "FOG_SHADOW_CANCELLATION",
                     name = "Shadow Fog Cancellation Option",
                     description = "Enables the 'shadow cancellation' option in the profile which reduces the fog density or makes it invisible when in shadows."
@@ -78,6 +84,18 @@ namespace VolumetricFogAndMist2 {
                     id = "V2F_LIGHT_COOKIE_CANCELLATION",
                     name = "Cookie Fog Cancellation",
                     description = "Changes fog transparency depending on the cookie color which acts as an alpha mask."
+                },
+                new ShaderAdvancedOption
+                {
+                    id = "FOG_FORWARD_PLUS_IGNORE_CLUSTERING",
+                    name = "Ignore clustering in Forward+",
+                    description = "Parses all lights per pixel in Forward+, ignoring clustering (only available in Unity 2022/URP 14). In forward+, lights are grouped in clusters (screen partitions) to reduce the amount of lights computed per pixel. However, if there're few lights visible (less than 8), it may be faster to disable clustering by enabling this option."
+                },
+                new ShaderAdvancedOption
+                {
+                    id = "FOG_FORWARD_PLUS_ADDITIONAL_DIRECTIONAL_LIGHTS",
+                    name = "Additional Directional Lights in Forward+",
+                    description = "Supports extra directional lights in Forward+. By default, this option is disabled to improve performance."
                 },
                 new ShaderAdvancedOption
                 {

@@ -19,9 +19,10 @@ half3 _ShadowData;
 #define SHADOW_CANCELLATION _ShadowData.y
 #define SHADOW_MAX_DISTANCE _ShadowData.z
 
-float2 _MaxDistanceData;
+float3 _MaxDistanceData;
 #define FOG_MAX_LENGTH _MaxDistanceData.x
-#define FOG_MAX_LENGTH_FALLOFF _MaxDistanceData.y
+#define FOG_MAX_LENGTH_FALLOFF_PRECOMPUTED _MaxDistanceData.y
+#define FOG_MAX_LENGTH_FALLOFF _MaxDistanceData.z
 
 float4 _BoundsBorder;
 #define BORDER_SIZE_SPHERE _BoundsBorder.x
@@ -62,11 +63,13 @@ SAMPLER(sampler_BlueNoise_PointRepeat);
 float4 _BlueNoise_TexelSize;
 
 float3 _VFRTSize;
+float2 uvScreen;
 
 void SetJitter(float4 scrPos) {
 
     float2 screenSize = lerp(_ScreenParams.xy, _VFRTSize.xy, _VFRTSize.z);
-    float2 uv = (scrPos.xy / scrPos.w) * screenSize;
+    uvScreen = scrPos.xy / scrPos.w;
+    float2 uv = uvScreen * screenSize;
 
     #if defined(FOG_BLUE_NOISE)
         float2 noiseUV = uv * _BlueNoise_TexelSize.xy;
@@ -125,13 +128,17 @@ half4 SampleDensity(float3 wpos) {
     }
     density.a += (detail + DETAIL_OFFSET) * DETAIL_STRENGTH;
 #else
-    #if defined(USE_WORLD_SPACE_NOISE)
+    #if defined(USE_WORLD_SPACE_NOISE) || VF2_CONSTANT_DENSITY
         wpos.y -= boundsCenter.y;
     #else
         wpos.xyz -= boundsCenter;
     #endif
     wpos.y /= boundsExtents.y;
-    half4 density = tex2Dlod(_MainTex, float4(wpos.xz * _NoiseScale - _WindDirection.xz, 0, 0));
+    #if VF2_CONSTANT_DENSITY
+        half4 density = half4(_DetailColor.rgb, 1.0);
+    #else
+        half4 density = tex2Dlod(_MainTex, float4(wpos.xz * _NoiseScale - _WindDirection.xz, 0, 0));
+    #endif
     density.a -= abs(wpos.y);
 #endif
 
@@ -180,15 +187,39 @@ void AddFog(float3 rayStart, float3 wpos, float rs, half4 baseColor, inout half4
             }
         #endif
         #if VF2_NATIVE_LIGHTS
-            int additionalLightCount = GetAdditionalLightsCount();
-            for (int i = 0; i < additionalLightCount; ++i) {
-                #if UNITY_VERSION >= 202030
-                    Light light = GetAdditionalLight(i, rotatedWPos, 1.0.xxxx);
-                #else
-                    Light light = GetAdditionalLight(i, rotatedWPos);
+            #if USE_FORWARD_PLUS && !defined(FOG_FORWARD_PLUS_IGNORE_CLUSTERING)
+                // additional directional lights
+                #if defined(FOG_FORWARD_PLUS_ADDITIONAL_DIRECTIONAL_LIGHTS)
+                    for (uint lightIndex = 0; lightIndex < URP_FP_DIRECTIONAL_LIGHTS_COUNT; lightIndex++) {
+                        Light light = GetAdditionalLight(lightIndex, rotatedWPos, 1.0.xxxx);
+                        fgCol.rgb += light.color * (light.distanceAttenuation * light.shadowAttenuation);
+                    }
                 #endif
-                fgCol.rgb += light.color * (light.distanceAttenuation * light.shadowAttenuation);
-            }
+                // clustered lights
+                {
+                    uint lightIndex;
+                    ClusterIterator _urp_internal_clusterIterator = ClusterInit(uvScreen, rotatedWPos, 0);
+                    [loop] while (ClusterNext(_urp_internal_clusterIterator, lightIndex)) { 
+                        lightIndex += URP_FP_DIRECTIONAL_LIGHTS_COUNT;
+                        Light light = GetAdditionalLight(lightIndex, rotatedWPos, 1.0.xxxx);
+                        fgCol.rgb += light.color * (light.distanceAttenuation * light.shadowAttenuation);
+                    }
+                }
+            #else
+                #if USE_FORWARD_PLUS
+                    uint additionalLightCount = min(URP_FP_PROBES_BEGIN, 8); // more than 8 lights is too slow for raymarching
+                #else
+                    uint additionalLightCount = GetAdditionalLightsCount();
+                #endif
+                for (uint i = 0; i < additionalLightCount; ++i) {
+                    #if UNITY_VERSION >= 202030
+                        Light light = GetAdditionalLight(i, rotatedWPos, 1.0.xxxx);
+                    #else
+                        Light light = GetAdditionalLight(i, rotatedWPos);
+                    #endif
+                    fgCol.rgb += light.color * (light.distanceAttenuation * light.shadowAttenuation);
+                }
+            #endif
         #endif
         #if VF2_LIGHT_COOKIE
             half3 cookieColor = SampleMainLightCookie(wpos);
@@ -258,8 +289,7 @@ half4 GetFogColor(float3 rayStart, float3 viewDir, float t0, float t1) {
         loop_t = t;
         AddFog(rayStart, wpos, energyStep, lightColor, sum);
         if (sum.a > 0.99) {
-            sum.a = 1;
-            sum *= _LightColor.a;
+            sum.a = 1.0;
             return sum;
         }
         t += rs;
@@ -267,8 +297,6 @@ half4 GetFogColor(float3 rayStart, float3 viewDir, float t0, float t1) {
     }
     AddFog(rayStart, endPos, len * (rs - (t-1.0)), lightColor, sum);
 
-    sum = max(0, sum - jitter * DITHERING);
-    sum *= _LightColor.a;
     return sum;
 }
 

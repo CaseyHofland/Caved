@@ -15,6 +15,7 @@ namespace VolumetricFogAndMist2 {
         SerializedProperty enablePointLights, enableNativeLights;
         SerializedProperty enableVoids;
         SerializedProperty enableFogOfWar, fogOfWarCenter, fogOfWarIsLocal, fogOfWarSize, fogOfWarTextureSize, fogOfWarRestoreDelay, fogOfWarRestoreDuration, fogOfWarSmoothness, fogOfWarBlur;
+        SerializedProperty enableFollow, followTarget, followMode, followOffset;
         SerializedProperty enableFade, fadeDistance, fadeOut, fadeController, enableSubVolumes, subVolumes;
         SerializedProperty showBoundary;
 
@@ -44,6 +45,11 @@ namespace VolumetricFogAndMist2 {
             maskBrushWidth = serializedObject.FindProperty("maskBrushWidth");
             maskBrushFuzziness = serializedObject.FindProperty("maskBrushFuzziness");
             maskBrushOpacity = serializedObject.FindProperty("maskBrushOpacity");
+
+            enableFollow = serializedObject.FindProperty("enableFollow");
+            followTarget = serializedObject.FindProperty("followTarget");
+            followMode = serializedObject.FindProperty("followMode");
+            followOffset = serializedObject.FindProperty("followOffset");
 
             enableFade = serializedObject.FindProperty("enableFade");
             fadeDistance = serializedObject.FindProperty("fadeDistance");
@@ -122,6 +128,15 @@ namespace VolumetricFogAndMist2 {
                 Selection.activeGameObject = VolumetricFogManager.fogVoidManager.gameObject;
             }
             EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.PropertyField(enableFollow);
+            if (enableFollow.boolValue) {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(followTarget, new GUIContent("Target"));
+                EditorGUILayout.PropertyField(followMode, new GUIContent("Mode"));
+                EditorGUILayout.PropertyField(followOffset, new GUIContent("Offset"));
+                EditorGUI.indentLevel--;
+            }
 
             EditorGUILayout.PropertyField(enableFade);
             if (enableFade.boolValue) {
