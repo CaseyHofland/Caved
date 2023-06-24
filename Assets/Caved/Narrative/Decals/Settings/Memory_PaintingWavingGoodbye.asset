@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70a078e59c46214687e032939aa5a9d, type: 3}
   m_Name: Memory_PaintingWavingGoodbye
   m_EditorClassIdentifier: 
-  Id: 0
+  Id: 12
   MemoryImage: {fileID: 21300000, guid: 35884080426c93b42a478f13004a2462, type: 3}
   NegativeScore: 2
   PositiveScore: 1

@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Memories",
+                    "type": "Button",
+                    "id": "4bea226e-644b-49de-837a-3d8ade48aa60",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -205,6 +214,28 @@
                     "action": "SprintStop",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8ae7c86-1c5d-4233-941c-845cb7be8fb0",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Memories",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf1dafe9-4c20-424f-88f9-e0d80c89d2ca",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Memories",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -234,15 +265,6 @@
                     "name": "Back",
                     "type": "Button",
                     "id": "f87c7cb5-eef4-489c-9501-bc22b5fb43fc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Memories",
-                    "type": "Button",
-                    "id": "c4666eaf-165f-4007-9e82-ca03158e7c02",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -456,28 +478,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c85152af-d892-46e0-94f7-65ed31da4de1",
-                    "path": "<Keyboard>/m",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Memories",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a1abd605-6329-4b4a-913a-15a552e030d2",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Memories",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

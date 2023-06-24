@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70a078e59c46214687e032939aa5a9d, type: 3}
   m_Name: Memory_PaintingHiding
   m_EditorClassIdentifier: 
-  Id: 0
+  Id: 7
   MemoryImage: {fileID: 21300000, guid: 16efd8db45359ee4aac04fd82325a25f, type: 3}
   NegativeScore: 3
   PositiveScore: 0

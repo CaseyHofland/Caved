@@ -74,16 +74,27 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    void OnBack()
+
+    public void OnBack()
     {
-        if(_showingMemories)
-            _target.SetActive(false); _showingMemories = false;
+        if (_showingMemories)
+        {
+            _target.SetActive(false);
+            _showingMemories = false;
+        }
     }
 
-    void OnMemories()
+    public void OnMemories()
     {
+        Debug.Log("CLICK");
         if(!_showingMemories)
             OpenMemories();
+        else
+        {
+            _target.SetActive(false); 
+            _showingMemories = false;
+        }
+            
     }
 
     private IEnumerator LoadMemoriesUI()

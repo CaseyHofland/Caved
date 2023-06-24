@@ -71,6 +71,15 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Memories"",
+                    ""type"": ""Button"",
+                    ""id"": ""4bea226e-644b-49de-837a-3d8ade48aa60"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +236,28 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
                     ""action"": ""SprintStop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8ae7c86-1c5d-4233-941c-845cb7be8fb0"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Memories"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf1dafe9-4c20-424f-88f9-e0d80c89d2ca"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Memories"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -256,15 +287,6 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
                     ""name"": ""Back"",
                     ""type"": ""Button"",
                     ""id"": ""f87c7cb5-eef4-489c-9501-bc22b5fb43fc"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Memories"",
-                    ""type"": ""Button"",
-                    ""id"": ""c4666eaf-165f-4007-9e82-ca03158e7c02"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -480,28 +502,6 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
                     ""action"": ""Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c85152af-d892-46e0-94f7-65ed31da4de1"",
-                    ""path"": ""<Keyboard>/m"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Memories"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a1abd605-6329-4b4a-913a-15a552e030d2"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Memories"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -515,12 +515,12 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_SprintStart = m_Player.FindAction("SprintStart", throwIfNotFound: true);
         m_Player_SprintStop = m_Player.FindAction("SprintStop", throwIfNotFound: true);
+        m_Player_Memories = m_Player.FindAction("Memories", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Confirm = m_UI.FindAction("Confirm", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
-        m_UI_Memories = m_UI.FindAction("Memories", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -587,6 +587,7 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_SprintStart;
     private readonly InputAction m_Player_SprintStop;
+    private readonly InputAction m_Player_Memories;
     public struct PlayerActions
     {
         private @EmInput m_Wrapper;
@@ -596,6 +597,7 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @SprintStart => m_Wrapper.m_Player_SprintStart;
         public InputAction @SprintStop => m_Wrapper.m_Player_SprintStop;
+        public InputAction @Memories => m_Wrapper.m_Player_Memories;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -620,6 +622,9 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
             @SprintStop.started += instance.OnSprintStop;
             @SprintStop.performed += instance.OnSprintStop;
             @SprintStop.canceled += instance.OnSprintStop;
+            @Memories.started += instance.OnMemories;
+            @Memories.performed += instance.OnMemories;
+            @Memories.canceled += instance.OnMemories;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -639,6 +644,9 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
             @SprintStop.started -= instance.OnSprintStop;
             @SprintStop.performed -= instance.OnSprintStop;
             @SprintStop.canceled -= instance.OnSprintStop;
+            @Memories.started -= instance.OnMemories;
+            @Memories.performed -= instance.OnMemories;
+            @Memories.canceled -= instance.OnMemories;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -663,7 +671,6 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Confirm;
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Back;
-    private readonly InputAction m_UI_Memories;
     public struct UIActions
     {
         private @EmInput m_Wrapper;
@@ -671,7 +678,6 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
         public InputAction @Confirm => m_Wrapper.m_UI_Confirm;
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @Back => m_Wrapper.m_UI_Back;
-        public InputAction @Memories => m_Wrapper.m_UI_Memories;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -690,9 +696,6 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
             @Back.started += instance.OnBack;
             @Back.performed += instance.OnBack;
             @Back.canceled += instance.OnBack;
-            @Memories.started += instance.OnMemories;
-            @Memories.performed += instance.OnMemories;
-            @Memories.canceled += instance.OnMemories;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -706,9 +709,6 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
             @Back.started -= instance.OnBack;
             @Back.performed -= instance.OnBack;
             @Back.canceled -= instance.OnBack;
-            @Memories.started -= instance.OnMemories;
-            @Memories.performed -= instance.OnMemories;
-            @Memories.canceled -= instance.OnMemories;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -733,12 +733,12 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSprintStart(InputAction.CallbackContext context);
         void OnSprintStop(InputAction.CallbackContext context);
+        void OnMemories(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
         void OnConfirm(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
-        void OnMemories(InputAction.CallbackContext context);
     }
 }
