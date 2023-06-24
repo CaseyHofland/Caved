@@ -19,6 +19,7 @@ MonoBehaviour:
   renderQueue: 3100
   sortingLayerID: 0
   sortingOrder: 0
+  constantDensity: 0
   noiseTexture: {fileID: 2800000, guid: 2c6081b2761b64a3d97935b8499064f8, type: 3}
   noiseStrength: 0.87
   noiseScale: 8.23
@@ -31,6 +32,8 @@ MonoBehaviour:
   density: 0.07
   shape: 0
   border: 0.05
+  customHeight: 0
+  height: 0
   verticalOffset: 0
   distance: 0
   distanceFallOff: 0
@@ -44,7 +47,7 @@ MonoBehaviour:
   terrainFogHeight: 0.9
   terrainFogMinAltitude: 1.58
   terrainFogMaxAltitude: 10.39
-  albedo: {r: 1, g: 0.77236855, b: 0.64705884, a: 1}
+  albedo: {r: 1, g: 0.84836507, b: 0.64705884, a: 1}
   enableDepthGradient: 0
   depthGradient:
     serializedVersion: 2
@@ -108,7 +111,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  brightness: 2.15
+  brightness: 1.6
   deepObscurance: 1
   specularColor: {r: 1, g: 1, b: 0.8, a: 1}
   specularThreshold: 0.637
@@ -136,3 +139,4 @@ MonoBehaviour:
   distantFogHeightDensity: 0.5
   distantFogColor: {r: 0, g: 0.19415738, b: 0.26415092, a: 1}
   distantFogDiffusionIntensity: 0.4
+  distantFogRenderQueue: 2999

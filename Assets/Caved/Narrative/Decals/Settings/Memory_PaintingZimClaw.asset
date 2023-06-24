@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70a078e59c46214687e032939aa5a9d, type: 3}
   m_Name: Memory_PaintingZimClaw
   m_EditorClassIdentifier: 
-  Id: 0
+  Id: 13
   MemoryImage: {fileID: 21300000, guid: 1c80f011c5eff9d4192c3d4262f72cde, type: 3}
   NegativeScore: 1
   PositiveScore: 0
