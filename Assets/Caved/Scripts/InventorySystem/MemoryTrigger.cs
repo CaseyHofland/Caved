@@ -20,6 +20,7 @@ public class MemoryTrigger : MonoBehaviour
     [SerializeField] private GameObject _worldSpacePickup;
     public CinemachineCamera _memoryCamera;
     public ParticleSystem _memorylights;
+    public bool _lookClicked;
     
     EmInput _playerInputMemory;
     
@@ -102,9 +103,15 @@ public class MemoryTrigger : MonoBehaviour
         }
     }
 
-    private void OnConfirm()
+    /*private void OnConfirm()
     {
         if(_triggerd && !_pickedUp)
+            StartCoroutine(RememberChoice());
+    }*/
+
+    public void LookClicked()
+    {
+        if (_triggerd && !_pickedUp)
             StartCoroutine(RememberChoice());
     }
 
@@ -112,11 +119,13 @@ public class MemoryTrigger : MonoBehaviour
     {
         if (_triggerd && !_pickedUp)
         {
+            _lookClicked = true;
             _memoryCamera.enabled = true;
 
             yield return new WaitForSeconds(_thinkingTime);
 
             _choices.SetActive(true);
+            _lookClicked = false;
         }
         else
         {

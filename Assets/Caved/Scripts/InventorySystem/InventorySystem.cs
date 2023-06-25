@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,13 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private GameObject _prefab;
     private Coroutine _coroutine;
     private bool _showingMemories;
+
+    [Header("Menus")]
+    [SerializeField] private GameObject _goEscapeMenu;
+    [SerializeField] private GameObject _goSettingsMenu;
+    [SerializeField] private GameObject _goMemoriesMenu;
+    [SerializeField] private List<PopUpButton> _goPopUps;
+
     
     [Header("Memory conditions")]
     [SerializeField] private int _traumaInt;
@@ -32,6 +40,7 @@ public class InventorySystem : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    //Collecting Memories
     void Start()
     {
         AllMemories = Resources.FindObjectsOfTypeAll<InventoryItemSO>().ToList();
@@ -65,12 +74,49 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    //UI
     public void OpenMemories()
     {
         if (_coroutine == null)
         {
+            _goMemoriesMenu.SetActive(true); //new
             _target.SetActive(true);
             _coroutine = StartCoroutine(LoadMemoriesUI());
+        }
+    }
+
+    void OpenMenu()
+    {
+        OpenMemories();
+    }
+
+    void CloseMenu()
+    {
+        bool _popUp = false;
+
+        foreach(PopUpButton item in _goPopUps)
+        {
+            if(item._popUp.activeSelf)
+            {
+                item._btnDecline.onClick.Invoke();
+                _popUp = true;
+            }
+        }
+
+        if(!_popUp)
+        {
+            if(_goSettingsMenu.activeSelf)
+            {
+                _goSettingsMenu.SetActive(false);
+            }
+            else if(_goEscapeMenu.activeSelf)
+            {
+                _goEscapeMenu.SetActive(false);
+            }
+            else
+            {
+                _goMemoriesMenu.SetActive(false);
+            }
         }
     }
 
@@ -80,21 +126,28 @@ public class InventorySystem : MonoBehaviour
         if (_showingMemories)
         {
             _target.SetActive(false);
+            _goMemoriesMenu.SetActive(false); //new
             _showingMemories = false;
         }
     }
 
-    public void OnMemories()
+    public void OnMemories() //OpenMenu
     {
         Debug.Log("CLICK");
-        if(!_showingMemories)
+        /*if(!_showingMemories)
             OpenMemories();
         else
         {
             _target.SetActive(false); 
             _showingMemories = false;
+        }*/
+        if (!_showingMemories)
+            OpenMenu();
+        else
+        {
+            CloseMenu();
         }
-            
+
     }
 
     private IEnumerator LoadMemoriesUI()
@@ -121,4 +174,11 @@ public class InventorySystem : MonoBehaviour
         else
             yield break;
     }
+}
+
+[Serializable]
+public class PopUpButton
+{
+    public GameObject _popUp;
+    public Button _btnDecline;
 }
