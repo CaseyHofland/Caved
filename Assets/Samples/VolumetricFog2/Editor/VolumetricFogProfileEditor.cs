@@ -11,10 +11,10 @@ namespace VolumetricFogAndMist2 {
 
         SerializedProperty raymarchQuality, raymarchMinStep, jittering, dithering;
         SerializedProperty renderQueue, sortingLayerID, sortingOrder;
-        SerializedProperty noiseTexture, noiseStrength, noiseScale, noiseFinalMultiplier;
+        SerializedProperty constantDensity, noiseTexture, noiseStrength, noiseScale, noiseFinalMultiplier;
         SerializedProperty useDetailNoise, detailTexture, detailScale, detailStrength, detailOffset;
         SerializedProperty density;
-        SerializedProperty shape, border, verticalOffset, distance, distanceFallOff, maxDistance, maxDistanceFallOff;
+        SerializedProperty shape, border, customHeight, height, verticalOffset, distance, distanceFallOff, maxDistance, maxDistanceFallOff;
         SerializedProperty terrainFit, terrainFitResolution, terrainLayerMask, terrainFogHeight, terrainFogMinAltitude, terrainFogMaxAltitude;
 
         SerializedProperty albedo, enableDepthGradient, depthGradient, depthGradientMaxDistance, enableHeightGradient, heightGradient;
@@ -26,7 +26,7 @@ namespace VolumetricFogAndMist2 {
         SerializedProperty receiveShadows, shadowIntensity, shadowCancellation, shadowMaxDistance;
         SerializedProperty cookie;
 
-        SerializedProperty distantFog, distantFogColor, distantFogStartDistance, distantFogDistanceDensity, distantFogMaxHeight, distantFogHeightDensity, distantFogDiffusionIntensity;
+        SerializedProperty distantFog, distantFogColor, distantFogStartDistance, distantFogDistanceDensity, distantFogMaxHeight, distantFogHeightDensity, distantFogDiffusionIntensity, distantFogRenderQueue;
 
         private void OnEnable() {
             raymarchQuality = serializedObject.FindProperty("raymarchQuality");
@@ -37,6 +37,8 @@ namespace VolumetricFogAndMist2 {
             renderQueue = serializedObject.FindProperty("renderQueue");
             sortingLayerID = serializedObject.FindProperty("sortingLayerID");
             sortingOrder = serializedObject.FindProperty("sortingOrder");
+
+            constantDensity = serializedObject.FindProperty("constantDensity");
 
             noiseTexture = serializedObject.FindProperty("noiseTexture");
             noiseStrength = serializedObject.FindProperty("noiseStrength");
@@ -52,6 +54,9 @@ namespace VolumetricFogAndMist2 {
             density = serializedObject.FindProperty("density");
             shape = serializedObject.FindProperty("shape");
             border = serializedObject.FindProperty("border");
+
+            customHeight = serializedObject.FindProperty("customHeight");
+            height = serializedObject.FindProperty("height");
             verticalOffset = serializedObject.FindProperty("verticalOffset");
 
             distance = serializedObject.FindProperty("distance");
@@ -107,6 +112,8 @@ namespace VolumetricFogAndMist2 {
             distantFogMaxHeight = serializedObject.FindProperty("distantFogMaxHeight");
             distantFogHeightDensity = serializedObject.FindProperty("distantFogHeightDensity");
             distantFogDiffusionIntensity = serializedObject.FindProperty("distantFogDiffusionIntensity");
+            distantFogRenderQueue = serializedObject.FindProperty("distantFogRenderQueue");
+
         }
 
 
@@ -121,18 +128,24 @@ namespace VolumetricFogAndMist2 {
             EditorGUILayout.PropertyField(renderQueue);
             EditorGUILayout.PropertyField(sortingLayerID);
             EditorGUILayout.PropertyField(sortingOrder);
-            EditorGUILayout.PropertyField(noiseTexture);
-            EditorGUILayout.PropertyField(noiseStrength);
-            EditorGUILayout.PropertyField(noiseScale);
-            EditorGUILayout.PropertyField(noiseFinalMultiplier);
-            EditorGUILayout.PropertyField(useDetailNoise);
-            if (useDetailNoise.boolValue) {
+
+            EditorGUILayout.PropertyField(constantDensity);
+            if (!constantDensity.boolValue) {
+                EditorGUILayout.PropertyField(noiseTexture);
                 EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(detailTexture);
-                EditorGUILayout.PropertyField(detailScale);
-                EditorGUILayout.PropertyField(detailStrength);
-                EditorGUILayout.PropertyField(detailOffset);
+                EditorGUILayout.PropertyField(noiseStrength, new GUIContent("Strength"));
+                EditorGUILayout.PropertyField(noiseScale, new GUIContent("Scale"));
+                EditorGUILayout.PropertyField(noiseFinalMultiplier, new GUIContent("Multiplier"));
                 EditorGUI.indentLevel--;
+                EditorGUILayout.PropertyField(useDetailNoise, new GUIContent("Detail Noise"));
+                if (useDetailNoise.boolValue) {
+                    EditorGUI.indentLevel++;
+                    EditorGUILayout.PropertyField(detailTexture);
+                    EditorGUILayout.PropertyField(detailStrength, new GUIContent("Strength"));
+                    EditorGUILayout.PropertyField(detailScale, new GUIContent("Scale"));
+                    EditorGUILayout.PropertyField(detailOffset, new GUIContent("Offset"));
+                    EditorGUI.indentLevel--;
+                }
             }
 
             EditorGUILayout.PropertyField(density);
@@ -144,10 +157,18 @@ namespace VolumetricFogAndMist2 {
             EditorGUILayout.LabelField("Border", "(Disabled in Volumetric Fog Manager)");
             GUI.enabled = true;
 #endif
+            EditorGUILayout.PropertyField(customHeight, new GUIContent("Custom Volume Height"));
+            if (customHeight.boolValue) {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(height);
+                EditorGUI.indentLevel--;
+            }
             EditorGUILayout.PropertyField(verticalOffset);
             EditorGUILayout.PropertyField(distance);
             if (distance.floatValue > 0) {
+                EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(distanceFallOff);
+                EditorGUI.indentLevel--;
             }
             EditorGUILayout.PropertyField(maxDistance);
             EditorGUILayout.PropertyField(maxDistanceFallOff);
@@ -164,6 +185,9 @@ namespace VolumetricFogAndMist2 {
             }
 
             EditorGUILayout.PropertyField(albedo);
+            Color albedoColor = albedo.colorValue;
+            albedoColor.a = EditorGUILayout.Slider(new GUIContent("Alpha"), albedoColor.a, 0, 1f);
+            albedo.colorValue = albedoColor;
             EditorGUILayout.PropertyField(enableDepthGradient);
             if (enableDepthGradient.boolValue) {
                 EditorGUI.indentLevel++;
@@ -232,6 +256,7 @@ namespace VolumetricFogAndMist2 {
                 EditorGUILayout.PropertyField(distantFogMaxHeight, new GUIContent("Max Height"));
                 EditorGUILayout.PropertyField(distantFogHeightDensity, new GUIContent("Height Density"));
                 EditorGUILayout.PropertyField(distantFogDiffusionIntensity, new GUIContent("Diffusion Intensity Multiplier"));
+                EditorGUILayout.PropertyField(distantFogRenderQueue, new GUIContent("Render Queue"));
             }
 
             serializedObject.ApplyModifiedProperties();

@@ -73,6 +73,7 @@ namespace VolumetricFogAndMist2 {
         public const string SKW_FOW = "VF2_FOW";
         public const string SKW_RECEIVE_SHADOWS = "VF2_RECEIVE_SHADOWS";
         public const string SKW_DISTANCE = "VF2_DISTANCE";
+        public const string SKW_CONSTANT_DENSITY = "VF2_CONSTANT_DENSITY";
         public const string SKW_DETAIL_NOISE = "VF2_DETAIL_NOISE";
         public const string SKW_SURFACE = "VF2_SURFACE";
         public const string SKW_DEPTH_PREPASS = "VF2_DEPTH_PREPASS";

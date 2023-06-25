@@ -10,7 +10,7 @@ SAMPLER(_heightGradient_linear_clamp_sampler);
 inline half ApplyFogDistance(float3 rayStart, float3 wpos) {
     float3 vd = rayStart - wpos;
     float voidDistance = dot(vd, vd) * _DistanceData.w;
-    half alpha = saturate(1.0 + (voidDistance - 1.0) * _DistanceData.y);
+    half alpha = saturate(voidDistance - _DistanceData.y);
     return alpha;
 }
 

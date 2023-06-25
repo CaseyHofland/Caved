@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 namespace VolumetricFogAndMist2 {
 
     [ExecuteInEditMode]
+    [HelpURL("https://kronnect.com/guides/volumetric-fog-urp-adding-volumetric-fog-mist-to-your-scene/#ftoc-heading-1")]
     public class VolumetricFogManager : MonoBehaviour, IVolumetricFogManager {
 
         public string managerName {
