@@ -74,7 +74,6 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-
     //UI
     public void OpenMemories()
     {
@@ -143,7 +142,7 @@ public class InventorySystem : MonoBehaviour
             _showingMemories = false;
         }*/
         if (!_showingMemories)
-            OpenMemories();
+            OpenMenu();
         else
         {
             CloseMenu();
