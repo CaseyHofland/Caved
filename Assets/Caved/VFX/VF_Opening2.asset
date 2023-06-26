@@ -28,7 +28,7 @@ MonoBehaviour:
   detailScale: 0.35
   detailStrength: 0.5
   detailOffset: -0.5
-  density: 0.14
+  density: 0
   shape: 0
   border: 0.05
   verticalOffset: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
   distanceFallOff: 0
   maxDistance: 10000
   maxDistanceFallOff: 0
-  terrainFit: 1
+  terrainFit: 0
   terrainFitResolution: 128
   terrainLayerMask:
     serializedVersion: 2
@@ -44,7 +44,7 @@ MonoBehaviour:
   terrainFogHeight: 12.35
   terrainFogMinAltitude: 0.8
   terrainFogMaxAltitude: 150
-  albedo: {r: 0.8291993, g: 0.77480125, b: 0.8584906, a: 1}
+  albedo: {r: 0.8773585, g: 0.8213657, b: 0.43454075, a: 1}
   enableDepthGradient: 0
   depthGradient:
     serializedVersion: 2
@@ -119,10 +119,10 @@ MonoBehaviour:
   detailNoiseWindDirection: {x: 0.02, y: 0, z: 0}
   dayNightCycle: 0
   sunDirection: {x: 0, y: 1, z: 0}
-  sunColor: {r: 0.5921569, g: 0.8, b: 1, a: 1}
-  sunIntensity: 0.34
+  sunColor: {r: 0.69803923, g: 0.49803922, b: 0.4, a: 1}
+  sunIntensity: 1.62
   ambientLightMultiplier: 0
-  lightDiffusionPower: 32
+  lightDiffusionPower: 29.6
   lightDiffusionIntensity: 0.4
   receiveShadows: 1
   shadowIntensity: 0.284

@@ -9,9 +9,21 @@ EditorBuildSettings:
     path: Assets/Caved/Areas/S_MainMenu.unity
     guid: ee341cb7a587c26418381c23ae615f1e
   - enabled: 1
+    path: Assets/Caved/Areas/S_Asleep.unity
+    guid: b999eb964a9c23f478da7535a28d23ce
+  - enabled: 1
     path: Assets/Caved/Areas/S_Opening.unity
     guid: 3bc5b1b116f5fdd4ca807bec4a0c6bb1
   - enabled: 1
-    path: Assets/Caved/Areas/S_TempEnd.unity
-    guid: c97eff0b65462bb49ba37a289281ef20
+    path: Assets/Caved/Areas/S_Unknown.unity
+    guid: df705f071f2d70740bcadfd1e8b1072e
+  - enabled: 1
+    path: Assets/Caved/Areas/S_Climax.unity
+    guid: 30838dd6d9baf664bbf37dd66de7ccd6
+  - enabled: 1
+    path: Assets/Caved/Areas/S_Finale.unity
+    guid: 0b61fb5908375464d8f8fb93adc4770b
+  - enabled: 1
+    path: Assets/Caved/Areas/S_Credits.unity
+    guid: 2ceb068915afd3143bad6576b986eac9
   m_configObjects: {}
