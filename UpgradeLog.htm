@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+ <html xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><meta content="en-us" http-equiv="Content-Language" /><meta content="text/html; charset=utf-16" http-equiv="Content-Type" /><title _locID="ConversionReport0">
+          Migration Report
+        </title><style> 
+                    /* Body style, for the entire document */
+                    body
+                    {
+                        background: #F3F3F4;
+                        color: #1E1E1F;
+                        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    /* Header1 style, used for the main title */
+                    h1
+                    {
+                        padding: 10px 0px 10px 10px;
+                        font-size: 21pt;
+                        background-color: #E2E2E2;
+                        border-bottom: 1px #C1C1C2 solid; 
+                        color: #201F20;
+                        margin: 0;
+                        font-weight: normal;
+                    }
+
+                    /* Header2 style, used for "Overview" and other sections */
+                    h2
+                    {
+                        font-size: 18pt;
+                        font-weight: normal;
+                        padding: 15px 0 5px 0;
+                        margin: 0;
+                    }
+
+                    /* Header3 style, used for sub-sections, such as project name */
+                    h3
+                    {
+                        font-weight: normal;
+                        font-size: 15pt;
+                        margin: 0;
+                        padding: 15px 0 5px 0;
+                        background-color: transparent;
+                    }
+
+                    /* Color all hyperlinks one color */
+                    a
+                    {
+                        color: #1382CE;
+                    }
+
+                    /* Table styles */ 
+                    table
+                    {
+                        border-spacing: 0 0;
+                        border-collapse: collapse;
+                        font-size: 10pt;
+                    }
+
+                    table th
+                    {
+                        background: #E7E7E8;
+                        text-align: left;
+                        text-decoration: none;
+                        font-weight: normal;
+                        padding: 3px 6px 3px 6px;
+                    }
+
+                    table td
+                    {
+                        vertical-align: top;
+                        padding: 3px 6px 5px 5px;
+                        margin: 0px;
+                        border: 1px solid #E7E7E8;
+                        background: #F7F7F8;
+                    }
+
+                    /* Local link is a style for hyperlinks that link to file:/// content, there are lots so color them as 'normal' text until the user mouse overs */
+                    .localLink
+                    {
+                        color: #1E1E1F;
+                        background: #EEEEED;
+                        text-decoration: none;
+                    }
+
+                    .localLink:hover
+                    {
+                        color: #1382CE;
+                        background: #FFFF99;
+                        text-decoration: none;
+                    }
+
+                    /* Center text, used in the over views cells that contain message level counts */ 
+                    .textCentered
+                    {
+                        text-align: center;
+                    }
+
+                    /* The message cells in message tables should take up all avaliable space */
+                    .messageCell
+                    {
+                        width: 100%;
+                    }
+
+                    /* Padding around the content after the h1 */ 
+                    #content 
+                    {
+	                    padding: 0px 12px 12px 12px; 
+                    }
+
+                    /* The overview table expands to width, with a max width of 97% */ 
+                    #overview table
+                    {
+                        width: auto;
+                        max-width: 75%; 
+                    }
+
+                    /* The messages tables are always 97% width */
+                    #messages table
+                    {
+                        width: 97%;
+                    }
+
+                    /* All Icons */
+                    .IconSuccessEncoded, .IconInfoEncoded, .IconWarningEncoded, .IconErrorEncoded
+                    {
+                        min-width:18px;
+                        min-height:18px; 
+                        background-repeat:no-repeat;
+                        background-position:center;
+                    }
+
+                    /* Success icon encoded */
+                    .IconSuccessEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconSuccess#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABcElEQVR4Xq2TsUsCURzHv15g8ZJcBWlyiYYgCIWcb9DFRRwMW5TA2c0/QEFwFkxxUQdxVlBwCYWOi6IhWgQhBLHJUCkhLr/BW8S7gvrAg+N+v8/v+x68Z8MGy+XSCyABQAXgBgHGALoASkIIDWSLeLBetdHryMjd5IxQPWT4rn1c/P7+xxp72Cs9m5SZ0Bq2vPnbPFafK2zDvmNHypdC0BPkLlQhxJsCAhQoZwdZU5mwxh720qGo8MzTxTTKZDPCx2HoVzp6lz0Q9tKhyx0kGs8Ny+TkWRKk8lCROwEduhyg9l/6lunOPSfmH3NUH6uQ0KHLAe7JYvJjevm+DAMGJHToKtigE+vwvIidxLamb8IBY9e+C5LiXREkfho3TSd06HJA13/oh6T51MTsfQbHrsMynQ5dDihFjiK8JJAU9AKIWTp76dCVN7HWHrajmUEGvyF9nkbAE6gLIS7kTUyuf2gscLoJrElZo/Mvj+nPz/kLTmfnEwP3tB0AAAAASUVORK5CYII=);
+                    }
+
+                    /* Information icon encoded */
+                    .IconInfoEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconInformation#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHElEQVR4Xs2TsUoDQRRF7wwoziokjZUKadInhdhukR9YP8DMX1hYW+QvdsXa/QHBbcXC7W0CamWTQnclFutceIQJwwaWNLlwm5k5d94M76mmaeCrrmsLYOocY12FcxZFUeozCqKqqgYA8uevv1H6VuPxcwlfk5N92KHBxfFeCSAxxswlYAW/Xr989x/mv9gkhtyMDhcAxgzRsp7flj8B/HF1RsMXq+NZMkopaHe7lbKxQUEIGbKsYNoGn969060hZBkQex/W8oRQwsQaW2o3Ago2SVcJUzAgY3N0lTCZZm+zPS8HB51gMmS1DEYyOz9acKO1D8JWTlafKIMxdhvlfdyT94Vv5h7P8Ky7nQzACmhvKq3zk3PjW9asz9D/1oigecsioooAAAAASUVORK5CYII=);
+                    }
+
+                    /* Warning icon encoded */
+                    .IconWarningEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconWarning#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAx0lEQVR4XpWSMQ7CMAxFf4xAyBMLCxMrO8dhaBcuwdCJS3RJBw7SA/QGTCxdWJgiQYWKXJWKIXHIlyw5lqr34tQgEOdcBsCOx5yZK3hCCKdYXneQkh4pEfqzLfu+wVDSyyzFoJjfz9NB+pAF+eizx2Vruts0k15mPgvS6GYvpVtQhB61IB/dk6AF6fS4Ben0uIX5odtFe8Q/eW1KvFeH4e8khT6+gm5B+t3juyDt7n0jpe+CANTd+oTUjN/U3yVaABnSUjFz/gFq44JaVSCXeQAAAABJRU5ErkJggg==);
+                    }
+
+                    /* Error icon encoded */
+                    .IconErrorEncoded
+                    {
+                        /* Note: Do not delete the comment below. It is used to verify the correctness of the encoded image resource below before the product is released */
+                        /* [---XsltValidateInternal-Base64EncodedImage:IconError#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
+                        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABQElEQVR4XqWTvUoEQRCE6wYPZUA80AfwAQz23uCMjA7MDRQEIzPBVEyNTQUFIw00vcQTTMzuAh/AxEQQT8HF/3G/oGGnEUGuoNnd6qoZuqltyKEsyzVJq5I6rnUp6SjGeGhESikzzlc1eL7opfuVbrqbU1Zw9NCgtQMaZpY0eNnaaL2fHusvTK5vKu7sjSS1Y4y3QUA6K3e3Mau5UFDyMP7tYF9o8cAHZv68vipoIJg971PZIZ5HiwdvYGGvFVFHmGmZ2MxwmQYPXubPl9Up0tfoMQGetXd6mRbvhBw+boZ6WF7Mbv1+GsHRk0fQmPAH1GfmZirbCfDJ61tw3Px8/8pZsPAG4jlVhcPgZ7adwNWBB68lkRQWFiTgFlbnLY3DGGM7izIJIyT/jjIvEJw6fdJTc6krDzh6aMwMP9bvDH4ADSsa9uSWVJkAAAAASUVORK5CYII=);
+                    }
+                 </style><script type="text/javascript" language="javascript"> 
+          
+            // Startup 
+            // Hook up the the loaded event for the document/window, to linkify the document content
+            var startupFunction = function() { linkifyElement("messages"); };
+            
+            if(window.attachEvent)
+            {
+              window.attachEvent('onload', startupFunction);
+            }
+            else if (window.addEventListener) 
+            {
+              window.addEventListener('load', startupFunction, false);
+            }
+            else 
+            {
+              document.addEventListener('load', startupFunction, false);
+            } 
+            
+            // Toggles the visibility of table rows with the specified name 
+            function toggleTableRowsByName(name)
+            {
+               var allRows = document.getElementsByTagName('tr');
+               for (i=0; i < allRows.length; i++)
+               {
+                  var currentName = allRows[i].getAttribute('name');
+                  if(!!currentName && currentName.indexOf(name) == 0)
+                  {
+                      var isVisible = allRows[i].style.display == ''; 
+                      isVisible ? allRows[i].style.display = 'none' : allRows[i].style.display = '';
+                  }
+               }
+            }
+            
+            function scrollToFirstVisibleRow(name) 
+            {
+               var allRows = document.getElementsByTagName('tr');
+               for (i=0; i < allRows.length; i++)
+               {
+                  var currentName = allRows[i].getAttribute('name');
+                  var isVisible = allRows[i].style.display == ''; 
+                  if(!!currentName && currentName.indexOf(name) == 0 && isVisible)
+                  {
+                     allRows[i].scrollIntoView(true); 
+                     return true; 
+                  }
+               }
+               
+               return false;
+            }
+            
+            // Linkifies the specified text content, replaces candidate links with html links 
+            function linkify(text)
+            {
+                 if(!text || 0 === text.length)
+                 {
+                     return text; 
+                 }
+
+                 // Find http, https and ftp links and replace them with hyper links 
+                 var urlLink = /(http|https|ftp)\:\/\/[a-zA-Z0-9\-\.]+(:[a-zA-Z0-9]*)?\/?([a-zA-Z0-9\-\._\?\,\/\\\+&%\$#\=~;\{\}])*/gi;
+                 
+                 return text.replace(urlLink, '<a href="$&">$&</a>') ;
+            }
+            
+            // Linkifies the specified element by ID
+            function linkifyElement(id)
+            {
+                var element = document.getElementById(id);
+                if(!!element)
+                {
+                  element.innerHTML = linkify(element.innerHTML); 
+                }
+            }
+            
+            function ToggleMessageVisibility(projectName)
+            {
+              if(!projectName || 0 === projectName.length)
+              {
+                return; 
+              }
+              
+              toggleTableRowsByName("MessageRowClass" + projectName);
+              toggleTableRowsByName('MessageRowHeaderShow' + projectName);
+              toggleTableRowsByName('MessageRowHeaderHide' + projectName); 
+            }
+            
+            function ScrollToFirstVisibleMessage(projectName)
+            {
+              if(!projectName || 0 === projectName.length)
+              {
+                return; 
+              }
+              
+              // First try the 'Show messages' row
+              if(!scrollToFirstVisibleRow('MessageRowHeaderShow' + projectName))
+              {
+                // Failed to find a visible row for 'Show messages', try an actual message row 
+                scrollToFirstVisibleRow('MessageRowClass' + projectName); 
+              }
+            }
+           </script></head><body><h1 _locID="ConversionReport">
+          Migration Report - </h1><div id="content"><h2 _locID="OverviewTitle">Overview</h2><div id="overview"><table><tr><th></th><th _locID="ProjectTableHeader">Project</th><th _locID="PathTableHeader">Path</th><th _locID="ErrorsTableHeader">Errors</th><th _locID="WarningsTableHeader">Warnings</th><th _locID="MessagesTableHeader">Messages</th></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Assembly-CSharp">Assembly-CSharp</a></strong></td><td>Assembly-CSharp.csproj</td><td class="textCentered"><a href="#Assembly-CSharpError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Assembly-CSharp-Editor">Assembly-CSharp-Editor</a></strong></td><td>Assembly-CSharp-Editor.csproj</td><td class="textCentered"><a href="#Assembly-CSharp-EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras">CaseyDeCoder.UnityExtras</a></strong></td><td>CaseyDeCoder.UnityExtras.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtrasError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Animation">CaseyDeCoder.UnityExtras.Animation</a></strong></td><td>CaseyDeCoder.UnityExtras.Animation.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.AnimationError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Animation.Editor">CaseyDeCoder.UnityExtras.Animation.Editor</a></strong></td><td>CaseyDeCoder.UnityExtras.Animation.Editor.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.Animation.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Editor">CaseyDeCoder.UnityExtras.Editor</a></strong></td><td>CaseyDeCoder.UnityExtras.Editor.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Events">CaseyDeCoder.UnityExtras.Events</a></strong></td><td>CaseyDeCoder.UnityExtras.Events.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.EventsError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Events.Editor">CaseyDeCoder.UnityExtras.Events.Editor</a></strong></td><td>CaseyDeCoder.UnityExtras.Events.Editor.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.Events.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.InputSystem">CaseyDeCoder.UnityExtras.InputSystem</a></strong></td><td>CaseyDeCoder.UnityExtras.InputSystem.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.InputSystemError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.InputSystem.Editor">CaseyDeCoder.UnityExtras.InputSystem.Editor</a></strong></td><td>CaseyDeCoder.UnityExtras.InputSystem.Editor.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.InputSystem.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Physics">CaseyDeCoder.UnityExtras.Physics</a></strong></td><td>CaseyDeCoder.UnityExtras.Physics.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.PhysicsError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Physics.Editor">CaseyDeCoder.UnityExtras.Physics.Editor</a></strong></td><td>CaseyDeCoder.UnityExtras.Physics.Editor.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.Physics.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Physics2D">CaseyDeCoder.UnityExtras.Physics2D</a></strong></td><td>CaseyDeCoder.UnityExtras.Physics2D.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.Physics2DError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.PhysicsBase">CaseyDeCoder.UnityExtras.PhysicsBase</a></strong></td><td>CaseyDeCoder.UnityExtras.PhysicsBase.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.PhysicsBaseError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.Rigging">CaseyDeCoder.UnityExtras.Rigging</a></strong></td><td>CaseyDeCoder.UnityExtras.Rigging.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.RiggingError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.Editor">CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.Editor</a></strong></td><td>CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.Editor.csproj</td><td class="textCentered"><a href="#CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Febucci.Attributes.Editor">Febucci.Attributes.Editor</a></strong></td><td>Febucci.Attributes.Editor.csproj</td><td class="textCentered"><a href="#Febucci.Attributes.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Febucci.Attributes.Runtime">Febucci.Attributes.Runtime</a></strong></td><td>Febucci.Attributes.Runtime.csproj</td><td class="textCentered"><a href="#Febucci.Attributes.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Febucci.TextAnimator.Demo.Runtime">Febucci.TextAnimator.Demo.Runtime</a></strong></td><td>Febucci.TextAnimator.Demo.Runtime.csproj</td><td class="textCentered"><a href="#Febucci.TextAnimator.Demo.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Febucci.TextAnimator.Editor">Febucci.TextAnimator.Editor</a></strong></td><td>Febucci.TextAnimator.Editor.csproj</td><td class="textCentered"><a href="#Febucci.TextAnimator.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Febucci.TextAnimator.Runtime">Febucci.TextAnimator.Runtime</a></strong></td><td>Febucci.TextAnimator.Runtime.csproj</td><td class="textCentered"><a href="#Febucci.TextAnimator.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Febucci.TextAnimator.TMP.Runtime">Febucci.TextAnimator.TMP.Runtime</a></strong></td><td>Febucci.TextAnimator.TMP.Runtime.csproj</td><td class="textCentered"><a href="#Febucci.TextAnimator.TMP.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#FMODUnity">FMODUnity</a></strong></td><td>FMODUnity.csproj</td><td class="textCentered"><a href="#FMODUnityError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#FMODUnityEditor">FMODUnityEditor</a></strong></td><td>FMODUnityEditor.csproj</td><td class="textCentered"><a href="#FMODUnityEditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#FMODUnityResonance">FMODUnityResonance</a></strong></td><td>FMODUnityResonance.csproj</td><td class="textCentered"><a href="#FMODUnityResonanceError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#FMODUnityResonanceEditor">FMODUnityResonanceEditor</a></strong></td><td>FMODUnityResonanceEditor.csproj</td><td class="textCentered"><a href="#FMODUnityResonanceEditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Samples.GameplaySequence">Samples.GameplaySequence</a></strong></td><td>Samples.GameplaySequence.csproj</td><td class="textCentered"><a href="#Samples.GameplaySequenceError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Annotation">Timeline.Samples.Annotation</a></strong></td><td>Timeline.Samples.Annotation.csproj</td><td class="textCentered"><a href="#Timeline.Samples.AnnotationError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Annotation.Editor">Timeline.Samples.Annotation.Editor</a></strong></td><td>Timeline.Samples.Annotation.Editor.csproj</td><td class="textCentered"><a href="#Timeline.Samples.Annotation.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Text">Timeline.Samples.Text</a></strong></td><td>Timeline.Samples.Text.csproj</td><td class="textCentered"><a href="#Timeline.Samples.TextError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Text.Editor">Timeline.Samples.Text.Editor</a></strong></td><td>Timeline.Samples.Text.Editor.csproj</td><td class="textCentered"><a href="#Timeline.Samples.Text.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.TimeDilation">Timeline.Samples.TimeDilation</a></strong></td><td>Timeline.Samples.TimeDilation.csproj</td><td class="textCentered"><a href="#Timeline.Samples.TimeDilationError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Tween">Timeline.Samples.Tween</a></strong></td><td>Timeline.Samples.Tween.csproj</td><td class="textCentered"><a href="#Timeline.Samples.TweenError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Tween.Editor">Timeline.Samples.Tween.Editor</a></strong></td><td>Timeline.Samples.Tween.Editor.csproj</td><td class="textCentered"><a href="#Timeline.Samples.Tween.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Utilities">Timeline.Samples.Utilities</a></strong></td><td>Timeline.Samples.Utilities.csproj</td><td class="textCentered"><a href="#Timeline.Samples.UtilitiesError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Utilities.Editor">Timeline.Samples.Utilities.Editor</a></strong></td><td>Timeline.Samples.Utilities.Editor.csproj</td><td class="textCentered"><a href="#Timeline.Samples.Utilities.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Video">Timeline.Samples.Video</a></strong></td><td>Timeline.Samples.Video.csproj</td><td class="textCentered"><a href="#Timeline.Samples.VideoError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Timeline.Samples.Video.Editor">Timeline.Samples.Video.Editor</a></strong></td><td>Timeline.Samples.Video.Editor.csproj</td><td class="textCentered"><a href="#Timeline.Samples.Video.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.AI.Navigation.Samples">Unity.AI.Navigation.Samples</a></strong></td><td>Unity.AI.Navigation.Samples.csproj</td><td class="textCentered"><a href="#Unity.AI.Navigation.SamplesError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.AI.Navigation.Samples.Initialization.Editor">Unity.AI.Navigation.Samples.Initialization.Editor</a></strong></td><td>Unity.AI.Navigation.Samples.Initialization.Editor.csproj</td><td class="textCentered"><a href="#Unity.AI.Navigation.Samples.Initialization.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.InputSystem.InGameHints">Unity.InputSystem.InGameHints</a></strong></td><td>Unity.InputSystem.InGameHints.csproj</td><td class="textCentered"><a href="#Unity.InputSystem.InGameHintsError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.InputSystem.RebindingUI">Unity.InputSystem.RebindingUI</a></strong></td><td>Unity.InputSystem.RebindingUI.csproj</td><td class="textCentered"><a href="#Unity.InputSystem.RebindingUIError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.RenderPipelines.Universal.Runtime">Unity.RenderPipelines.Universal.Runtime</a></strong></td><td>Unity.RenderPipelines.Universal.Runtime.csproj</td><td class="textCentered"><a href="#Unity.RenderPipelines.Universal.RuntimeError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.Splines.Examples">Unity.Splines.Examples</a></strong></td><td>Unity.Splines.Examples.csproj</td><td class="textCentered"><a href="#Unity.Splines.ExamplesError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#Unity.Splines.Examples.Editor">Unity.Splines.Examples.Editor</a></strong></td><td>Unity.Splines.Examples.Editor.csproj</td><td class="textCentered"><a href="#Unity.Splines.Examples.EditorError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#UnityEngine.InputSystem.Samples.UIvsGameInput">UnityEngine.InputSystem.Samples.UIvsGameInput</a></strong></td><td>UnityEngine.InputSystem.Samples.UIvsGameInput.csproj</td><td class="textCentered"><a href="#UnityEngine.InputSystem.Samples.UIvsGameInputError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconErrorEncoded" /><td><strong><a href="#UnityFx.Outline.URP">UnityFx.Outline.URP</a></strong></td><td>UnityFx.Outline.URP.csproj</td><td class="textCentered"><a href="#UnityFx.Outline.URPError">1</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#">0</a></td></tr><tr><td class="IconSuccessEncoded" /><td><strong><a href="#Solution"><span _locID="OverviewSolutionSpan">Solution</span></a></strong></td><td>CavedNEW.sln</td><td class="textCentered"><a>0</a></td><td class="textCentered"><a>0</a></td><td class="textCentered"><a href="#" onclick="ScrollToFirstVisibleMessage('Solution'); return false;">1</a></td></tr></table></div><h2 _locID="SolutionAndProjectsTitle">Solution and projects</h2><div id="messages"><a name="Assembly-CSharp" /><h3>Assembly-CSharp</h3><table><tr id="Assembly-CSharpHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAssembly-CSharp"><td class="IconErrorEncoded"><a name="Assembly-CSharpError" /></td><td class="messageCell"><strong>Assembly-CSharp.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Assembly-CSharp-Editor" /><h3>Assembly-CSharp-Editor</h3><table><tr id="Assembly-CSharp-EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassAssembly-CSharp-Editor"><td class="IconErrorEncoded"><a name="Assembly-CSharp-EditorError" /></td><td class="messageCell"><strong>Assembly-CSharp-Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras" /><h3>CaseyDeCoder.UnityExtras</h3><table><tr id="CaseyDeCoder.UnityExtrasHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtrasError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Animation" /><h3>CaseyDeCoder.UnityExtras.Animation</h3><table><tr id="CaseyDeCoder.UnityExtras.AnimationHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Animation"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.AnimationError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Animation.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Animation.Editor" /><h3>CaseyDeCoder.UnityExtras.Animation.Editor</h3><table><tr id="CaseyDeCoder.UnityExtras.Animation.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Animation.Editor"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.Animation.EditorError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Animation.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Editor" /><h3>CaseyDeCoder.UnityExtras.Editor</h3><table><tr id="CaseyDeCoder.UnityExtras.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Editor"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.EditorError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Events" /><h3>CaseyDeCoder.UnityExtras.Events</h3><table><tr id="CaseyDeCoder.UnityExtras.EventsHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Events"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.EventsError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Events.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Events.Editor" /><h3>CaseyDeCoder.UnityExtras.Events.Editor</h3><table><tr id="CaseyDeCoder.UnityExtras.Events.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Events.Editor"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.Events.EditorError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Events.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.InputSystem" /><h3>CaseyDeCoder.UnityExtras.InputSystem</h3><table><tr id="CaseyDeCoder.UnityExtras.InputSystemHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.InputSystem"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.InputSystemError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.InputSystem.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.InputSystem.Editor" /><h3>CaseyDeCoder.UnityExtras.InputSystem.Editor</h3><table><tr id="CaseyDeCoder.UnityExtras.InputSystem.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.InputSystem.Editor"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.InputSystem.EditorError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.InputSystem.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Physics" /><h3>CaseyDeCoder.UnityExtras.Physics</h3><table><tr id="CaseyDeCoder.UnityExtras.PhysicsHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Physics"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.PhysicsError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Physics.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Physics.Editor" /><h3>CaseyDeCoder.UnityExtras.Physics.Editor</h3><table><tr id="CaseyDeCoder.UnityExtras.Physics.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Physics.Editor"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.Physics.EditorError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Physics.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Physics2D" /><h3>CaseyDeCoder.UnityExtras.Physics2D</h3><table><tr id="CaseyDeCoder.UnityExtras.Physics2DHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Physics2D"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.Physics2DError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Physics2D.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.PhysicsBase" /><h3>CaseyDeCoder.UnityExtras.PhysicsBase</h3><table><tr id="CaseyDeCoder.UnityExtras.PhysicsBaseHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.PhysicsBase"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.PhysicsBaseError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.PhysicsBase.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.Rigging" /><h3>CaseyDeCoder.UnityExtras.Rigging</h3><table><tr id="CaseyDeCoder.UnityExtras.RiggingHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.Rigging"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.RiggingError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.Rigging.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.Editor" /><h3>CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.Editor</h3><table><tr id="CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassCaseyDeCoder.UnityExtras.RuntimeSceneSerialization.Editor"><td class="IconErrorEncoded"><a name="CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.EditorError" /></td><td class="messageCell"><strong>CaseyDeCoder.UnityExtras.RuntimeSceneSerialization.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Febucci.Attributes.Editor" /><h3>Febucci.Attributes.Editor</h3><table><tr id="Febucci.Attributes.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFebucci.Attributes.Editor"><td class="IconErrorEncoded"><a name="Febucci.Attributes.EditorError" /></td><td class="messageCell"><strong>Febucci.Attributes.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Febucci.Attributes.Runtime" /><h3>Febucci.Attributes.Runtime</h3><table><tr id="Febucci.Attributes.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFebucci.Attributes.Runtime"><td class="IconErrorEncoded"><a name="Febucci.Attributes.RuntimeError" /></td><td class="messageCell"><strong>Febucci.Attributes.Runtime.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Febucci.TextAnimator.Demo.Runtime" /><h3>Febucci.TextAnimator.Demo.Runtime</h3><table><tr id="Febucci.TextAnimator.Demo.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFebucci.TextAnimator.Demo.Runtime"><td class="IconErrorEncoded"><a name="Febucci.TextAnimator.Demo.RuntimeError" /></td><td class="messageCell"><strong>Febucci.TextAnimator.Demo.Runtime.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Febucci.TextAnimator.Editor" /><h3>Febucci.TextAnimator.Editor</h3><table><tr id="Febucci.TextAnimator.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFebucci.TextAnimator.Editor"><td class="IconErrorEncoded"><a name="Febucci.TextAnimator.EditorError" /></td><td class="messageCell"><strong>Febucci.TextAnimator.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Febucci.TextAnimator.Runtime" /><h3>Febucci.TextAnimator.Runtime</h3><table><tr id="Febucci.TextAnimator.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFebucci.TextAnimator.Runtime"><td class="IconErrorEncoded"><a name="Febucci.TextAnimator.RuntimeError" /></td><td class="messageCell"><strong>Febucci.TextAnimator.Runtime.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Febucci.TextAnimator.TMP.Runtime" /><h3>Febucci.TextAnimator.TMP.Runtime</h3><table><tr id="Febucci.TextAnimator.TMP.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFebucci.TextAnimator.TMP.Runtime"><td class="IconErrorEncoded"><a name="Febucci.TextAnimator.TMP.RuntimeError" /></td><td class="messageCell"><strong>Febucci.TextAnimator.TMP.Runtime.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="FMODUnity" /><h3>FMODUnity</h3><table><tr id="FMODUnityHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFMODUnity"><td class="IconErrorEncoded"><a name="FMODUnityError" /></td><td class="messageCell"><strong>FMODUnity.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="FMODUnityEditor" /><h3>FMODUnityEditor</h3><table><tr id="FMODUnityEditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFMODUnityEditor"><td class="IconErrorEncoded"><a name="FMODUnityEditorError" /></td><td class="messageCell"><strong>FMODUnityEditor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="FMODUnityResonance" /><h3>FMODUnityResonance</h3><table><tr id="FMODUnityResonanceHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFMODUnityResonance"><td class="IconErrorEncoded"><a name="FMODUnityResonanceError" /></td><td class="messageCell"><strong>FMODUnityResonance.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="FMODUnityResonanceEditor" /><h3>FMODUnityResonanceEditor</h3><table><tr id="FMODUnityResonanceEditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassFMODUnityResonanceEditor"><td class="IconErrorEncoded"><a name="FMODUnityResonanceEditorError" /></td><td class="messageCell"><strong>FMODUnityResonanceEditor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Samples.GameplaySequence" /><h3>Samples.GameplaySequence</h3><table><tr id="Samples.GameplaySequenceHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassSamples.GameplaySequence"><td class="IconErrorEncoded"><a name="Samples.GameplaySequenceError" /></td><td class="messageCell"><strong>Samples.GameplaySequence.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Annotation" /><h3>Timeline.Samples.Annotation</h3><table><tr id="Timeline.Samples.AnnotationHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Annotation"><td class="IconErrorEncoded"><a name="Timeline.Samples.AnnotationError" /></td><td class="messageCell"><strong>Timeline.Samples.Annotation.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Annotation.Editor" /><h3>Timeline.Samples.Annotation.Editor</h3><table><tr id="Timeline.Samples.Annotation.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Annotation.Editor"><td class="IconErrorEncoded"><a name="Timeline.Samples.Annotation.EditorError" /></td><td class="messageCell"><strong>Timeline.Samples.Annotation.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Text" /><h3>Timeline.Samples.Text</h3><table><tr id="Timeline.Samples.TextHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Text"><td class="IconErrorEncoded"><a name="Timeline.Samples.TextError" /></td><td class="messageCell"><strong>Timeline.Samples.Text.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Text.Editor" /><h3>Timeline.Samples.Text.Editor</h3><table><tr id="Timeline.Samples.Text.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Text.Editor"><td class="IconErrorEncoded"><a name="Timeline.Samples.Text.EditorError" /></td><td class="messageCell"><strong>Timeline.Samples.Text.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.TimeDilation" /><h3>Timeline.Samples.TimeDilation</h3><table><tr id="Timeline.Samples.TimeDilationHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.TimeDilation"><td class="IconErrorEncoded"><a name="Timeline.Samples.TimeDilationError" /></td><td class="messageCell"><strong>Timeline.Samples.TimeDilation.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Tween" /><h3>Timeline.Samples.Tween</h3><table><tr id="Timeline.Samples.TweenHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Tween"><td class="IconErrorEncoded"><a name="Timeline.Samples.TweenError" /></td><td class="messageCell"><strong>Timeline.Samples.Tween.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Tween.Editor" /><h3>Timeline.Samples.Tween.Editor</h3><table><tr id="Timeline.Samples.Tween.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Tween.Editor"><td class="IconErrorEncoded"><a name="Timeline.Samples.Tween.EditorError" /></td><td class="messageCell"><strong>Timeline.Samples.Tween.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Utilities" /><h3>Timeline.Samples.Utilities</h3><table><tr id="Timeline.Samples.UtilitiesHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Utilities"><td class="IconErrorEncoded"><a name="Timeline.Samples.UtilitiesError" /></td><td class="messageCell"><strong>Timeline.Samples.Utilities.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Utilities.Editor" /><h3>Timeline.Samples.Utilities.Editor</h3><table><tr id="Timeline.Samples.Utilities.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Utilities.Editor"><td class="IconErrorEncoded"><a name="Timeline.Samples.Utilities.EditorError" /></td><td class="messageCell"><strong>Timeline.Samples.Utilities.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Video" /><h3>Timeline.Samples.Video</h3><table><tr id="Timeline.Samples.VideoHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Video"><td class="IconErrorEncoded"><a name="Timeline.Samples.VideoError" /></td><td class="messageCell"><strong>Timeline.Samples.Video.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Timeline.Samples.Video.Editor" /><h3>Timeline.Samples.Video.Editor</h3><table><tr id="Timeline.Samples.Video.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassTimeline.Samples.Video.Editor"><td class="IconErrorEncoded"><a name="Timeline.Samples.Video.EditorError" /></td><td class="messageCell"><strong>Timeline.Samples.Video.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.AI.Navigation.Samples" /><h3>Unity.AI.Navigation.Samples</h3><table><tr id="Unity.AI.Navigation.SamplesHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.AI.Navigation.Samples"><td class="IconErrorEncoded"><a name="Unity.AI.Navigation.SamplesError" /></td><td class="messageCell"><strong>Unity.AI.Navigation.Samples.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.AI.Navigation.Samples.Initialization.Editor" /><h3>Unity.AI.Navigation.Samples.Initialization.Editor</h3><table><tr id="Unity.AI.Navigation.Samples.Initialization.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.AI.Navigation.Samples.Initialization.Editor"><td class="IconErrorEncoded"><a name="Unity.AI.Navigation.Samples.Initialization.EditorError" /></td><td class="messageCell"><strong>Unity.AI.Navigation.Samples.Initialization.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.InputSystem.InGameHints" /><h3>Unity.InputSystem.InGameHints</h3><table><tr id="Unity.InputSystem.InGameHintsHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.InputSystem.InGameHints"><td class="IconErrorEncoded"><a name="Unity.InputSystem.InGameHintsError" /></td><td class="messageCell"><strong>Unity.InputSystem.InGameHints.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.InputSystem.RebindingUI" /><h3>Unity.InputSystem.RebindingUI</h3><table><tr id="Unity.InputSystem.RebindingUIHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.InputSystem.RebindingUI"><td class="IconErrorEncoded"><a name="Unity.InputSystem.RebindingUIError" /></td><td class="messageCell"><strong>Unity.InputSystem.RebindingUI.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.RenderPipelines.Universal.Runtime" /><h3>Unity.RenderPipelines.Universal.Runtime</h3><table><tr id="Unity.RenderPipelines.Universal.RuntimeHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.RenderPipelines.Universal.Runtime"><td class="IconErrorEncoded"><a name="Unity.RenderPipelines.Universal.RuntimeError" /></td><td class="messageCell"><strong>Unity.RenderPipelines.Universal.Runtime.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.Splines.Examples" /><h3>Unity.Splines.Examples</h3><table><tr id="Unity.Splines.ExamplesHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.Splines.Examples"><td class="IconErrorEncoded"><a name="Unity.Splines.ExamplesError" /></td><td class="messageCell"><strong>Unity.Splines.Examples.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Unity.Splines.Examples.Editor" /><h3>Unity.Splines.Examples.Editor</h3><table><tr id="Unity.Splines.Examples.EditorHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnity.Splines.Examples.Editor"><td class="IconErrorEncoded"><a name="Unity.Splines.Examples.EditorError" /></td><td class="messageCell"><strong>Unity.Splines.Examples.Editor.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="UnityEngine.InputSystem.Samples.UIvsGameInput" /><h3>UnityEngine.InputSystem.Samples.UIvsGameInput</h3><table><tr id="UnityEngine.InputSystem.Samples.UIvsGameInputHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnityEngine.InputSystem.Samples.UIvsGameInput"><td class="IconErrorEncoded"><a name="UnityEngine.InputSystem.Samples.UIvsGameInputError" /></td><td class="messageCell"><strong>UnityEngine.InputSystem.Samples.UIvsGameInput.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="UnityFx.Outline.URP" /><h3>UnityFx.Outline.URP</h3><table><tr id="UnityFx.Outline.URPHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="ErrorRowClassUnityFx.Outline.URP"><td class="IconErrorEncoded"><a name="UnityFx.Outline.URPError" /></td><td class="messageCell"><strong>UnityFx.Outline.URP.csproj:
+        </strong><span>The application which this project type is based on was not found. Please try this link for further information: http://go.microsoft.com/fwlink/?LinkID=299083&amp;projecttype=E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1</span></td></tr></table><a name="Solution" /><h3 _locID="ProjectDisplayNameHeader">Solution</h3><table><tr id="SolutionHeaderRow"><th></th><th class="messageCell" _locID="MessageTableHeader">Message</th></tr><tr name="MessageRowHeaderShowSolution"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="ShowAdditionalMessages" href="#" name="SolutionMessage" onclick="ToggleMessageVisibility('Solution'); return false;">
+          Show 1 additional messages
+        </a></td></tr><tr name="MessageRowClassSolution" style="display: none"><td class="IconInfoEncoded"><a name="SolutionMessage" /></td><td class="messageCell"><strong>CavedNEW.sln:
+        </strong><span>The solution file does not require migration.</span></td></tr><tr style="display: none" name="MessageRowHeaderHideSolution"><td class="IconInfoEncoded" /><td class="messageCell"><a _locID="HideAdditionalMessages" href="#" name="SolutionMessage" onclick="ToggleMessageVisibility('Solution'); return false;">
+          Hide 1 additional messages
+        </a></td></tr></table></div></div></body></html>
