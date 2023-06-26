@@ -22,10 +22,10 @@ public class FMODEmotionSystem : MonoBehaviour
 
     void Start()
     {
-        instance = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
+        //instance = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
         //instance.setParameterByName("FMODEmotion", FMODEmotion);
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("FMODEmotion", FMODEmotion);
-        instance.start();
+       // FMODUnity.RuntimeManager.StudioSystem.setParameterByName("FMODEmotion", FMODEmotion);
+        //i//nstance.start();
     }
 
     void Update()
