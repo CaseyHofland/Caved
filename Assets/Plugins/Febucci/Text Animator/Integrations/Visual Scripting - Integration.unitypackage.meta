@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Plugins/Febucci/Text Animator/Integrations/Visual Scripting - Integration.unitypackage.meta
 guid: 117dcc671050f5247bd8743b91ecaab7
 DefaultImporter:
+========
+guid: 70ac66e122376c148beb6b21a79779d1
+PrefabImporter:
+>>>>>>>> 91bc110526d1ae7d068ffc8ff43250dc11d41414:Assets/Caved/UI/MenuSettings/EscapeManager.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

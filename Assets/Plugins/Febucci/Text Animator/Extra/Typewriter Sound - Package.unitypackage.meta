@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Plugins/Febucci/Text Animator/Extra/Typewriter Sound - Package.unitypackage.meta
 guid: 560a88da2bbc70140bed167f0ba7fe37
 DefaultImporter:
+========
+guid: b1fd2ec51eb10dd4fbe2ae3dc03db10a
+PrefabImporter:
+>>>>>>>> 91bc110526d1ae7d068ffc8ff43250dc11d41414:Assets/Caved/UI/MenuSettings/GameMenu.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

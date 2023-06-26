@@ -30,7 +30,6 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private GameObject _goMemoriesMenu;
     [SerializeField] private List<PopUpButton> _goPopUps;
 
-    
     [Header("Memory conditions")]
     [SerializeField] private int _traumaInt;
     public static int _memoryState = 0;
