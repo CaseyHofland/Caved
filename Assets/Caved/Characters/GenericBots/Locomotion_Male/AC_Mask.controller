@@ -789,7 +789,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AC_CharacterAnimator
+  m_Name: AC_Mask
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Move
@@ -1268,7 +1268,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 6365294686166091478, guid: 8a974cfdd1493ae40a44ed565874cfa2, type: 3}
+    m_Motion: {fileID: 6125047229198518895, guid: 930885e8a4ec3f640a2695b11bed8437, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -1276,7 +1276,7 @@ BlendTree:
     m_DirectBlendParameter: Move
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -870621653158996235, guid: 092c05e976d6c3d43a5f396f2acbcbe8, type: 3}
+    m_Motion: {fileID: 9030564397738392472, guid: 1189d2b8c7347a14db6fa6bcd701bdd4, type: 3}
     m_Threshold: 0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -1284,7 +1284,7 @@ BlendTree:
     m_DirectBlendParameter: Move
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -870621653158996235, guid: 521a1e502f07930478c9a0be9f750432, type: 3}
+    m_Motion: {fileID: 9030564397738392472, guid: 54bf799c2595e0148b010a48dabe8f6e, type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
