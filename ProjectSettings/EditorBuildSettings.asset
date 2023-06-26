@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Caved/Areas/S_Climax.unity
     guid: 30838dd6d9baf664bbf37dd66de7ccd6
   - enabled: 1
-    path: Assets/Caved/Areas/S_TempEnd.unity
-    guid: c97eff0b65462bb49ba37a289281ef20
+    path: Assets/Caved/Areas/S_Finale.unity
+    guid: 0b61fb5908375464d8f8fb93adc4770b
+  - enabled: 1
+    path: Assets/Caved/Areas/S_Credits.unity
+    guid: 2ceb068915afd3143bad6576b986eac9
   m_configObjects: {}

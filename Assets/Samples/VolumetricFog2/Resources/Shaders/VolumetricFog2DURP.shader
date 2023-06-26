@@ -55,14 +55,21 @@ Shader "VolumetricFog2/VolumetricFog2DURP"
 				#pragma target 3.0
 				#pragma vertex vert
 				#pragma fragment frag
-				#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
+
+				#if UNITY_VERSION < 202100
+					#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+					#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+				#else
+					#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
+				#endif
+
                 #pragma multi_compile _ _ADDITIONAL_LIGHTS
 				#pragma multi_compile _ _ADDITIONAL_LIGHT_SHADOWS
                 #pragma multi_compile _ VF2_DEPTH_PREPASS
 				#pragma multi_compile_local_fragment _ VF2_POINT_LIGHTS VF2_NATIVE_LIGHTS
 				#pragma multi_compile_local_fragment _ VF2_RECEIVE_SHADOWS
 				#pragma multi_compile_local_fragment VF2_SHAPE_BOX VF2_SHAPE_SPHERE
-				#pragma multi_compile_local_fragment _ VF2_DETAIL_NOISE
+				#pragma multi_compile_local_fragment _ VF2_DETAIL_NOISE VF2_CONSTANT_DENSITY
 				#pragma shader_feature_local_fragment VF2_DISTANCE
 				#pragma shader_feature_local_fragment VF2_VOIDS
 				#pragma shader_feature_local_fragment VF2_FOW
@@ -70,6 +77,10 @@ Shader "VolumetricFog2/VolumetricFog2DURP"
 				#pragma shader_feature_local_fragment VF2_DEPTH_GRADIENT
 				#pragma shader_feature_local_fragment VF2_HEIGHT_GRADIENT
 				#pragma shader_feature_local_fragment VF2_LIGHT_COOKIE
+
+				#if UNITY_VERSION >= 202200
+					#pragma multi_compile _ _FORWARD_PLUS
+				#endif
 
 				#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
 				#undef SAMPLE_TEXTURE2D
@@ -155,6 +166,11 @@ Shader "VolumetricFog2/VolumetricFog2DURP"
 
 					CLAMP_RAY_DEPTH(rayStartNonRotated, i.scrPos, t1); // clamp to geometry
 
+					#if defined(FOG_MAX_DISTANCE_XZ)
+						float slope = 1.0001 - abs(rayDir.y);
+						FOG_MAX_LENGTH /= slope;
+					#endif
+
 					t1 = min(t1, FOG_MAX_LENGTH); // max distance
 
                   	if (t0>=t1) return 0;
@@ -162,11 +178,23 @@ Shader "VolumetricFog2/VolumetricFog2DURP"
 					SetJitter(i.scrPos);
 
 					half4 fogColor = GetFogColor(rayStart, rayDir, t0, t1);
+
+					// dither
+					fogColor.rgb = max(0, fogColor.rgb - jitter * DITHERING);
+
+					// alpha
+					fogColor *= _LightColor.a;
+
 					#if VF2_POINT_LIGHTS
 						AddPointLights(rayStartNonRotated, rayDirNonRotated, fogColor, t0, t1 - t0);
 					#endif
 
-					half maxDistanceFallOff = (FOG_MAX_LENGTH - t0) / FOG_MAX_LENGTH_FALLOFF;
+					#if defined(FOG_MAX_DISTANCE_XZ)
+						float fallOffFactor = FOG_MAX_LENGTH * FOG_MAX_LENGTH_FALLOFF + 1.0;
+						half maxDistanceFallOff = (FOG_MAX_LENGTH - t0) / fallOffFactor;
+					#else
+						half maxDistanceFallOff = (FOG_MAX_LENGTH - t0) / FOG_MAX_LENGTH_FALLOFF_PRECOMPUTED;
+					#endif
 					fogColor *= saturate(maxDistanceFallOff * maxDistanceFallOff * maxDistanceFallOff * maxDistanceFallOff);
 
 					return fogColor;

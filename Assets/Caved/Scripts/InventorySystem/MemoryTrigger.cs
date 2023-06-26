@@ -20,6 +20,7 @@ public class MemoryTrigger : MonoBehaviour
     [SerializeField] private GameObject _worldSpacePickup;
     public CinemachineCamera _memoryCamera;
     public ParticleSystem _memorylights;
+    public bool _lookClicked;
     
     EmInput _playerInputMemory;
     
@@ -35,6 +36,7 @@ public class MemoryTrigger : MonoBehaviour
         _inventoryManager = FindObjectOfType<InventorySystem>();
         _worldSpacePickup.SetActive(false);
         _choices.SetActive(false);
+        _seenMemoriesCheck = FindObjectOfType<countingMemories>();
 
         _memoryCamera.enabled = false;
         
@@ -80,6 +82,8 @@ public class MemoryTrigger : MonoBehaviour
         {
             _inventoryManager.AddItemToSavedMemories(_memory.Id);
             _seenMemoriesCheck._count++;
+            _inventoryManager.PositiveMemoriesScore += _memory.PositiveScore;
+            _inventoryManager.NegativeMemoriesScore += _memory.NegativeScore;
             _pickedUp = true;
             if (_event != null)
             {
@@ -99,19 +103,35 @@ public class MemoryTrigger : MonoBehaviour
         }
     }
 
-    private void OnConfirm()
+    /*private void OnConfirm()
     {
-        if(_triggerd)
+        if(_triggerd && !_pickedUp)
+            StartCoroutine(RememberChoice());
+    }*/
+
+    public void LookClicked()
+    {
+        Debug.Log(" Click");
+        if (_triggerd && !_pickedUp)
             StartCoroutine(RememberChoice());
     }
 
     private IEnumerator RememberChoice()
     {
-        _memoryCamera.enabled = true;
+        if (_triggerd && !_pickedUp)
+        {
+            _lookClicked = true;
+            _memoryCamera.enabled = true;
 
-        yield return new WaitForSeconds(_thinkingTime);
+            yield return new WaitForSeconds(_thinkingTime);
 
-        _choices.SetActive(true);
+            _choices.SetActive(true);
+            _lookClicked = false;
+        }
+        else
+        {
+            yield break;
+        }
     }
 
 

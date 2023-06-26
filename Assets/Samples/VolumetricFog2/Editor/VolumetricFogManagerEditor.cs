@@ -120,6 +120,9 @@ namespace VolumetricFogAndMist2 {
                     EditorGUILayout.HelpBox("Transparent option requires 'DepthRendererPrePass Feature' added to the Universal Rendering Pipeline asset. Check the documentation for instructions.", MessageType.Warning);
                     if (pipe != null && GUILayout.Button("Show Pipeline Asset")) Selection.activeObject = pipe;
                 }
+                if ((includeSemiTransparent.intValue & includeSemiTransparent.intValue) != 0) {
+                    EditorGUILayout.HelpBox("The options 'Transparent Objects' and 'Alpha Clipping' should not overlap and include same objects. Make sure the specified layers are different in each option.", MessageType.Warning);
+                }
             } else if (DepthRenderPrePassFeature.installed) {
                 EditorGUILayout.HelpBox("No transparent objects included. Remove 'DepthRendererPrePass Feature' from the Universal Rendering Pipeline asset to save performance.", MessageType.Warning);
                 if (pipe != null && GUILayout.Button("Show Pipeline Asset")) Selection.activeObject = pipe;

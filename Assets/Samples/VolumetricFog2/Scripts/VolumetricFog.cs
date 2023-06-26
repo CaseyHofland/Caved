@@ -16,6 +16,11 @@ namespace VolumetricFogAndMist2 {
         Sphere
     }
 
+    public enum VolumetricFogFollowMode {
+        FullXYZ = 0,
+        RestrictToXZPlane = 1
+    }
+
     [ExecuteInEditMode]
     [DefaultExecutionOrder(100)]
     [HelpURL("https://kronnect.com/guides/volumetric-fog-urp-introduction/")]
@@ -29,7 +34,11 @@ namespace VolumetricFogAndMist2 {
         public bool enablePointLights;
         public bool enableSpotLights;
         public bool enableVoids;
-
+        [Tooltip("Makes this fog volume follow another object automatically")]
+        public bool enableFollow;
+        public Transform followTarget;
+        public VolumetricFogFollowMode followMode = VolumetricFogFollowMode.RestrictToXZPlane;
+        public Vector3 followOffset;
         [Tooltip("Fades in/out fog effect when reference controller enters the fog volume.")]
         public bool enableFade;
         [Tooltip("Fog volume blending starts when reference controller is within this fade distance to any volume border.")]
@@ -164,11 +173,30 @@ namespace VolumetricFogAndMist2 {
             transform.rotation = Quaternion.identity;
 #endif
 
+            ComputeActiveProfile();
+
+            if (activeProfile.customHeight) {
+                Vector3 scale = transform.localScale;
+                if (activeProfile.height == 0) {
+                    activeProfile.height = scale.y;
+                }
+                if (scale.y != activeProfile.height) {
+                    scale.y = activeProfile.height;
+                    transform.localScale = scale;
+                }
+            }
+
+            if (enableFollow && followTarget != null) {
+                Vector3 position = followTarget.position;
+                if (followMode == VolumetricFogFollowMode.RestrictToXZPlane) {
+                    position.y = transform.position.y;
+                }
+                transform.position = position + followOffset;
+            }
+
             Vector3 center = transform.position;
             Vector3 extents = transform.lossyScale * 0.5f;
             Bounds bounds = new Bounds(center, extents * 2f);
-
-            ComputeActiveProfile();
 
             bool requireApplyProfileSettings = enableFade || enableSubVolumes;
 #if UNITY_EDITOR
@@ -257,7 +285,7 @@ namespace VolumetricFogAndMist2 {
 
             fogMat.SetVector(ShaderParams.LightColor, lightColor);
 
-            meshRenderer.enabled = lightColor.a > 0;
+            meshRenderer.enabled = activeProfile.density > 0 && lightColor.a > 0;
 
             float deltaTime = Time.deltaTime;
             windAcum += activeProfile.windDirection * deltaTime;
@@ -311,6 +339,7 @@ namespace VolumetricFogAndMist2 {
                     Matrix4x4 m = Matrix4x4.TRS(transform.position, Quaternion.identity, new Vector3(50000, 50000, 50000));
                     distantFogMat.SetVector(ShaderParams.SunDir, sunDir);
                     distantFogMat.SetVector(ShaderParams.LightColor, lightColor);
+                    distantFogMat.renderQueue = activeProfile.distantFogRenderQueue;
                     Graphics.DrawMesh(mf.sharedMesh, m, distantFogMat, gameObject.layer);
                 }
             }
@@ -323,40 +352,43 @@ namespace VolumetricFogAndMist2 {
             Texture noiseTex = activeProfile.noiseTexture;
             if (noiseTex == null) return;
 
-            if (rtTurbulence == null || rtTurbulence.width != noiseTex.width) {
-                RenderTextureDescriptor desc = new RenderTextureDescriptor(noiseTex.width, noiseTex.height, RenderTextureFormat.ARGB32, 0);
-                rtTurbulence = new RenderTexture(desc);
-                rtTurbulence.wrapMode = TextureWrapMode.Repeat;
-            }
-            turbAcum += Time.deltaTime * activeProfile.turbulence;
-            turbAcum %= 10000;
-            turbulenceMat.SetFloat(ShaderParams.TurbulenceAmount, turbAcum);
-            turbulenceMat.SetFloat(ShaderParams.NoiseStrength, activeProfile.noiseStrength);
-            turbulenceMat.SetFloat(ShaderParams.NoiseFinalMultiplier, activeProfile.noiseFinalMultiplier);
-            Graphics.Blit(noiseTex, rtTurbulence, turbulenceMat);
-
-            if (rtNoise == null || rtNoise.width != noiseTex.width) {
-                RenderTextureDescriptor desc = new RenderTextureDescriptor(noiseTex.width, noiseTex.height, RenderTextureFormat.ARGB32, 0);
-                rtNoise = new RenderTexture(desc);
-                rtNoise.wrapMode = TextureWrapMode.Repeat;
-            }
-            noiseMat.SetColor(ShaderParams.SpecularColor, activeProfile.specularColor);
-            noiseMat.SetFloat(ShaderParams.SpecularIntensity, activeProfile.specularIntensity);
-
-            float spec = 1.0001f - activeProfile.specularThreshold;
-            float nlighty = sunDir.y > 0 ? (1.0f - sunDir.y) : (1.0f + sunDir.y);
-            float nyspec = nlighty / spec;
-
-            noiseMat.SetFloat(ShaderParams.SpecularThreshold, nyspec);
-            noiseMat.SetVector(ShaderParams.SunDir, sunDir);
-
             float fogIntensity = 1.15f;
             fogIntensity *= (dayLight + moonLight);
             Color textureBaseColor = Color.Lerp(ambientMultiplied, activeProfile.albedo * fogIntensity, fogIntensity);
-            noiseMat.SetColor(ShaderParams.Color, textureBaseColor);
-            Graphics.Blit(rtTurbulence, rtNoise, noiseMat);
 
-            fogMat.SetTexture(ShaderParams.MainTex, rtNoise);
+            if (activeProfile.noiseFinalMultiplier != 0 && !activeProfile.constantDensity) {
+                if (rtTurbulence == null || rtTurbulence.width != noiseTex.width) {
+                    RenderTextureDescriptor desc = new RenderTextureDescriptor(noiseTex.width, noiseTex.height, RenderTextureFormat.ARGB32, 0);
+                    rtTurbulence = new RenderTexture(desc);
+                    rtTurbulence.wrapMode = TextureWrapMode.Repeat;
+                }
+                turbAcum += Time.deltaTime * activeProfile.turbulence;
+                turbAcum %= 10000;
+                turbulenceMat.SetFloat(ShaderParams.TurbulenceAmount, turbAcum);
+                turbulenceMat.SetFloat(ShaderParams.NoiseStrength, activeProfile.noiseStrength);
+                turbulenceMat.SetFloat(ShaderParams.NoiseFinalMultiplier, activeProfile.noiseFinalMultiplier);
+                Graphics.Blit(noiseTex, rtTurbulence, turbulenceMat);
+
+                if (rtNoise == null || rtNoise.width != noiseTex.width) {
+                    RenderTextureDescriptor desc = new RenderTextureDescriptor(noiseTex.width, noiseTex.height, RenderTextureFormat.ARGB32, 0);
+                    rtNoise = new RenderTexture(desc);
+                    rtNoise.wrapMode = TextureWrapMode.Repeat;
+                }
+                noiseMat.SetColor(ShaderParams.SpecularColor, activeProfile.specularColor);
+                noiseMat.SetFloat(ShaderParams.SpecularIntensity, activeProfile.specularIntensity);
+
+                float spec = 1.0001f - activeProfile.specularThreshold;
+                float nlighty = sunDir.y > 0 ? (1.0f - sunDir.y) : (1.0f + sunDir.y);
+                float nyspec = nlighty / spec;
+
+                noiseMat.SetFloat(ShaderParams.SpecularThreshold, nyspec);
+                noiseMat.SetVector(ShaderParams.SunDir, sunDir);
+
+                noiseMat.SetColor(ShaderParams.Color, textureBaseColor);
+                Graphics.Blit(rtTurbulence, rtNoise, noiseMat);
+
+                fogMat.SetTexture(ShaderParams.MainTex, rtNoise);
+            }
 
             Color detailColor = new Color(textureBaseColor.r * 0.5f, textureBaseColor.g * 0.5f, textureBaseColor.b * 0.5f, 0);
             fogMat.SetColor(ShaderParams.DetailColor, detailColor);
@@ -365,8 +397,8 @@ namespace VolumetricFogAndMist2 {
 
         public void UpdateMaterialProperties() {
 #if UNITY_EDITOR
-    if (!Application.isPlaying && activeProfile != null && activeProfile.distantFog) {
-        UpdateDistantFogPropertiesNow();
+    if (!Application.isPlaying && activeProfile != null) {
+                UpdateMaterialPropertiesNow();
     }
 #endif
             requireUpdateMaterial = true;
@@ -448,7 +480,6 @@ namespace VolumetricFogAndMist2 {
 
         void ComputeActiveProfile() {
 
-            if (maskEditorEnabled) alphaMultiplier = 0.85f;
             if (Application.isPlaying) {
                 if (enableFade || enableSubVolumes) {
                     if (fadeController == null) {
@@ -559,15 +590,17 @@ namespace VolumetricFogAndMist2 {
 
             bool mustSetDistanceData = activeProfile.distance > 0 || activeProfile.enableDepthGradient;
             if (mustSetDistanceData) {
-                fogMat.SetVector(ShaderParams.DistanceData, new Vector4(0, 10f * (1f - activeProfile.distanceFallOff), 1f / (0.0001f + activeProfile.depthGradientMaxDistance * activeProfile.depthGradientMaxDistance), 1f / (0.0001f + activeProfile.distance * activeProfile.distance)));
+                float fallOffFactor = 10f * (1f - activeProfile.distanceFallOff);
+                fogMat.SetVector(ShaderParams.DistanceData, new Vector4(0, -1f + fallOffFactor, 1f / (0.0001f + activeProfile.depthGradientMaxDistance * activeProfile.depthGradientMaxDistance), fallOffFactor / (0.0001f + activeProfile.distance * activeProfile.distance)));
+
+                if (activeProfile.distance > 0) {
+                    shaderKeywords.Add(ShaderParams.SKW_DISTANCE);
+                }
             }
 
             float maxDistanceFallOff = activeProfile.maxDistance - activeProfile.maxDistance * (1f - activeProfile.maxDistanceFallOff) + 1f;
-            fogMat.SetVector(ShaderParams.MaxDistanceData, new Vector4(activeProfile.maxDistance, maxDistanceFallOff, 0, 0));
+            fogMat.SetVector(ShaderParams.MaxDistanceData, new Vector4(activeProfile.maxDistance, maxDistanceFallOff, activeProfile.maxDistanceFallOff, 0));
 
-            if (activeProfile.distance > 0) {
-                shaderKeywords.Add(ShaderParams.SKW_DISTANCE);
-            }
             if (activeProfile.enableDepthGradient) {
                 shaderKeywords.Add(ShaderParams.SKW_DEPTH_GRADIENT);
                 fogMat.SetTexture(ShaderParams.DepthGradientTexture, activeProfile.depthGradientTex);
@@ -602,7 +635,9 @@ namespace VolumetricFogAndMist2 {
                 UpdateFogOfWarMaterialBoundsProperties();
                 shaderKeywords.Add(ShaderParams.SKW_FOW);
             }
-            if (activeProfile.useDetailNoise) {
+            if (activeProfile.density == 0 || activeProfile.constantDensity) {
+                shaderKeywords.Add(ShaderParams.SKW_CONSTANT_DENSITY);
+            } else if (activeProfile.useDetailNoise) {
                 shaderKeywords.Add(ShaderParams.SKW_DETAIL_NOISE);
             }
             if (activeProfile.terrainFit) {

@@ -44,6 +44,30 @@ Version history
 ---------------
 
 Current version
+- "Alpha" property (transparency) added to Volumetric Fog inspector (previously was integrated with the albedo color)
+- Fog transparency no longer changes when fog of war editor mode is enabled
+- Constant density fog option is now affected by albedo and daytime light
+- Changes to certain properties in the inspector are now reflected in the scene more quickly
+
+V12.2
+- Added "Constant Density" option (does not use noise textures creating a smooth fog effect with slightly better performance)
+- Added "Max Distance on X/Z" option in Shader Options
+- Reduced banding on areas with thick fog
+- Presets adjustments
+- "Distance option" Shader optimizations
+
+V12.1
+- Added new demo scene "Ancient Lands"
+- Added fog presets (folder Demo/Presets). They're showcased in the Ancient Lands demo scene.
+- Added "Custom Volume Height" to profile. This option will override the fog volume height, making it easier to store full appearance settings into a profile.
+- Added "Enable Follow" option. Makes the fog volume follow a target automatically, with options.
+- Added distant fog render queue option
+
+V12.0
+- Added Unity 2022 (URP 14) Forward+ support
+- Added new options to Volumetric Fog Manager (Shader Options) related to Forward+
+
+V11.1
 - Added "Cull Mode" option for depth prepass render feature (set in Volumetric Fog Manager)
 - [Fix] Fixed an issue with an allocation in Volumetric Fog Render Feature when no scattering, blur or downscaling was used
 - [Fix] Fixed shadows issue with Unity 2021.3.x in builds due to shader keyword changes in URP codebase vs 2020
