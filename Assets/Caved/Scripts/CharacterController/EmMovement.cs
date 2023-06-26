@@ -14,6 +14,7 @@ public class EmMovement : MonoBehaviour
     [Header("Assets")]
     public CharacterController _characterController;
     public Animator _animator;
+    public Animator _maskAnimator;
     private CharacterStance _stance;
     private EmEventCurrator _eventCurrator;
 
@@ -222,6 +223,7 @@ public class EmMovement : MonoBehaviour
 
                     blendValue = blendValue * 2;
                     _animator.SetFloat(_move, blendValue);
+                    _maskAnimator.SetFloat(_move, blendValue);
                 }
                 else
                 {
@@ -233,12 +235,14 @@ public class EmMovement : MonoBehaviour
                     }
 
                     _animator.SetFloat(_move, blendValue);
+                    _maskAnimator.SetFloat(_move, blendValue);
                 }
             }
             else
             {
                 blendValue = 0f; // math.lerp(blendValue, 0f, Time.deltaTime*2);
                 _animator.SetFloat(_move, blendValue);
+                _maskAnimator.SetFloat(_move, blendValue);
             }
             _newSpeed = Mathf.Lerp(_newSpeed, _targetSpeed, Time.deltaTime * 2);
 
@@ -452,6 +456,7 @@ public class EmMovement : MonoBehaviour
         _climbing = true;
         _speed = 0f;
         _animator.SetFloat(_move, 0);
+        _maskAnimator.SetFloat(_move, 0);
         //_characterController.enabled = false;
         //Rigidbody.isKinematic = true;
 
@@ -466,6 +471,8 @@ public class EmMovement : MonoBehaviour
             _matchTargetRotation = _forwardNormalXZRotation;
             _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_standToFreeHandSettings);
+            _maskAnimator.applyRootMotion = true;
+            _maskAnimator.CrossFadeInFixedTimeEm(_standToFreeHandSettings);
 
             _isHanging = true;
 
@@ -481,6 +488,11 @@ public class EmMovement : MonoBehaviour
             _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_climbUpSettings);
 
+            _maskAnimator.rootPosition = transform.position;
+            _maskAnimator.rootRotation = transform.rotation;
+            _maskAnimator.applyRootMotion = true;
+            _maskAnimator.CrossFadeInFixedTimeEm(_climbUpSettings);
+
             Debug.Log("climb up");
         }
         else if (_climbHeight > _vaultHeight)
@@ -489,6 +501,9 @@ public class EmMovement : MonoBehaviour
             _matchTargetRotation = _forwardNormalXZRotation;
             _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_vaultSettings);
+            
+            _maskAnimator.applyRootMotion = true;
+            _maskAnimator.CrossFadeInFixedTimeEm(_vaultSettings);
             Debug.Log("vault");
         }
         else if (_climbHeight > _stepHeight)
@@ -499,6 +514,7 @@ public class EmMovement : MonoBehaviour
 
             StartCoroutine(stepRoot());
             _animator.CrossFadeInFixedTimeEm(_stepUpSettings);
+            _maskAnimator.CrossFadeInFixedTimeEm(_stepUpSettings);
             Debug.Log("steppng");
         }
         else
@@ -621,6 +637,8 @@ public class EmMovement : MonoBehaviour
                     _sprintingSpeed = _crouchingSpeed.y;
                     _stance = newStance;
                     _animator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+
+                    _maskAnimator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
                     SetCapsuleDimensions(_crouchingCapsule);
 
                     return true;
@@ -640,6 +658,8 @@ public class EmMovement : MonoBehaviour
                         _sprintingSpeed = _standingSpeed.y;
                         _stance = newStance;
                         _animator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
+                        
+                        _maskAnimator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
                         SetCapsuleDimensions(_standingCapsule);
 
                         return true;
@@ -701,18 +721,23 @@ public class EmMovement : MonoBehaviour
         {
             case "StandToFreeHangEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .3f, .65f);
+                _maskAnimator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .3f, .65f);
                 break;
             case "ClimbUpEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .9f);
+                _maskAnimator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .9f);
                 break;
             case "VaultEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .65f);
+                _maskAnimator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, 0f, .65f);
                 break;
             case "StepUpEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .58f, .68f);
+                _maskAnimator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .58f, .68f);
                 break;
             case "DropEnter":
                 _animator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .2f, .5f);
+                _maskAnimator.MatchTarget(_matchTargetPosition, _matchTargetRotation, AvatarTarget.Root, _weightMask, .2f, .5f);
                 break;
 
             case "StandToFreeHangExit":
@@ -725,12 +750,14 @@ public class EmMovement : MonoBehaviour
                 _climbing = false;
                 _characterController.enabled = true;
                 _animator.applyRootMotion = false;
+                _maskAnimator.applyRootMotion = false;
                 //rb is kinematic = false;
                 break;
             case "DropToAir":
                 _climbing = false;
                 _characterController.enabled = true;
                 _animator.applyRootMotion = false;
+                _maskAnimator.applyRootMotion = false;
                 //rb is kinematic = false;
                 break;
 
@@ -753,6 +780,11 @@ public class EmMovement : MonoBehaviour
             _animator.rootRotation = transform.rotation;
             _animator.applyRootMotion = true;
             _animator.CrossFadeInFixedTimeEm(_climbUpSettings);
+
+            _maskAnimator.rootPosition = transform.position;
+            _maskAnimator.rootRotation = transform.rotation;
+            _maskAnimator.applyRootMotion = true;
+            _maskAnimator.CrossFadeInFixedTimeEm(_climbUpSettings);
         }
 
         //drop down
@@ -761,12 +793,16 @@ public class EmMovement : MonoBehaviour
             if (!Physics.Raycast(transform.position, Vector3.down, out RaycastHit _hitInfo, _dropCheckDistance, _layerMaskClimb))
             {
                 _animator.CrossFadeEm(_dropToAirSettings);
+
+                _maskAnimator.CrossFadeEm(_dropToAirSettings);
             }
             else
             {
                 _matchTargetPosition = _hitInfo.point + _forwardNormalXZRotation * _dropOffset;
                 _matchTargetRotation = _forwardNormalXZRotation;
                 _animator.CrossFadeInFixedTimeEm(_dropSettings);
+
+                _maskAnimator.CrossFadeInFixedTimeEm(_dropSettings);
             }
         }
 
