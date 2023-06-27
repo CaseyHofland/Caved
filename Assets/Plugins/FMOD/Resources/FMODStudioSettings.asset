@@ -384,7 +384,6 @@ MonoBehaviour:
   MasterBanks:
   - Master
   Banks:
-  - Casey Prototype
   - Music
   - SFX
   BanksToLoad:

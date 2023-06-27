@@ -33,7 +33,7 @@ public class FMODEmotionSystem : MonoBehaviour
         FMODEmotion = PositiveMemoriesScore - NegativeMemoriesScore;
         //instance.setParameterByName("FMODEmotion", FMODEmotion);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("FMODEmotion", FMODEmotion);
-        Debug.Log(FMODEmotion);
+        //Debug.Log(FMODEmotion);
     }
 
   

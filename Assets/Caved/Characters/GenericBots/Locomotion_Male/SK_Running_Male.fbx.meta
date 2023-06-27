@@ -57,6 +57,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.38183743
+        functionName: NewEvent
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: 6597969223c425546a693be09656d6ed, type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.385
         functionName: Play
         data: 
@@ -65,9 +72,9 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: 0.89250004
-        functionName: Play
-        data: 
-        objectReferenceParameter: {fileID: 11400000, guid: 6597969223c425546a693be09656d6ed, type: 2}
+        functionName: PlaySound
+        data: WalkTest
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -83,6 +90,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 0
