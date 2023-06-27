@@ -15,7 +15,7 @@ ModelImporter:
     resampleCurves: 0
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
