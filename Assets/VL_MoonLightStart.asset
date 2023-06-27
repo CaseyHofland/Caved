@@ -15,9 +15,9 @@ MonoBehaviour:
   blendMode: 0
   raymarchPreset: 0
   raymarchQuality: 8
-  raymarchMinStep: 0.1
+  raymarchMinStep: 1.92
   raymarchMaxSteps: 200
-  jittering: 0.5
+  jittering: 1.19
   dithering: 1
   useBlueNoise: 0
   animatedBlueNoise: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
   sortingOrder: 0
   flipDepthTexture: 0
   alwaysOn: 0
-  castDirectLight: 0
-  directLightMultiplier: 1
-  directLightSmoothSamples: 8
-  directLightSmoothRadius: 4
+  castDirectLight: 1
+  directLightMultiplier: 1.19
+  directLightSmoothSamples: 6
+  directLightSmoothRadius: 0
   directLightBlendMode: 0
   autoToggle: 0
   distanceStartDimming: 70
@@ -42,7 +42,7 @@ MonoBehaviour:
   noiseFinalMultiplier: 1
   density: 0.2
   mediumAlbedo: {r: 0.9056604, g: 0.8501246, b: 0.8501246, a: 1}
-  brightness: 0.48
+  brightness: 0.43
   attenuationMode: 0
   attenCoefConstant: 1
   attenCoefLinear: 2
@@ -66,7 +66,7 @@ MonoBehaviour:
   dustAutoToggle: 0
   dustDistanceDeactivation: 70
   enableShadows: 1
-  shadowIntensity: 0.7
+  shadowIntensity: 0.83
   shadowTranslucency: 0
   shadowTranslucencyIntensity: 1
   shadowTranslucencyBlend: 0.5

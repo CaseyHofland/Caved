@@ -16,7 +16,7 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: 6b7e6acc194204408b3294f5c220fc1e, type: 3}
   blendMode: 0
   renderPassEvent: 450
-  downscaling: 1
+  downscaling: 1.7
   blurPasses: 1
   blurDownscaling: 1
   blurSpread: 1
