@@ -22,7 +22,10 @@ MonoBehaviour:
   - Light Layer 5
   - Light Layer 6
   - Light Layer 7
-  m_ValidRenderingLayers: 255
+  - Demazana
+  - Mask
+  - Memory
+  m_ValidRenderingLayers: 2047
   lightLayerName0: Light Layer default
   lightLayerName1: Light Layer 1
   lightLayerName2: Light Layer 2

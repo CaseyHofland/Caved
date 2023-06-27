@@ -111,6 +111,7 @@ public class MemoryTrigger : MonoBehaviour
 
     public void LookClicked()
     {
+        Debug.Log(" Click");
         if (_triggerd && !_pickedUp)
             StartCoroutine(RememberChoice());
     }

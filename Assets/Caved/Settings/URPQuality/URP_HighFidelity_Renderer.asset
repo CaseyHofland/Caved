@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9055955259178317585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9a4847a92104072b352fe44da35cbb, type: 3}
+  m_Name: Volumetric Lights
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  shader: {fileID: 4800000, guid: 6b7e6acc194204408b3294f5c220fc1e, type: 3}
+  blendMode: 0
+  renderPassEvent: 450
+  downscaling: 1.7
+  blurPasses: 1
+  blurDownscaling: 1
+  blurSpread: 1
+  blurHDR: 1
+  blurEdgePreserve: 0
+  blurEdgeDepthThreshold: 0.001
+  brightness: 1
+  ditherStrength: 0
+--- !u!114 &-2457155559707672249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927576baecea04a5aa8be06dc57e6d9e, type: 3}
+  m_Name: Volumetric Fog 2
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  shader: {fileID: 4800000, guid: c9391e295126842e589edc35e6cfa61a, type: 3}
+  renderPassEvent: 450
+  cameraLayerMask:
+    serializedVersion: 2
+    m_Bits: 95
+  ignoreReflectionProbes: 1
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +128,9 @@ MonoBehaviour:
   - {fileID: -1878332245247344467}
   - {fileID: -58513478195714358}
   - {fileID: 7025139374640308189}
-  m_RendererFeatureMap: 2eeb119f0b074805adc0de57c6d2eee5ca6692354d1e30ffdd9f0b5b0a4f7e61
+  - {fileID: -2457155559707672249}
+  - {fileID: -9055955259178317585}
+  m_RendererFeatureMap: 2eeb119f0b074805adc0de57c6d2eee5ca6692354d1e30ffdd9f0b5b0a4f7e614781bf79096ee6ddef88d81aacc85282
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
