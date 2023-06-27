@@ -24,11 +24,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Base_Map:
-        m_Texture: {fileID: 2800000, guid: 17c4eb644859193409b157ee638a9806, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9d282bc3805abd440b9ecdb12069c270, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Normal_Map:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 5455a70b017f12a44bcf02ada5edf3cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -89,7 +89,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Normal_Blend: 0.5
+    - Normal_Blend: 1.05
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0

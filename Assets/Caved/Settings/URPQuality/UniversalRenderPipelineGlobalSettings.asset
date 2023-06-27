@@ -25,7 +25,8 @@ MonoBehaviour:
   - Demazana
   - Mask
   - Memory
-  m_ValidRenderingLayers: 2047
+  - Environment
+  m_ValidRenderingLayers: 4095
   lightLayerName0: Light Layer default
   lightLayerName1: Light Layer 1
   lightLayerName2: Light Layer 2
