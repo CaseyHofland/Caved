@@ -6,10 +6,14 @@ using UnityEngine.SceneManagement;
 using Unity.Cinemachine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Playables;
 
 public class MemoryTrigger : MonoBehaviour
 {
     private bool _triggerd = false;
+
+    [SerializeField] Animator _scaleTip;
+    [SerializeField] private float _reactionTime;
 
     InventorySystem _inventoryManager;
     countingMemories _seenMemoriesCheck;
@@ -74,6 +78,7 @@ public class MemoryTrigger : MonoBehaviour
         {
             _worldSpacePickup.SetActive(false);
         }
+            
     }
 
     public void Remember()
@@ -82,13 +87,22 @@ public class MemoryTrigger : MonoBehaviour
         {
             _inventoryManager.AddItemToSavedMemories(_memory.Id);
             _seenMemoriesCheck._count++;
+
+            //keeping track of mental state
             _inventoryManager.PositiveMemoriesScore += _memory.PositiveScore;
             _inventoryManager.NegativeMemoriesScore += _memory.NegativeScore;
+
             _pickedUp = true;
+
             if (_event != null)
             {
                 _event.Invoke();
             }
+            
+            _scaleTip.Play("ANI_BtnScaleLeft");
+
+            //yield return new WaitForSeconds(_reactionTime);
+            
         }
     }
 
@@ -97,6 +111,7 @@ public class MemoryTrigger : MonoBehaviour
         _projector.enabled = false;
         _seenMemoriesCheck._count++;
         _memorylights.Stop();
+        _scaleTip.Play("ANI_BtnScaleRight");
         if (_event != null)
         {
             _event.Invoke();
