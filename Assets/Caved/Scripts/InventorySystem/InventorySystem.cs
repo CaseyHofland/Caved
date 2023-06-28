@@ -18,6 +18,8 @@ public class InventorySystem : MonoBehaviour
     public int PositiveMemoriesScore;
     public int NegativeMemoriesScore;
 
+    public int _rememberedMemories;
+
     [Header("UI")]
     [SerializeField] private GameObject _target;
     [SerializeField] private GameObject _prefab;
@@ -33,6 +35,8 @@ public class InventorySystem : MonoBehaviour
     [Header("Memory conditions")]
     [SerializeField] private int _traumaInt;
     public static int _memoryState = 0;
+    public bool _hurtCanTrigger;
+    public bool _traumaCanTrigger;
 
     private void Awake()
     {
@@ -44,6 +48,14 @@ public class InventorySystem : MonoBehaviour
     {
         AllMemories = Resources.FindObjectsOfTypeAll<InventoryItemSO>().ToList();
         _memoryControls = new EmInput();
+    }
+
+    private void Update()
+    {
+        if (_rememberedMemories > 5)
+            _hurtCanTrigger = true;
+        else if(_rememberedMemories > 7)
+            _traumaCanTrigger = true;
     }
 
     public bool IsInTrauma()
