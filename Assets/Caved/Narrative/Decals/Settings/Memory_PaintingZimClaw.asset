@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Memory_PaintingZimClaw
   m_EditorClassIdentifier: 
   Id: 13
-  MemoryImage: {fileID: 21300000, guid: 1c80f011c5eff9d4192c3d4262f72cde, type: 3}
+  MemoryImage: {fileID: 21300000, guid: accaedd7ce3cb56489a74f28940505d5, type: 3}
   NegativeScore: 1
   PositiveScore: 0

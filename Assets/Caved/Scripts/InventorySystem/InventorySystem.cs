@@ -37,6 +37,7 @@ public class InventorySystem : MonoBehaviour
     public static int _memoryState = 0;
     public bool _hurtCanTrigger;
     public bool _traumaCanTrigger;
+    public bool _forgetCanTrigger;
 
     private void Awake()
     {
@@ -54,8 +55,10 @@ public class InventorySystem : MonoBehaviour
     {
         if (_rememberedMemories > 5)
             _hurtCanTrigger = true;
-        else if(_rememberedMemories > 7)
+        else if (_rememberedMemories > 7)
             _traumaCanTrigger = true;
+        else
+            _forgetCanTrigger = true;
     }
 
     public bool IsInTrauma()

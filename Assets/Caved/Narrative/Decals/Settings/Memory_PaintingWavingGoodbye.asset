@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Memory_PaintingWavingGoodbye
   m_EditorClassIdentifier: 
   Id: 12
-  MemoryImage: {fileID: 21300000, guid: 35884080426c93b42a478f13004a2462, type: 3}
+  MemoryImage: {fileID: 21300000, guid: ab0533af6e464cb4ca9152895ed87837, type: 3}
   NegativeScore: 2
   PositiveScore: 1

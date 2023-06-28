@@ -299,6 +299,7 @@ public class EmMovement : MonoBehaviour
             else if(_trackMemoryState._traumaCanTrigger)
             {
                 //start coroutine to switch trees
+                SwitchToBroken();
             }
         }
         else if (_climbing && _isHanging)
