@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Memory_PaintingZimSilhouette
   m_EditorClassIdentifier: 
   Id: 14
-  MemoryImage: {fileID: 21300000, guid: 1a479a6e62048944a8a17f36bd0a3dff, type: 3}
+  MemoryImage: {fileID: 21300000, guid: 2955669745bf9b04aa4795584e732783, type: 3}
   NegativeScore: 1
   PositiveScore: 0

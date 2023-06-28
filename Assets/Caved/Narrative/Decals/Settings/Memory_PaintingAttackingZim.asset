@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Memory_PaintingAttackingZim
   m_EditorClassIdentifier: 
   Id: 4
-  MemoryImage: {fileID: 21300000, guid: 8bef2127178f78d41b5642fc4cbfab18, type: 3}
+  MemoryImage: {fileID: 21300000, guid: cebcb486282145646b489a4e5c1e534c, type: 3}
   NegativeScore: 2
   PositiveScore: 0

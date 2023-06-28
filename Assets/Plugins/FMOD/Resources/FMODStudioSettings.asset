@@ -297,8 +297,8 @@ MonoBehaviour:
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
-  AutomaticEventLoading: 1
-  BankLoadType: 0
+  AutomaticEventLoading: 0
+  BankLoadType: 1
   AutomaticSampleLoading: 0
   EncryptionKey: 
   ImportType: 0
@@ -320,18 +320,20 @@ MonoBehaviour:
   - Casey Prototype
   - Music
   - SFX
-  BanksToLoad: []
+  BanksToLoad:
+  - Master
+  - Master.strings
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
   AndroidUseOBB: 0
   MeterChannelOrdering: 0
-  StopEventsOutsideMaxDistance: 0
+  StopEventsOutsideMaxDistance: 1
   BoltUnitOptionsBuildPending: 0
   EnableErrorCallback: 0
   SharedLibraryUpdateStage: 0
   SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131601
-  HideSetupWizard: 0
+  HideSetupWizard: 1
   LastEventReferenceScanVersion: 131601
   Platforms:
   - {fileID: 7202524724582732866}
@@ -345,7 +347,7 @@ MonoBehaviour:
   - {fileID: -4934534850493803107}
   - {fileID: 1101419424438012103}
   - {fileID: 1683719016639178854}
-  MigratedPlatforms: 0500000006000000150000000b000000090000000a00000012000000080000000c0000000200000001000000
+  MigratedPlatforms: 0500000006000000090000000a000000150000000c00000012000000080000000b0000000200000001000000
 --- !u!114 &77161690192921318
 MonoBehaviour:
   m_ObjectHideFlags: 0
