@@ -9,6 +9,7 @@ public class countingMemories : MonoBehaviour
     [SerializeField] private int _max;
     [SerializeField] 
     Animator _animator;
+    public bool _timeForCutscene;
 
     private void Start()
     {
@@ -18,6 +19,11 @@ public class countingMemories : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_count >= _max) _animator.SetBool("isClear", true);
+        if (_count >= _max)
+        {
+            _animator.SetBool("isClear", true);
+            _timeForCutscene= true;
+        }
+
     }
 }
