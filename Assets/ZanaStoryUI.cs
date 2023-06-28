@@ -44,6 +44,7 @@ public class ZanaStoryUI : MonoBehaviour
                 _line3.SetActive(true);
                 StartCoroutine(countingForClick());
                 _ind = 2;
+                Debug.Log("Showing 3");
             }
             else if (_ind == 2)
             {
@@ -51,9 +52,14 @@ public class ZanaStoryUI : MonoBehaviour
                 _line4.SetActive(true);
                 StartCoroutine(countingForClick());
                 _ind = 3;
+                Debug.Log("Showing 4");
+
             }
-            if (_ind == 3) 
+            if (_ind == 3)
+            {
                 StartCoroutine(removingLines());
+                Debug.Log("Closing");
+            }
 
         }
         
