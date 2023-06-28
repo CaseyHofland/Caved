@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Caved/Areas/S_FinaleSad/LightingData.asset.meta
 guid: 5aea0d32efd4f1e44bf169c69eb4c27a
+========
+guid: 9cc162d391bff0e46a02c5f2d9256b49
+>>>>>>>> fa31772d2678d5a18f9c60afd48696b9c637bf1d:Assets/Caved/UI/Scale/AC_ScaleButton.controller.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 112000000
+  mainObjectFileID: 9100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
