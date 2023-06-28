@@ -78,6 +78,7 @@ public class MemoryTrigger : MonoBehaviour
         {
             _worldSpacePickup.SetActive(false);
         }
+            
     }
 
     public void Remember()
@@ -86,8 +87,11 @@ public class MemoryTrigger : MonoBehaviour
         {
             _inventoryManager.AddItemToSavedMemories(_memory.Id);
             _seenMemoriesCheck._count++;
+
+            //keeping track of mental state
             _inventoryManager.PositiveMemoriesScore += _memory.PositiveScore;
             _inventoryManager.NegativeMemoriesScore += _memory.NegativeScore;
+
             _pickedUp = true;
 
             if (_event != null)
