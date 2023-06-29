@@ -71,9 +71,9 @@ public class BotPlayer : MonoBehaviour
         var turnAngle = ExtraMath.Angle(new Vector2(movement.y, movement.x));
         var turnRotation = Quaternion.AngleAxis(turnAngle, Vector3.up);
 
-        CalculatePlanarOrientation(orientationPoint != null ? orientationPoint.transform.rotation : Quaternion.identity, bot.motor.CharacterUp, out var planarDirection, out var planarRotation);
-        var targetRotation = planarRotation * turnRotation;
-        turnAngle = Vector3.SignedAngle(bot.motor.TransientRotation * bot.motor.CharacterForward, targetRotation * bot.motor.CharacterForward, bot.motor.CharacterUp);
+        //CalculatePlanarOrientation(orientationPoint != null ? orientationPoint.transform.rotation : Quaternion.identity, bot.motor.CharacterUp, out var planarDirection, out var planarRotation);
+        //var targetRotation = planarRotation * turnRotation;
+        //turnAngle = Vector3.SignedAngle(bot.motor.TransientRotation * bot.motor.CharacterForward, targetRotation * bot.motor.CharacterForward, bot.motor.CharacterUp);
 
         bot.turn.value = turnAngle * turnMultiplier;
     }

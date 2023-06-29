@@ -8,8 +8,7 @@ namespace MBSO
     //[CustomPropertyDrawer(typeof(Attribute_ReadOnly))]
     public class Drawer_Attribute_ReadOnly : MonoBehaviour
     {
-        /*
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        /*public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             return EditorGUI.GetPropertyHeight(property, label, true);
         }
@@ -19,8 +18,7 @@ namespace MBSO
             GUI.enabled = false;
             EditorGUI.PropertyField(position, property, label, true);
             GUI.enabled = true;
-        }
-        */
+        }*/
     }
 }
 
