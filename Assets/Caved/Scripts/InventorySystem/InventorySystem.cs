@@ -38,6 +38,7 @@ public class InventorySystem : MonoBehaviour
     public bool _hurtCanTrigger;
     public bool _traumaCanTrigger;
     public bool _forgetCanTrigger;
+    public int _memoryManagerCount; //hier zegmaar
 
     private void Awake()
     {
