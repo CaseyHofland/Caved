@@ -292,7 +292,9 @@ public class EmMovement : MonoBehaviour
             //HandleJump();
 
             //Check memorystate
-            if(_trackMemoryState._hurtCanTrigger)
+            if(_trackMemoryState!= null)
+            {
+                if(_trackMemoryState._hurtCanTrigger)
             {
                 SwitchToHurt();
             }
@@ -300,6 +302,8 @@ public class EmMovement : MonoBehaviour
             {
                 //start coroutine to switch trees
                 SwitchToBroken();
+            }
+
             }
         }
         else if (_climbing && _isHanging)
@@ -655,7 +659,7 @@ public class EmMovement : MonoBehaviour
         switch (_stance)
         {
             case CharacterStance.Standing:
-                if(_trackMemoryState._hurtCanTrigger)
+                if(_trackMemoryState != null && _trackMemoryState._hurtCanTrigger)
                 {
                     RequestStanceChange(CharacterStance.Hurt_Crouching);
                 }
@@ -666,7 +670,7 @@ public class EmMovement : MonoBehaviour
                 break;
 
             case CharacterStance.Crouching:
-                if (_trackMemoryState._hurtCanTrigger)
+                if (_trackMemoryState != null && _trackMemoryState._hurtCanTrigger)
                 {
 
                     RequestStanceChange(CharacterStance.Hurt_Standing);
@@ -678,7 +682,7 @@ public class EmMovement : MonoBehaviour
                 break;
 
             case CharacterStance.Hurt_Standing:
-                if (_trackMemoryState._traumaCanTrigger)
+                if (_trackMemoryState != null && _trackMemoryState._traumaCanTrigger)
                 {
                     RequestStanceChange(CharacterStance.Broken_Crouching);
                 }
@@ -689,7 +693,7 @@ public class EmMovement : MonoBehaviour
                 break;
 
             case CharacterStance.Hurt_Crouching:
-                if (_trackMemoryState._traumaCanTrigger)
+                if (_trackMemoryState != null && _trackMemoryState._traumaCanTrigger)
                 {
                     RequestStanceChange(CharacterStance.Broken_Standing);
                 }
