@@ -1,6 +1,6 @@
 {
     "TestSuite": "",
-    "Date": 1688053113374,
+    "Date": 1688058978547,
     "Player": {
         "Development": false,
         "ScreenWidth": 0,
@@ -92,11 +92,9 @@
         "com.unity.modules.vr@1.0.0",
         "com.unity.modules.wind@1.0.0",
         "com.unity.modules.xr@1.0.0",
-        "com.unityextras.namingvalidator@0.2.2-exp",
         "com.caseydecoder.unityextras@1.2.0",
         "com.unityfx.outline.urp@0.5.0",
         "com.unity.mathematics@1.2.6",
-        "com.unity.settings-manager@2.0.1",
         "com.unity.modules.subsystems@1.0.0",
         "com.unity.shadergraph@14.0.8",
         "com.unity.render-pipelines.core@14.0.8",
@@ -104,6 +102,7 @@
         "com.unity.properties@2.1.0-exp.3",
         "com.unity.serialization@2.0.0-exp.13",
         "com.unity.nuget.mono-cecil@1.11.4",
+        "com.unity.settings-manager@2.0.1",
         "com.unity.polybrush@1.1.4",
         "com.unity.formats.fbx@4.2.1",
         "com.unity.sequences@2.0.1",

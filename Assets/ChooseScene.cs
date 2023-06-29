@@ -54,15 +54,39 @@ public class ChooseScene : MonoBehaviour
             _finalplayableDirectorForget.Play();
     }
 
-    public void FinaleTriggerd()
+    public IEnumerator FinaleTriggerd()
     {
-        if(inventorySystem._hurtCanTrigger)
+        if (inventorySystem._hurtCanTrigger)
         {
-            SceneManager.LoadSceneAsync(_Remember, LoadSceneMode.Single);
+            //SceneManager.LoadSceneAsync(_Remember, LoadSceneMode.Single);
+            // The Application loads the Scene in the background as the current Scene runs.
+            // This is particularly good for creating loading screens.
+            // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+            // a sceneBuildIndex of 1 as shown in Build Settings.
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/S_FinaleSad");
+
+            // Wait until the asynchronous scene fully loads
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
         }
         else
         {
-            SceneManager.LoadSceneAsync(_Forget, LoadSceneMode.Single);
+            //SceneManager.LoadSceneAsync(_Remember, LoadSceneMode.Single);
+            // The Application loads the Scene in the background as the current Scene runs.
+            // This is particularly good for creating loading screens.
+            // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+            // a sceneBuildIndex of 1 as shown in Build Settings.
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/S_FinalePeace");
+
+            // Wait until the asynchronous scene fully loads
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
         }
     }
 
