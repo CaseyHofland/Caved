@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Memory_PaintingPlayingGames
   m_EditorClassIdentifier: 
   Id: 9
-  MemoryImage: {fileID: 21300000, guid: 17c4eb644859193409b157ee638a9806, type: 3}
+  MemoryImage: {fileID: 21300000, guid: 9d282bc3805abd440b9ecdb12069c270, type: 3}
   NegativeScore: 0
   PositiveScore: 3

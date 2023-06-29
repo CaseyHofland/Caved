@@ -10,6 +10,7 @@ public class ZanaStoryUI : MonoBehaviour
     [SerializeField] private GameObject _line2;
     [SerializeField] private GameObject _line3;
     [SerializeField] private GameObject _line4;
+    [SerializeField] private Animator _panel;
 
     public Button _btnNext;
 
@@ -24,36 +25,54 @@ public class ZanaStoryUI : MonoBehaviour
     void Start()
     {
         _txtNext.text = "Next";
-        _line1.SetActive(true);
+        //_line1.SetActive(true);
         _canClick = true;
+    }
+
+    private void Update()
+    {
+        Debug.Log(_ind);
+    }
+
+    public void StartExplanation()
+    {
+        _panel.Play("A_CrossfadeStart");
+        _line1.SetActive(true);
+        StartCoroutine(countingForClick());
+        Debug.Log("Showing 1");
     }
 
     public void ShowNextLine()
     {
+        _ind++;
+        Debug.Log("Click");
         if(_canClick)
         {
-            if (_ind == 0)
+            if (_ind == 1)
             {
                 _line2.SetActive(true);
                 StartCoroutine(countingForClick());
-                _ind = 1;
                 Debug.Log("Showing 2");
             }
-            else if (_ind == 1)
+            else if (_ind == 2)
             {
                 _line3.SetActive(true);
                 StartCoroutine(countingForClick());
-                _ind = 2;
+                Debug.Log("Showing 3");
             }
-            else if (_ind == 2)
+            else if (_ind == 3)
             {
                 _txtNext.text = "Start";
                 _line4.SetActive(true);
                 StartCoroutine(countingForClick());
-                _ind = 3;
+                Debug.Log("Showing 4");
+
             }
-            if (_ind == 3) 
+            if (_ind == 4)
+            {
                 StartCoroutine(removingLines());
+                Debug.Log("Closing");
+            }
 
         }
         
@@ -74,6 +93,8 @@ public class ZanaStoryUI : MonoBehaviour
         _btnNext.enabled = false;
 
         yield return new WaitForEndOfFrame();
+        
+        _panel.Play("A_FastDipEnd");
 
         Destroy(gameObject);
     }

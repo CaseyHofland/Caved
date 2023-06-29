@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Memory_PaintingVillage
   m_EditorClassIdentifier: 
   Id: 11
-  MemoryImage: {fileID: 21300000, guid: 466cae2cb6a0c7241af56203763e6b76, type: 3}
+  MemoryImage: {fileID: 21300000, guid: 4f24850a25190f74796841d0ab3fd680, type: 3}
   NegativeScore: 0
   PositiveScore: 3

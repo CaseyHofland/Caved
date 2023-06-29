@@ -1,0 +1,285 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Demazana_Eyelids
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: CH_Demazana
+    m_Weight: 0
+  - m_Path: RIG_Demazana
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.L/DEF-beadback.L.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.L/DEF-beadback.L.001/DEF-beadback.L.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.L/DEF-beadback.L.001/DEF-beadback.L.002/DEF-beadback.L.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.R/DEF-beadback.R.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.R/DEF-beadback.R.001/DEF-beadback.R.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadback.R/DEF-beadback.R.001/DEF-beadback.R.002/DEF-beadback.R.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.L/DEF-beadfront.L.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.L/DEF-beadfront.L.001/DEF-beadfront.L.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.L/DEF-beadfront.L.001/DEF-beadfront.L.002/DEF-beadfront.L.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.R/DEF-beadfront.R.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.R/DEF-beadfront.R.001/DEF-beadfront.R.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-beadfront.R/DEF-beadfront.R.001/DEF-beadfront.R.002/DEF-beadfront.R.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L/DEF-thigh.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L/DEF-thigh.L/DEF-thigh.L.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L/DEF-thigh.L/DEF-thigh.L.001/DEF-shin.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L/DEF-thigh.L/DEF-thigh.L.001/DEF-shin.L/DEF-shin.L.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L/DEF-thigh.L/DEF-thigh.L.001/DEF-shin.L/DEF-shin.L.001/DEF-foot.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L/DEF-thigh.L/DEF-thigh.L.001/DEF-shin.L/DEF-shin.L.001/DEF-foot.L/DEF-toe.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.L/DEF-thigh.L/DEF-thigh.L.001/DEF-shin.L/DEF-shin.L.001/DEF-foot.L/DEF-toe.L/DEF-toe.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R/DEF-thigh.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R/DEF-thigh.R/DEF-thigh.R.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R/DEF-thigh.R/DEF-thigh.R.001/DEF-shin.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R/DEF-thigh.R/DEF-thigh.R.001/DEF-shin.R/DEF-shin.R.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R/DEF-thigh.R/DEF-thigh.R.001/DEF-shin.R/DEF-shin.R.001/DEF-foot.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R/DEF-thigh.R/DEF-thigh.R.001/DEF-shin.R/DEF-shin.R.001/DEF-foot.R/DEF-toe.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-pelvis.R/DEF-thigh.R/DEF-thigh.R.001/DEF-shin.R/DEF-shin.R.001/DEF-foot.R/DEF-toe.R/DEF-toe.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirt.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirt.L/DEF-skirt.L.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirt.L/DEF-skirt.L.002/DEF-skirt.L.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirt.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirt.R/DEF-skirt.R.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirt.R/DEF-skirt.R.002/DEF-skirt.R.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirtback
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirtback/DEF-skirtback.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirtback/DEF-skirtback.002/DEF-skirtback.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirtfront
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirtfront/DEF-skirtfront.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-skirtfront/DEF-skirtfront.002/DEF-skirtfront.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_index.01.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_index.01.L/DEF-f_index.02.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_index.01.L/DEF-f_index.02.L/DEF-f_index.03.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_index.01.L/DEF-f_index.02.L/DEF-f_index.03.L/DEF-f_index.03.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_middle.01.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_middle.01.L/DEF-f_middle.02.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_middle.01.L/DEF-f_middle.02.L/DEF-f_middle.03.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_middle.01.L/DEF-f_middle.02.L/DEF-f_middle.03.L/DEF-f_middle.03.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_pink.01.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_pink.01.L/DEF-f_pink.02.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_pink.01.L/DEF-f_pink.02.L/DEF-f_pink.03.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_pink.01.L/DEF-f_pink.02.L/DEF-f_pink.03.L/DEF-f_pink.03.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_ring.01.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_ring.01.L/DEF-f_ring.02.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_ring.01.L/DEF-f_ring.02.L/DEF-f_ring.03.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-f_ring.01.L/DEF-f_ring.02.L/DEF-f_ring.03.L/DEF-f_ring.03.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-thumb.01.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-thumb.01.L/DEF-thumb.02.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.L/DEF-upper_arm.L/DEF-upper_arm.L.001/DEF-forearm.L/DEF-forearm.L.001/DEF-hand.L/DEF-thumb.01.L/DEF-thumb.02.L/DEF-thumb.02.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_index.01.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_index.01.R/DEF-f_index.02.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_index.01.R/DEF-f_index.02.R/DEF-f_index.03.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_index.01.R/DEF-f_index.02.R/DEF-f_index.03.R/DEF-f_index.03.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_middle.01.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_middle.01.R/DEF-f_middle.02.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_middle.01.R/DEF-f_middle.02.R/DEF-f_middle.03.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_middle.01.R/DEF-f_middle.02.R/DEF-f_middle.03.R/DEF-f_middle.03.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_pink.01.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_pink.01.R/DEF-f_pink.02.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_pink.01.R/DEF-f_pink.02.R/DEF-f_pink.03.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_pink.01.R/DEF-f_pink.02.R/DEF-f_pink.03.R/DEF-f_pink.03.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_ring.01.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_ring.01.R/DEF-f_ring.02.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_ring.01.R/DEF-f_ring.02.R/DEF-f_ring.03.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-f_ring.01.R/DEF-f_ring.02.R/DEF-f_ring.03.R/DEF-f_ring.03.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-thumb.01.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-thumb.01.R/DEF-thumb.02.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-chest.R/DEF-upper_arm.R/DEF-upper_arm.R.001/DEF-forearm.R/DEF-forearm.R.001/DEF-hand.R/DEF-thumb.01.R/DEF-thumb.02.R/DEF-thumb.02.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-eye.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-eye.L/DEF-eye.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-eye.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-eye.R/DEF-eye.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hair.L
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hair.L/DEF-hair.L_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hair.R
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hair.R/DEF-hair.R_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hairpiece
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hairpiece/DEF-hairpiece.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hairpiece/DEF-hairpiece.001/DEF-hairpiece.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-hairpiece/DEF-hairpiece.001/DEF-hairpiece.002/DEF-hairpiece.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-jaw
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-jaw/DEF-jaw_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-lowerlid.L
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-lowerlid.L/DEF-lowerlid.L_end
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-lowerlid.R
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-lowerlid.R/DEF-lowerlid.R_end
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-shell
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-shell/DEF-shell_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-upperlid.L
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-upperlid.L/DEF-upperlid.L_end
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-upperlid.R
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/DEF-upperlid.R/DEF-upperlid.R_end
+    m_Weight: 1
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-necklace
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-necklace/DEF-necklace.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-necklace/DEF-necklace.001/DEF-necklace.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-necklace/DEF-necklace.001/DEF-necklace.002/DEF-necklace.002_end
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-rope
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-rope/DEF-rope.001
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-rope/DEF-rope.001/DEF-rope.002
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-rope/DEF-rope.001/DEF-rope.002/DEF-rope.003
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-rope/DEF-rope.001/DEF-rope.002/DEF-rope.003/DEF-rope.004
+    m_Weight: 0
+  - m_Path: RIG_Demazana/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-rope/DEF-rope.001/DEF-rope.002/DEF-rope.003/DEF-rope.004/DEF-rope.004_end
+    m_Weight: 0
