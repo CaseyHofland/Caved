@@ -9,7 +9,7 @@ public class ChooseScene : MonoBehaviour
 {
     InventorySystem inventorySystem;
     countingMemories _allSeen;
-    public GameObject _blockControls;
+    public EmMovement _blockControls;
     PlayableDirector _finalPlayableDirectorRemember;
     PlayableDirector _finalplayableDirectorForget;
     public GameObject _ZimsThings;
@@ -35,6 +35,8 @@ public class ChooseScene : MonoBehaviour
             _decalForget.SetActive(true);
             Destroy(_decalRemember);
         }
+
+        _blockControls = gameObject.GetComponent<EmMovement>();
     }
 
     private void Update()
@@ -45,6 +47,7 @@ public class ChooseScene : MonoBehaviour
 
     void StartTheCutscene()
     {
+        _blockControls.enabled = false;
         if (inventorySystem._hurtCanTrigger)
             _finalPlayableDirectorRemember.Play();
         else
