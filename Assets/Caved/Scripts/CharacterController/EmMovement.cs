@@ -17,7 +17,7 @@ public class EmMovement : MonoBehaviour
     public Animator _maskAnimator;
     private CharacterStance _stance;
     private EmEventCurrator _eventCurrator;
-    public InventorySystem _trackMemoryState;
+    InventorySystem _trackMemoryState;
 
     [Header("Movement")]
     private float yVelocity = 0.0f;
