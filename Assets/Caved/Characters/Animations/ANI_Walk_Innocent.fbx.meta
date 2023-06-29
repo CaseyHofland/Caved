@@ -15,7 +15,7 @@ ModelImporter:
     resampleCurves: 0
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -59,7 +59,14 @@ ModelImporter:
       events:
       - time: 0
         functionName: PlaySound
-        data: SFX/WalkTest
+        data: SFX/walkingInnocentNEW
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5765855
+        functionName: PlaySound
+        data: SFX/walkingInnocentNEW
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

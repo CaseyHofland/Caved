@@ -8,7 +8,7 @@ using UnityEngine.ProBuilder;
 using UnityEngine.UIElements;
 using UnityExtras;
 
-public enum CharacterStance { Standing, Crouching }
+public enum CharacterStance { Standing, Crouching, Hurt_Standing, Hurt_Crouching, Broken_Standing, Broken_Crouching}
 public class EmMovement : MonoBehaviour
 {
     [Header("Assets")]
@@ -17,6 +17,7 @@ public class EmMovement : MonoBehaviour
     public Animator _maskAnimator;
     private CharacterStance _stance;
     private EmEventCurrator _eventCurrator;
+    InventorySystem _trackMemoryState;
 
     [Header("Movement")]
     private float yVelocity = 0.0f;
@@ -99,6 +100,10 @@ public class EmMovement : MonoBehaviour
     //Animator state names
     private const string _standToCrouch = "Base Layer.Base_Crouching";
     private const string _crouchToStand = "Base Layer.Base_Standing";
+    private const string _hurtStandToCrouch = "Base Layer.Base_Crouching Hurt";
+    private const string _hurtCrouchToStand = "Base Layer.Base_Standing Hurt";
+    private const string _brokenStandToCrouch = "Base Layer.Base_Crouching Broken";
+    private const string _brokenCrouchToStand = "Base Layer.Base_Standing Broken";
 
     //animation settings
     private bool _proning;
@@ -177,6 +182,8 @@ public class EmMovement : MonoBehaviour
                 _mask |= 1 << i;
 
         _layerMask = _mask;
+
+        _trackMemoryState = FindObjectOfType<InventorySystem>();
     }
 
     private void Awake()
@@ -284,6 +291,16 @@ public class EmMovement : MonoBehaviour
             HandleGravity();
             //HandleJump();
 
+            //Check memorystate
+            if(_trackMemoryState._hurtCanTrigger)
+            {
+                SwitchToHurt();
+            }
+            else if(_trackMemoryState._traumaCanTrigger)
+            {
+                //start coroutine to switch trees
+                SwitchToBroken();
+            }
         }
         else if (_climbing && _isHanging)
         {
@@ -299,6 +316,34 @@ public class EmMovement : MonoBehaviour
     RaycastHit downRaycastHit;
     RaycastHit forwardRaycastHit;
     Vector3 endPosition;
+
+    private void SwitchToHurt()
+    {
+        switch (_stance)
+        {
+            case CharacterStance.Standing:
+                RequestStanceChange(CharacterStance.Hurt_Standing);
+                break;
+
+            case CharacterStance.Crouching:
+                RequestStanceChange(CharacterStance.Hurt_Crouching);
+                break;
+        }
+    }
+
+    private void SwitchToBroken()
+    {
+        switch (_stance)
+        {
+            case CharacterStance.Hurt_Standing:
+                RequestStanceChange(CharacterStance.Broken_Standing);
+                break;
+
+            case CharacterStance.Hurt_Crouching:
+                RequestStanceChange(CharacterStance.Broken_Crouching);
+                break;
+        }
+    }
 
     private bool CanClimb()
     {
@@ -610,12 +655,58 @@ public class EmMovement : MonoBehaviour
         switch (_stance)
         {
             case CharacterStance.Standing:
-                RequestStanceChange(CharacterStance.Crouching);
+                if(_trackMemoryState._hurtCanTrigger)
+                {
+                    RequestStanceChange(CharacterStance.Hurt_Crouching);
+                }
+                else
+                {
+                    RequestStanceChange(CharacterStance.Crouching);
+                }
                 break;
 
             case CharacterStance.Crouching:
-                RequestStanceChange(CharacterStance.Standing);
+                if (_trackMemoryState._hurtCanTrigger)
+                {
+
+                    RequestStanceChange(CharacterStance.Hurt_Standing);
+                }
+                else
+                {
+                    RequestStanceChange(CharacterStance.Standing);
+                }
                 break;
+
+            case CharacterStance.Hurt_Standing:
+                if (_trackMemoryState._traumaCanTrigger)
+                {
+                    RequestStanceChange(CharacterStance.Broken_Crouching);
+                }
+                else
+                {
+                    RequestStanceChange(CharacterStance.Hurt_Crouching);
+                }
+                break;
+
+            case CharacterStance.Hurt_Crouching:
+                if (_trackMemoryState._traumaCanTrigger)
+                {
+                    RequestStanceChange(CharacterStance.Broken_Standing);
+                }
+                else
+                {
+                    RequestStanceChange(CharacterStance.Hurt_Standing);
+                }
+                break;
+
+            case CharacterStance.Broken_Standing:
+                    RequestStanceChange(CharacterStance.Broken_Crouching);
+                break;
+
+            case CharacterStance.Broken_Crouching:
+                    RequestStanceChange(CharacterStance.Broken_Standing);
+                break;
+
         }
     }
 
@@ -629,6 +720,22 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Standing:
                 if (newStance == CharacterStance.Crouching)
                 {
+                        //_animator.SetBool("IsCrouching", true);
+
+                        _characterCrouching = true;
+
+                        _runSpeed = _crouchingSpeed.x;
+                        _sprintingSpeed = _crouchingSpeed.y;
+                        _stance = newStance;
+                        _animator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+
+                        _maskAnimator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+                        SetCapsuleDimensions(_crouchingCapsule);
+
+                        return true;
+                }
+                else if(newStance == CharacterStance.Hurt_Standing)
+                {
                     //_animator.SetBool("IsCrouching", true);
 
                     _characterCrouching = true;
@@ -636,9 +743,9 @@ public class EmMovement : MonoBehaviour
                     _runSpeed = _crouchingSpeed.x;
                     _sprintingSpeed = _crouchingSpeed.y;
                     _stance = newStance;
-                    _animator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+                    _animator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.1f);
 
-                    _maskAnimator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+                    _maskAnimator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.1f);
                     SetCapsuleDimensions(_crouchingCapsule);
 
                     return true;
@@ -650,16 +757,140 @@ public class EmMovement : MonoBehaviour
                 {
                     if (!CharacterOverlap())
                     {
-                        //_animator.SetBool("IsCrouching", false);
+                            _characterCrouching = false;
 
+                            _runSpeed = _standingSpeed.x;
+                            _sprintingSpeed = _standingSpeed.y;
+                            _stance = newStance;
+                            _animator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
+
+                            _maskAnimator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
+                            SetCapsuleDimensions(_standingCapsule);
+
+                            return true;
+                    }
+                }
+                else if (newStance == CharacterStance.Hurt_Crouching)
+                {
+                    //_animator.SetBool("IsCrouching", true);
+
+                    _characterCrouching = true;
+
+                    _runSpeed = _crouchingSpeed.x;
+                    _sprintingSpeed = _crouchingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_hurtStandToCrouch, 0.1f);
+
+                    _maskAnimator.CrossFadeInFixedTime(_hurtStandToCrouch, 0.1f);
+                    SetCapsuleDimensions(_crouchingCapsule);
+
+                    return true;
+                }
+                break;
+
+            case CharacterStance.Hurt_Standing:
+                if (newStance == CharacterStance.Hurt_Crouching)
+                {
+                    //_animator.SetBool("IsCrouching", true);
+
+                    _characterCrouching = true;
+
+                    _runSpeed = _crouchingSpeed.x;
+                    _sprintingSpeed = _crouchingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_hurtStandToCrouch, 0.1f);
+
+                    _maskAnimator.CrossFadeInFixedTime(_hurtStandToCrouch, 0.1f);
+                    SetCapsuleDimensions(_crouchingCapsule);
+
+                    return true;
+                }
+                else if (newStance == CharacterStance.Broken_Standing)
+                {
+                    //_animator.SetBool("IsCrouching", true);
+
+                    _characterCrouching = true;
+
+                    _runSpeed = _crouchingSpeed.x;
+                    _sprintingSpeed = _crouchingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.1f);
+
+                    _maskAnimator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.1f);
+                    SetCapsuleDimensions(_crouchingCapsule);
+
+                    return true;
+                }
+                break;
+
+            case CharacterStance.Hurt_Crouching:
+                if (newStance == CharacterStance.Standing)
+                {
+                    if (!CharacterOverlap())
+                    {
                         _characterCrouching = false;
 
                         _runSpeed = _standingSpeed.x;
                         _sprintingSpeed = _standingSpeed.y;
                         _stance = newStance;
-                        _animator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
-                        
-                        _maskAnimator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
+                        _animator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.5f);
+
+                        _maskAnimator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.5f);
+                        SetCapsuleDimensions(_standingCapsule);
+
+                        return true;
+                    }
+                }
+                else if (newStance == CharacterStance.Broken_Crouching)
+                {
+                    //_animator.SetBool("IsCrouching", true);
+
+                    _characterCrouching = true;
+
+                    _runSpeed = _crouchingSpeed.x;
+                    _sprintingSpeed = _crouchingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_brokenStandToCrouch, 0.1f);
+
+                    _maskAnimator.CrossFadeInFixedTime(_brokenStandToCrouch, 0.1f);
+                    SetCapsuleDimensions(_crouchingCapsule);
+
+                    return true;
+                }
+                break;
+
+            case CharacterStance.Broken_Standing:
+                if (newStance == CharacterStance.Broken_Crouching)
+                {
+                    //_animator.SetBool("IsCrouching", true);
+
+                    _characterCrouching = true;
+
+                    _runSpeed = _crouchingSpeed.x;
+                    _sprintingSpeed = _crouchingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_brokenStandToCrouch, 0.1f);
+
+                    _maskAnimator.CrossFadeInFixedTime(_brokenStandToCrouch, 0.1f);
+                    SetCapsuleDimensions(_crouchingCapsule);
+
+                    return true;
+                }
+                break;
+
+            case CharacterStance.Broken_Crouching:
+                if (newStance == CharacterStance.Standing)
+                {
+                    if (!CharacterOverlap())
+                    {
+                        _characterCrouching = false;
+
+                        _runSpeed = _standingSpeed.x;
+                        _sprintingSpeed = _standingSpeed.y;
+                        _stance = newStance;
+                        _animator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.5f);
+
+                        _maskAnimator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.5f);
                         SetCapsuleDimensions(_standingCapsule);
 
                         return true;
