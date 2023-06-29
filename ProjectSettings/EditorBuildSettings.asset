@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Caved/Areas/S_MainMenu.unity
     guid: ee341cb7a587c26418381c23ae615f1e
   - enabled: 1
