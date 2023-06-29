@@ -20,8 +20,8 @@ public class EmMovement : MonoBehaviour
     InventorySystem _trackMemoryState;
 
     [Header("Movement")]
-    private float yVelocity = 0.0f;
-    private float smoothTime = 0.3f;
+    //private float yVelocity = 0.0f;
+    //private float smoothTime = 0.3f;
     public bool _canIMove = true;
 
     private Vector3 playerVelocity;
@@ -54,8 +54,8 @@ public class EmMovement : MonoBehaviour
     [Header("Jumping")]
     private bool _jumpPressed = false;
     float _initialJumpingVelocity;
-    float _maxJumpHeight = 1f;
-    float _maxJumpTime = .5f;
+    //float _maxJumpHeight = 1f;
+    //float _maxJumpTime = .5f;
     private bool _isJumping;
 
     [Header("Gravity")]
@@ -65,8 +65,7 @@ public class EmMovement : MonoBehaviour
 
     private bool _isGrounded;
     private bool _isFalling;
-    [SerializeField]
-    private float _jumpForce = 1f;
+    //private float _jumpForce = 1f;
 
     [SerializeField] private float _yVelocity;
 
@@ -84,7 +83,7 @@ public class EmMovement : MonoBehaviour
     [SerializeField] Vector3 _currentCenter;
     [SerializeField] Vector3 _normalCenter;
     [SerializeField] Vector3 _crouchingCenter;
-    private bool _shouldBeCrouching = false;
+    //private bool _shouldBeCrouching = false;
 
     private LayerMask _layerMask;
     private Collider[] _obstructions = new Collider[8];

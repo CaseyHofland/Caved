@@ -31,10 +31,10 @@ public class EmSplineMovement : MonoBehaviour
     }*/
 
     [field: Header("Spline")]
-    [field: SerializeField] public SplineContainer? container2 { get; set; }
+    //[field: SerializeField] public SplineContainer? container2 { get; set; }
 
     [SerializeField, HideInInspector] private float _time;
-    public float time
+    /*public float time
     {
         get => _time;
         set
@@ -55,5 +55,5 @@ public class EmSplineMovement : MonoBehaviour
             //characterMover.Move(direction, sprintReaction.reaction ?? false);
             //_characterMovementScript._characterController.TurnTowards(direction);
         }
-    }
+    }*/
 }

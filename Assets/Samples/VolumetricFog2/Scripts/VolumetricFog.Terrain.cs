@@ -161,7 +161,7 @@ namespace VolumetricFogAndMist2 {
         /// </summary>
         public void ScheduleHeightmapCapture() {
             if (surfaceCam != null) {
-                surfaceCam.Render();
+                //surfaceCam.Render();
                 surfaceCam.enabled = false;
                 if (!fogMat.IsKeywordEnabled(ShaderParams.SKW_SURFACE)) {
                     fogMat.EnableKeyword(ShaderParams.SKW_SURFACE);
