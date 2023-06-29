@@ -278,7 +278,7 @@ Transform:
   - {fileID: 7372046979925990089}
   - {fileID: 3984292167382594889}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7699834870561304404
 MeshFilter:
@@ -1673,7 +1673,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.9294348, b: 0.8066038, a: 1}
+      maxColor: {r: 1, g: 0.6868777, b: 0.45882356, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -2201,7 +2201,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1.36
+      value: 0.94
       mode: 0
       spread: 0
       speed:
@@ -2320,7 +2320,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
