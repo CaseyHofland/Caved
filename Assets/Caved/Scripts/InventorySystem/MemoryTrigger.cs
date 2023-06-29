@@ -48,6 +48,12 @@ public class MemoryTrigger : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        if(!_inventoryManager)
+            _inventoryManager = FindObjectOfType<InventorySystem>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -85,8 +91,10 @@ public class MemoryTrigger : MonoBehaviour
     {
         if (!_pickedUp && _memory != null && _triggerd)
         {
+            if (!_inventoryManager)
+                _inventoryManager = FindObjectOfType<InventorySystem>();
             _inventoryManager.AddItemToSavedMemories(_memory.Id);
-            _seenMemoriesCheck._count++;
+            //_seenMemoriesCheck._count++;
 
             //keeping track of mental state
             _inventoryManager.PositiveMemoriesScore += _memory.PositiveScore;
@@ -109,7 +117,7 @@ public class MemoryTrigger : MonoBehaviour
     public void Forget()
     {
         _projector.enabled = false;
-        _seenMemoriesCheck._count++;
+        //_seenMemoriesCheck._count++;
         _memorylights.Stop();
         _scaleTip.Play("ANI_BtnScaleRight");
         if (_event != null)
