@@ -19,7 +19,7 @@ MonoBehaviour:
   renderQueue: 3100
   sortingLayerID: 0
   sortingOrder: 0
-  constantDensity: 1
+  constantDensity: 0
   noiseTexture: {fileID: 2800000, guid: 2c6081b2761b64a3d97935b8499064f8, type: 3}
   noiseStrength: 0.87
   noiseScale: 8.23
@@ -29,7 +29,7 @@ MonoBehaviour:
   detailScale: 0.35
   detailStrength: 0.5
   detailOffset: -0.5
-  density: 0.15
+  density: 0.42
   shape: 0
   border: 0.05
   customHeight: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 4294967261
-  terrainFogHeight: 0.9
-  terrainFogMinAltitude: 1.58
+  terrainFogHeight: 0.4
+  terrainFogMinAltitude: 1.13
   terrainFogMaxAltitude: 10.39
   albedo: {r: 1, g: 0.9183094, b: 0.6, a: 1}
   enableDepthGradient: 0

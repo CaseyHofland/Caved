@@ -209,7 +209,7 @@ public partial class @EmInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c8ae7c86-1c5d-4233-941c-845cb7be8fb0"",
-                    ""path"": ""<Keyboard>/m"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

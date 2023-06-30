@@ -657,6 +657,15 @@ public class EmMovement : MonoBehaviour
     {
         switch (_stance)
         {
+            case CharacterStance.Broken_Crouching:
+                break;
+
+            case CharacterStance.Crouching:
+                break;
+
+            case CharacterStance.Hurt_Crouching:
+                break;
+
             case CharacterStance.Standing:
                 if(_trackMemoryState != null && _trackMemoryState._hurtCanTrigger)
                 {
@@ -665,18 +674,6 @@ public class EmMovement : MonoBehaviour
                 else
                 {
                     RequestStanceChange(CharacterStance.Crouching);
-                }
-                break;
-
-            case CharacterStance.Crouching:
-                if (_trackMemoryState != null && _trackMemoryState._hurtCanTrigger)
-                {
-
-                    RequestStanceChange(CharacterStance.Hurt_Standing);
-                }
-                else
-                {
-                    RequestStanceChange(CharacterStance.Standing);
                 }
                 break;
 
@@ -691,23 +688,60 @@ public class EmMovement : MonoBehaviour
                 }
                 break;
 
-            case CharacterStance.Hurt_Crouching:
-                if (_trackMemoryState != null && _trackMemoryState._traumaCanTrigger)
-                {
-                    RequestStanceChange(CharacterStance.Broken_Standing);
-                }
-                else
-                {
-                    RequestStanceChange(CharacterStance.Hurt_Standing);
-                }
-                break;
 
             case CharacterStance.Broken_Standing:
                     RequestStanceChange(CharacterStance.Broken_Crouching);
                 break;
 
-            case CharacterStance.Broken_Crouching:
+
+        }
+    }
+
+    public void OnCrouchStop()
+    {
+        switch (_stance)
+        {
+            case CharacterStance.Standing:
+                break;
+
+            case CharacterStance.Broken_Standing:
+                break;
+
+            case CharacterStance.Hurt_Standing:
+                break;
+
+            case CharacterStance.Crouching:
+                if (_trackMemoryState != null && _trackMemoryState._hurtCanTrigger)
+                {
+
+                    RequestStanceChange(CharacterStance.Hurt_Standing);
+                    Debug.Log("Change");
+                }
+                else
+                {
+                    RequestStanceChange(CharacterStance.Standing);
+                    Debug.Log("Change");
+                }
+                break;
+
+
+            case CharacterStance.Hurt_Crouching:
+                if (_trackMemoryState != null && _trackMemoryState._traumaCanTrigger)
+                {
                     RequestStanceChange(CharacterStance.Broken_Standing);
+                    Debug.Log("Change");
+                }
+                else
+                {
+                    RequestStanceChange(CharacterStance.Hurt_Standing);
+                    Debug.Log("Change");
+                }
+                break;
+
+
+            case CharacterStance.Broken_Crouching:
+                RequestStanceChange(CharacterStance.Broken_Standing);
+                Debug.Log("Change");
                 break;
 
         }
