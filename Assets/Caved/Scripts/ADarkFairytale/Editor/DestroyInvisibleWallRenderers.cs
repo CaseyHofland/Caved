@@ -13,7 +13,7 @@ public class InvisibleWallProcessor : IProcessSceneWithReport
 
     public void OnProcessScene(Scene scene, BuildReport report)
     {
-        scene.GetRootGameObjects(gameObjects);
+        /*scene.GetRootGameObjects(gameObjects);
         foreach (var gameObject in gameObjects)
         {
             DestroyInvisibleWallRendererInChildren(gameObject.transform);
@@ -22,14 +22,15 @@ public class InvisibleWallProcessor : IProcessSceneWithReport
             {
                 if (transform.CompareTag("InvisibleWall"))
                 {
-                    Object.DestroyImmediate(transform.GetComponent<Renderer>());
+                    //Object.DestroyImmediate(transform.GetComponent<Renderer>());
+                    Debug.Log("Off");
                 }
                 foreach (Transform child in transform)
                 {
                     DestroyInvisibleWallRendererInChildren(child);
                 }
             }
-        }
+        }*/
     }
 
 }
