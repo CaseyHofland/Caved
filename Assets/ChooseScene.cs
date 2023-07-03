@@ -8,10 +8,10 @@ using UnityEngine.Sequences;
 public class ChooseScene : MonoBehaviour
 {
     InventorySystem inventorySystem;
-    countingMemories _allSeen;
+    RoadBlock _allSeen;
     public EmMovement _blockControls;
-    PlayableDirector _finalPlayableDirectorRemember;
-    PlayableDirector _finalplayableDirectorForget;
+    public PlayableDirector _finalPlayableDirectorRemember;
+    public PlayableDirector _finalplayableDirectorForget;
     public GameObject _ZimsThings;
 
     public SceneReference _Remember;
@@ -19,6 +19,7 @@ public class ChooseScene : MonoBehaviour
 
     public GameObject _decalRemember;
     public GameObject _decalForget;
+    public Animator _crossfadePanel;
 
     // Start is called before the first frame update
     void Start()
@@ -36,20 +37,15 @@ public class ChooseScene : MonoBehaviour
             Destroy(_decalRemember);
         }
 
-        _blockControls = gameObject.GetComponent<EmMovement>();
-    }
-
-    private void Update()
-    {
-        if(_allSeen._timeForCutscene)
-            StartTheCutscene();
+        _blockControls = _blockControls.GetComponent<EmMovement>();
     }
 
     public void StartTheCutscene()
     {
-        _blockControls.enabled = false;
+        _blockControls.enabled = false; //!
+        //_crossfadePanel.Play("A_CrossfadeStart");
         if (inventorySystem._hurtCanTrigger)
-            _finalPlayableDirectorRemember.Play();
+            _finalPlayableDirectorRemember.Play(); //!
         else
             _finalplayableDirectorForget.Play();
     }
@@ -70,7 +66,7 @@ public class ChooseScene : MonoBehaviour
             // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
             // a sceneBuildIndex of 1 as shown in Build Settings.
 
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/FinaleSad");
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/S_FinaleSad");
 
             // Wait until the asynchronous scene fully loads
             while (!asyncLoad.isDone)
@@ -85,7 +81,7 @@ public class ChooseScene : MonoBehaviour
             // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
             // a sceneBuildIndex of 1 as shown in Build Settings.
 
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/Peace");
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/S_Peace");
 
             // Wait until the asynchronous scene fully loads
             while (!asyncLoad.isDone)
