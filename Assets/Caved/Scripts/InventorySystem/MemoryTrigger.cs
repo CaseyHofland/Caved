@@ -101,6 +101,7 @@ public class MemoryTrigger : MonoBehaviour
             _inventoryManager.NegativeMemoriesScore += _memory.NegativeScore;
 
             _pickedUp = true;
+            _inventoryManager._rememberedMemories++;
 
             if (_event != null)
             {

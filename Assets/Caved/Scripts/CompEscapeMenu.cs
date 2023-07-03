@@ -8,7 +8,7 @@ public class CompEscapeMenu : MonoBehaviour
 {
     [Header("Main Buttons")]
     [SerializeField] private Button _btnRemumeGame;
-    [SerializeField] private Button _btnMemoriesGame;
+    //[SerializeField] private Button _btnMemoriesGame;
     [SerializeField] private Button _btnSettingsGame;
     [SerializeField] private Button _btnExitGame;
 
@@ -20,7 +20,7 @@ public class CompEscapeMenu : MonoBehaviour
 
     [Header("Menus")]
     [SerializeField] private GameObject _menuSettings;
-    [SerializeField] private GameObject _memoryShow;
+    //[SerializeField] private GameObject _memoryShow;
 
     private const string _exitGame = "Are you sure you want to exit the game?";
 
@@ -63,10 +63,10 @@ public class CompEscapeMenu : MonoBehaviour
     }
 
     //show memories
-    private void Memory()
+    /*private void Memory()
     {
         _memoryShow.SetActive(true);
-    }
+    }*/
 
     //Assign button Events
     private void AssignButtonEvents()
@@ -74,7 +74,7 @@ public class CompEscapeMenu : MonoBehaviour
         _btnRemumeGame.onClick.AddListener(delegate { Resume(); });
         _btnSettingsGame.onClick.AddListener(delegate { Settings(); });
         _btnExitGame.onClick.AddListener(delegate { PopUp("Exit"); });
-        _btnMemoriesGame.onClick.AddListener(delegate { Memory(); });
+        //_btnMemoriesGame.onClick.AddListener(delegate { Memory(); });
     }
 
     private void Start()

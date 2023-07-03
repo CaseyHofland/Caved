@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Crouch",
-                    "type": "Button",
-                    "id": "d16b1ebf-b0aa-4ba6-a48b-9d01b0264d86",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "04b33d7e-2806-47b7-8203-42dc871c5c44",
@@ -129,28 +120,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4084925e-6d47-4a07-b066-96730e548a28",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "04a3b765-e2ea-4f08-a5d3-db900e0e7a0f",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "79130e4e-71ae-42d3-9abf-ca2702ece263",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -218,7 +187,7 @@
                 {
                     "name": "",
                     "id": "c8ae7c86-1c5d-4233-941c-845cb7be8fb0",
-                    "path": "<Keyboard>/m",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
