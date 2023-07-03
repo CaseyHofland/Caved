@@ -127,6 +127,7 @@ public class EmMovement : MonoBehaviour
 
         _runSpeed = _standingSpeed.x;
         _sprintingSpeed = _standingSpeed.y;
+        _canIMove = true;
         //_eventCurrator.Event.AddListener(OnSMBEvent);
 
 
@@ -170,6 +171,8 @@ public class EmMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         var characterMovement = new Vector3(horizontal, 0, vertical); //walking around
 
+        if(_canIMove)
+        {
         //new movement
         _characterController.Move(move * Time.deltaTime * _newSpeed);
 
@@ -247,6 +250,7 @@ public class EmMovement : MonoBehaviour
             //JUMPING
             HandleGravity();
             //HandleJump();*/
+        }
 
             //Check memorystate
             if(_trackMemoryState!= null)
@@ -262,6 +266,16 @@ public class EmMovement : MonoBehaviour
             }
 
             }
+
+        Debug.Log(_canIMove);
+    }
+
+    public void AllowMovement()
+    {
+        if(_canIMove)
+            _canIMove = false;
+        else
+            _canIMove= true;
     }
 
     private void MovementJump()
