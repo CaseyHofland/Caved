@@ -293,6 +293,24 @@ public class EmMovement : MonoBehaviour
         _characterController.Move(playerVelocity * Time.deltaTime);
     }
 
+    public void forgetAnimation()
+    {
+        _animator.Play("ANI_Forget_Memory");
+        _maskAnimator.Play("ANI_Mask_Forget_Memory");
+    }
+
+    public void rememberSadAnimation()
+    {
+        _animator.Play("ANI_Remember_Negative");
+        _maskAnimator.Play("ANI_Mask_Remember_Negative");
+    }
+
+    public void rememberHappyAnimation()
+    {
+        _animator.Play("ANI_Remember_GoodMemory");
+        _maskAnimator.Play("ANI_Mask_Remember_GoodMemory");
+    }
+
     private void SwitchToHurt()
     {
         switch (_stance)
@@ -398,9 +416,10 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Standing:
                 if (newStance == CharacterStance.Crouching)
                 {
-                        //_animator.SetBool("IsCrouching", true);
+                        _animator.SetBool("IsCrouching", true);
+                    _maskAnimator.SetBool("IsCrouching", true);
 
-                        _characterCrouching = true;
+                    _characterCrouching = true;
 
                         _runSpeed = _crouchingSpeed.x;
                         _sprintingSpeed = _crouchingSpeed.y;
@@ -413,7 +432,8 @@ public class EmMovement : MonoBehaviour
                 }
                 else if(newStance == CharacterStance.Hurt_Standing)
                 {
-                    //_animator.SetBool("IsCrouching", true);
+                    _animator.SetBool("IsCrouching", false);
+                    _maskAnimator.SetBool("IsCrouching", false);
 
                     _characterCrouching = true;
 
@@ -431,7 +451,10 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Crouching:
                 if (newStance == CharacterStance.Standing)
                 {
-                            _characterCrouching = false;
+                    _animator.SetBool("IsCrouching", false);
+                    _maskAnimator.SetBool("IsCrouching", false);
+
+                    _characterCrouching = false;
 
                             _runSpeed = _standingSpeed.x;
                             _sprintingSpeed = _standingSpeed.y;
@@ -444,7 +467,8 @@ public class EmMovement : MonoBehaviour
                 }
                 else if (newStance == CharacterStance.Hurt_Crouching)
                 {
-                    //_animator.SetBool("IsCrouching", true);
+                    _animator.SetBool("IsCrouching", true);
+                    _maskAnimator.SetBool("IsCrouching", true);
 
                     _characterCrouching = true;
 
@@ -463,7 +487,8 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Hurt_Standing:
                 if (newStance == CharacterStance.Hurt_Crouching)
                 {
-                    //_animator.SetBool("IsCrouching", true);
+                    _animator.SetBool("IsCrouching", true);
+                    _maskAnimator.SetBool("IsCrouching", true);
 
                     _characterCrouching = true;
 
@@ -479,7 +504,8 @@ public class EmMovement : MonoBehaviour
                 }
                 else if (newStance == CharacterStance.Broken_Standing)
                 {
-                    //_animator.SetBool("IsCrouching", true);
+                    _animator.SetBool("IsCrouching", false);
+                    _maskAnimator.SetBool("IsCrouching", false);
 
                     _characterCrouching = true;
 
@@ -498,7 +524,11 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Hurt_Crouching:
                 if (newStance == CharacterStance.Hurt_Standing)
                 {
-                        _characterCrouching = false;
+
+                    _animator.SetBool("IsCrouching", false);
+                    _maskAnimator.SetBool("IsCrouching", false);
+
+                    _characterCrouching = false;
 
                         _runSpeed = _standingSpeed.x;
                         _sprintingSpeed = _standingSpeed.y;
@@ -512,7 +542,8 @@ public class EmMovement : MonoBehaviour
                 }
                 else if (newStance == CharacterStance.Broken_Crouching)
                 {
-                    //_animator.SetBool("IsCrouching", true);
+                    _animator.SetBool("IsCrouching", true);
+                    _maskAnimator.SetBool("IsCrouching", true);
 
                     _characterCrouching = true;
 
@@ -531,7 +562,8 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Broken_Standing:
                 if (newStance == CharacterStance.Broken_Crouching)
                 {
-                    //_animator.SetBool("IsCrouching", true);
+                    _animator.SetBool("IsCrouching", false);
+                    _maskAnimator.SetBool("IsCrouching", true);
 
                     _characterCrouching = true;
 
@@ -550,7 +582,11 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Broken_Crouching:
                 if (newStance == CharacterStance.Broken_Standing)
                 {
-                        _characterCrouching = false;
+
+                    _animator.SetBool("IsCrouching", false);
+                    _maskAnimator.SetBool("IsCrouching", false);
+
+                    _characterCrouching = false;
 
                         _runSpeed = _standingSpeed.x;
                         _sprintingSpeed = _standingSpeed.y;
