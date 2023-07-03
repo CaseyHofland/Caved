@@ -549,7 +549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 68fb40ac144256e4fb20aa54fb7a8af5, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 68fb40ac144256e4fb20aa54fb7a8af5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1201,7 +1201,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7013746109852193961}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 68fb40ac144256e4fb20aa54fb7a8af5, type: 3}
   m_Controller: {fileID: 9100000, guid: 0a0b37753b787b744b1d16761230281b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -1235,7 +1235,7 @@ CharacterController:
   m_Height: 1.3
   m_Radius: 0.26
   m_SlopeLimit: 45
-  m_StepOffset: 0.2
+  m_StepOffset: 0.5
   m_SkinWidth: 0.003
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.65, z: 0}
@@ -1318,9 +1318,8 @@ MonoBehaviour:
   _crouchingSpeed: {x: 1, y: 2}
   _standingCapsule: {x: 0.26, y: 1.3, z: 0.65}
   _crouchingCapsule: {x: 0.36, y: 0.59, z: 0.29}
-  _gravity: -0.1
+  _gravity: -6
   _groundedGravity: 0
-  _jumpForce: 4
   _yVelocity: 0
   _isSprinting: 0
   _walkingSpeed: 2
@@ -1330,6 +1329,7 @@ MonoBehaviour:
   _currentCenter: {x: 0, y: 0, z: 0}
   _normalCenter: {x: 0, y: 0.65, z: 0}
   _crouchingCenter: {x: 0, y: 0.29, z: 0}
+  _isCrouching: 0
   _wallAngleMax: 5
   _groundAngleMax: 60
   _dropCheckDistance: 4
@@ -1345,41 +1345,6 @@ MonoBehaviour:
   _endOffset: {x: 0, y: 0.9, z: 0.3}
   _hangOffset: {x: 0, y: -1.8, z: -0.4}
   _dropOffset: {x: 0, y: 0, z: -0.1}
-  _standToFreeHandSettings:
-    stateName: Stand To Freehang (1)
-    layer: 0
-    timeOffset: 0
-    transitionDuration: 0
-  _climbUpSettings:
-    stateName: Climb Up
-    layer: 0
-    timeOffset: 0
-    transitionDuration: 0
-  _vaultSettings:
-    stateName: Vault
-    layer: 0
-    timeOffset: 0
-    transitionDuration: 0
-  _dropSettings:
-    stateName: Drop
-    layer: 0
-    timeOffset: 0
-    transitionDuration: 0
-  _dropToAirSettings:
-    stateName: Drop to air
-    layer: 0
-    timeOffset: 0
-    transitionDuration: 0
-  _stepUpSettings:
-    stateName: Step Up
-    layer: 0
-    timeOffset: 0
-    transitionDuration: 0
-  _jumpSettings:
-    stateName: JumpingDown
-    layer: 0
-    timeOffset: 0
-    transitionDuration: 0
   _headRay: {fileID: 964793219137139246}
   _headRay2: {fileID: 3709376766770477618}
   _footRay: {fileID: 8623545526408112001}

@@ -9,7 +9,7 @@ public class ChooseScene : MonoBehaviour
 {
     InventorySystem inventorySystem;
     countingMemories _allSeen;
-    public GameObject _blockControls;
+    public EmMovement _blockControls;
     PlayableDirector _finalPlayableDirectorRemember;
     PlayableDirector _finalplayableDirectorForget;
     public GameObject _ZimsThings;
@@ -35,6 +35,8 @@ public class ChooseScene : MonoBehaviour
             _decalForget.SetActive(true);
             Destroy(_decalRemember);
         }
+
+        _blockControls = gameObject.GetComponent<EmMovement>();
     }
 
     private void Update()
@@ -43,33 +45,54 @@ public class ChooseScene : MonoBehaviour
             StartTheCutscene();
     }
 
-    void StartTheCutscene()
+    public void StartTheCutscene()
     {
+        _blockControls.enabled = false;
         if (inventorySystem._hurtCanTrigger)
             _finalPlayableDirectorRemember.Play();
         else
             _finalplayableDirectorForget.Play();
     }
 
+
+
     public void FinaleTriggerd()
     {
-        if(inventorySystem._hurtCanTrigger)
+        StartCoroutine(LoadYourAsyncScene());
+    }
+
+    IEnumerator LoadYourAsyncScene()
+    {
+        if (inventorySystem._hurtCanTrigger)
         {
-            SceneManager.LoadSceneAsync(_Remember, LoadSceneMode.Single);
+            // The Application loads the Scene in the background as the current Scene runs.
+            // This is particularly good for creating loading screens.
+            // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+            // a sceneBuildIndex of 1 as shown in Build Settings.
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/FinaleSad");
+
+            // Wait until the asynchronous scene fully loads
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
         }
         else
         {
-            SceneManager.LoadSceneAsync(_Forget, LoadSceneMode.Single);
+            // The Application loads the Scene in the background as the current Scene runs.
+            // This is particularly good for creating loading screens.
+            // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+            // a sceneBuildIndex of 1 as shown in Build Settings.
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Caved/Areas/Peace");
+
+            // Wait until the asynchronous scene fully loads
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
         }
+        
     }
-
-    /*void EndingRemember()
-    {
-        SceneManager.LoadSceneAsync(_Remember, LoadSceneMode.Single);
-    }
-
-    void EndingForget()
-    {
-        SceneManager.LoadSceneAsync(_Forget, LoadSceneMode.Single);
-    }*/
 }

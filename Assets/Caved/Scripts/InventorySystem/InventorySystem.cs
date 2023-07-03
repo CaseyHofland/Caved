@@ -14,6 +14,7 @@ public class InventorySystem : MonoBehaviour
     public List<InventoryItemSO> AllMemories = new List<InventoryItemSO>(); 
     public List<InventoryItemSO> SavedMemories = new List<InventoryItemSO>();
     public List<GameObject> SpawnedImages = new List<GameObject>();
+
     [Header("Memory count")]
     public int PositiveMemoriesScore;
     public int NegativeMemoriesScore;
@@ -29,7 +30,7 @@ public class InventorySystem : MonoBehaviour
     [Header("Menus")]
     [SerializeField] private GameObject _goEscapeMenu;
     [SerializeField] private GameObject _goSettingsMenu;
-    [SerializeField] private GameObject _goMemoriesMenu;
+    //[SerializeField] private GameObject _goMemoriesMenu;
     [SerializeField] private List<PopUpButton> _goPopUps;
 
     [Header("Memory conditions")]
@@ -38,6 +39,7 @@ public class InventorySystem : MonoBehaviour
     public bool _hurtCanTrigger;
     public bool _traumaCanTrigger;
     public bool _forgetCanTrigger;
+    public int _memoryManagerCount; //hier zegmaar
 
     private void Awake()
     {
@@ -93,9 +95,10 @@ public class InventorySystem : MonoBehaviour
     {
         if (_coroutine == null)
         {
-            _goMemoriesMenu.SetActive(true); //new
-            _target.SetActive(true);
-            _coroutine = StartCoroutine(LoadMemoriesUI());
+            _goSettingsMenu.SetActive(true); //new
+            _showingMemories = true;
+            //_target.SetActive(true);
+            //_coroutine = StartCoroutine(LoadMemoriesUI());
         }
     }
 
@@ -123,13 +126,9 @@ public class InventorySystem : MonoBehaviour
             {
                 _goSettingsMenu.SetActive(false);
             }
-            else if(_goEscapeMenu.activeSelf)
-            {
-                _goEscapeMenu.SetActive(false);
-            }
             else
             {
-                _goMemoriesMenu.SetActive(false);
+                _goEscapeMenu.SetActive(false);
             }
         }
     }
@@ -139,8 +138,8 @@ public class InventorySystem : MonoBehaviour
     {
         if (_showingMemories)
         {
-            _target.SetActive(false);
-            _goMemoriesMenu.SetActive(false); //new
+            //_target.SetActive(false);
+            //_goMemoriesMenu.SetActive(false); //new
             _showingMemories = false;
         }
     }
@@ -148,6 +147,7 @@ public class InventorySystem : MonoBehaviour
     public void OnMemories() //OpenMenu
     {
         Debug.Log("CLICK");
+
         /*if(!_showingMemories)
             OpenMemories();
         else
