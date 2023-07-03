@@ -13,6 +13,8 @@ public class MemoryTrigger : MonoBehaviour
     private bool _triggerd = false;
 
     [SerializeField] Animator _scaleTip;
+    public EmMovement _demazanaAnimation;
+
     [SerializeField] private float _reactionTime;
 
     InventorySystem _inventoryManager;
@@ -22,7 +24,11 @@ public class MemoryTrigger : MonoBehaviour
     [SerializeField] UnityEvent _event;
     bool _pickedUp;
     [SerializeField] private GameObject _worldSpacePickup;
+
+    [Header("Cinemachine")]
     public CinemachineCamera _memoryCamera;
+    public CinemachineCamera _emotionReactionCam;
+
     public ParticleSystem _memorylights;
     public bool _lookClicked;
     
@@ -41,9 +47,11 @@ public class MemoryTrigger : MonoBehaviour
         _worldSpacePickup.SetActive(false);
         _choices.SetActive(false);
         _seenMemoriesCheck = FindObjectOfType<countingMemories>();
+        _demazanaAnimation = _demazanaAnimation.GetComponent<EmMovement>();
 
         _memoryCamera.enabled = false;
-        
+        _emotionReactionCam.enabled = false;
+
         _playerInputMemory = new EmInput();
 
     }
@@ -103,16 +111,39 @@ public class MemoryTrigger : MonoBehaviour
             _pickedUp = true;
             _inventoryManager._rememberedMemories++;
 
-            if (_event != null)
-            {
-                _event.Invoke();
-            }
-            
-            _scaleTip.Play("ANI_BtnScaleLeft");
+            StartCoroutine(RememberImpact());
 
             //yield return new WaitForSeconds(_reactionTime);
             
         }
+    }
+
+    private IEnumerator RememberImpact()
+    {
+        //turn on emotion camera
+        _emotionReactionCam.enabled = true;
+        _choices.SetActive(false);
+
+        //play remember animation
+        if (_memory.PositiveScore > _memory.NegativeScore)
+            _demazanaAnimation.rememberHappyAnimation();
+        else
+            _demazanaAnimation.rememberSadAnimation();
+            //play happy animation
+
+        yield return new WaitForSeconds(4);
+            
+        _emotionReactionCam.enabled = false;
+        _memoryCamera.enabled = false;
+
+        _scaleTip.Play("ANI_BtnScaleLeft");
+
+        yield return new WaitForSeconds(2);
+
+        if (_event != null)
+            {
+                _event.Invoke();
+            }
     }
 
     public void Forget()
@@ -120,18 +151,33 @@ public class MemoryTrigger : MonoBehaviour
         _projector.enabled = false;
         //_seenMemoriesCheck._count++;
         _memorylights.Stop();
+        StartCoroutine(ForgetImpact());
+    }
+
+    private IEnumerator ForgetImpact()
+    {
+        //turn on emotion camera
+        _emotionReactionCam.enabled = true;
+        _choices.SetActive(false);
+
+        //play remember animation
+        _demazanaAnimation.forgetAnimation();
+        //play happy animation
+
+        yield return new WaitForSeconds(6);
+
+        _emotionReactionCam.enabled = false;
+        _memoryCamera.enabled = false;
+
         _scaleTip.Play("ANI_BtnScaleRight");
+
+        yield return new WaitForSeconds(2);
+
         if (_event != null)
         {
             _event.Invoke();
         }
     }
-
-    /*private void OnConfirm()
-    {
-        if(_triggerd && !_pickedUp)
-            StartCoroutine(RememberChoice());
-    }*/
 
     public void LookClicked()
     {

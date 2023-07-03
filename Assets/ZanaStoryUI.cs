@@ -29,17 +29,11 @@ public class ZanaStoryUI : MonoBehaviour
         _canClick = true;
     }
 
-    private void Update()
-    {
-        Debug.Log(_ind);
-    }
-
     public void StartExplanation()
     {
         _panel.Play("A_CrossfadeStart");
         _line1.SetActive(true);
         StartCoroutine(countingForClick());
-        Debug.Log("Showing 1");
     }
 
     public void ShowNextLine()
@@ -52,26 +46,22 @@ public class ZanaStoryUI : MonoBehaviour
             {
                 _line2.SetActive(true);
                 StartCoroutine(countingForClick());
-                Debug.Log("Showing 2");
             }
             else if (_ind == 2)
             {
                 _line3.SetActive(true);
                 StartCoroutine(countingForClick());
-                Debug.Log("Showing 3");
             }
             else if (_ind == 3)
             {
                 _txtNext.text = "Start";
                 _line4.SetActive(true);
                 StartCoroutine(countingForClick());
-                Debug.Log("Showing 4");
 
             }
             if (_ind == 4)
             {
                 StartCoroutine(removingLines());
-                Debug.Log("Closing");
             }
 
         }
@@ -87,9 +77,7 @@ public class ZanaStoryUI : MonoBehaviour
         _btnNext.interactable = true;
     }
     IEnumerator removingLines()
-    {
-        Debug.Log("Closing");
-        
+    {        
         _btnNext.enabled = false;
 
         yield return new WaitForEndOfFrame();

@@ -147,20 +147,12 @@ public class InventorySystem : MonoBehaviour
     public void OnMemories() //OpenMenu
     {
         Debug.Log("CLICK");
-
-        /*if(!_showingMemories)
-            OpenMemories();
-        else
-        {
-            _target.SetActive(false); 
-            _showingMemories = false;
-        }*/
-        if (!_showingMemories)
+        /*if (!_showingMemories)
             OpenMenu();
         else
         {
             CloseMenu();
-        }
+        }*/
 
     }
 
