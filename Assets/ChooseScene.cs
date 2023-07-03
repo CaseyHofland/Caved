@@ -45,7 +45,7 @@ public class ChooseScene : MonoBehaviour
             StartTheCutscene();
     }
 
-    void StartTheCutscene()
+    public void StartTheCutscene()
     {
         _blockControls.enabled = false;
         if (inventorySystem._hurtCanTrigger)
