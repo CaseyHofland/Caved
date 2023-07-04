@@ -43,10 +43,10 @@ MonoBehaviour:
   terrainFitResolution: 256
   terrainLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967261
-  terrainFogHeight: 0.46
-  terrainFogMinAltitude: -9.63
-  terrainFogMaxAltitude: -8.33
+    m_Bits: 4294967293
+  terrainFogHeight: 0.57
+  terrainFogMinAltitude: -10.33
+  terrainFogMaxAltitude: 19.06
   albedo: {r: 1, g: 0.77236855, b: 0.64705884, a: 1}
   enableDepthGradient: 0
   depthGradient:

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ZanaStoryUI : MonoBehaviour
@@ -15,6 +16,7 @@ public class ZanaStoryUI : MonoBehaviour
     public Button _btnNext;
 
     [SerializeField] private TMP_Text _txtNext;
+    public UnityEvent _endCutscene;
 
     private bool _canClick;
 
@@ -83,6 +85,8 @@ public class ZanaStoryUI : MonoBehaviour
         yield return new WaitForEndOfFrame();
         
         _panel.Play("A_FastDipEnd");
+
+        _endCutscene.Invoke();
 
         Destroy(gameObject);
     }

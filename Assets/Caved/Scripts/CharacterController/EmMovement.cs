@@ -8,7 +8,7 @@ using UnityEngine.ProBuilder;
 using UnityEngine.UIElements;
 using UnityExtras;
 
-public enum CharacterStance { Standing, Crouching, Hurt_Standing, Hurt_Crouching, Broken_Standing, Broken_Crouching}
+public enum CharacterStance { Standing, Crouching, Hurt_Standing, Hurt_Crouching, Broken_Standing, Broken_Crouching }
 public class EmMovement : MonoBehaviour
 {
     [Header("Assets")]
@@ -173,15 +173,15 @@ public class EmMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         var characterMovement = new Vector3(horizontal, 0, vertical); //walking around
 
-        if(_canIMove)
+        if (_canIMove)
         {
-        //new movement
-        _characterController.Move(move * Time.deltaTime * _newSpeed);
+            //new movement
+            _characterController.Move(move * Time.deltaTime * _newSpeed);
 
-        /*if (move.magnitude > 0)
-                _characterController.Move(move * Time.deltaTime * _newSpeed);
-            else
-                _characterController.Move(Vector3.zero);*/
+            /*if (move.magnitude > 0)
+                    _characterController.Move(move * Time.deltaTime * _newSpeed);
+                else
+                    _characterController.Move(Vector3.zero);*/
 
             if (move.magnitude > 0)
             {
@@ -228,8 +228,8 @@ public class EmMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
 
-        MovementJump();
-            
+            MovementJump();
+
             //RAYCASTS
             //Raycast floor for jumping
             /*RaycastHit hit;
@@ -253,30 +253,45 @@ public class EmMovement : MonoBehaviour
             HandleGravity();
             //HandleJump();*/
         }
+        else
+        {
+            _animator.SetFloat(_move, 0);
+            _maskAnimator.SetFloat(_move, 0);
+        }
 
-            //Check memorystate
-            if(_trackMemoryState!= null)
-            {
-                if(_trackMemoryState._hurtCanTrigger)
-            {
-                SwitchToHurt();
-            }
-            else if(_trackMemoryState._traumaCanTrigger)
+        //Check memorystate
+
+        if (_trackMemoryState && _trackMemoryState._hurtCanTrigger)
+        {
+            if(_trackMemoryState._traumaCanTrigger)
             {
                 //start coroutine to switch trees
-                SwitchToBroken();
+                //SwitchToBroken();
+                RequestStanceChange(CharacterStance.Broken_Standing);
+                _animator.SetBool("Broken", true);
+                _maskAnimator.SetBool("Broken", true);
             }
+            else
+            {
+                //SwitchToHurt();
+                RequestStanceChange(CharacterStance.Hurt_Standing);
+                _animator.SetBool("Hurt", true);
+                _maskAnimator.SetBool("Hurt", true);
+            }
+        }
 
-            }
+
     }
 
     public void AllowMovement()
     {
-        if(_canIMove)
-            _canIMove = false;
-        else
-            _canIMove= true;
+            _canIMove = true;
     }
+    public void DisableMovement()
+    {
+        _canIMove = false;
+    }
+
 
     private void MovementJump()
     {
@@ -317,10 +332,14 @@ public class EmMovement : MonoBehaviour
         {
             case CharacterStance.Standing:
                 RequestStanceChange(CharacterStance.Hurt_Standing);
+                _animator.SetBool("Hurt", true);
+                _maskAnimator.SetBool("Hurt", true);
                 break;
 
             case CharacterStance.Crouching:
                 RequestStanceChange(CharacterStance.Hurt_Crouching);
+                _animator.SetBool("Hurt", true);
+                _maskAnimator.SetBool("Hurt", true);
                 break;
         }
     }
@@ -331,10 +350,14 @@ public class EmMovement : MonoBehaviour
         {
             case CharacterStance.Hurt_Standing:
                 RequestStanceChange(CharacterStance.Broken_Standing);
+                _animator.SetBool("Broken", true);
+                _maskAnimator.SetBool("Broken", true);
                 break;
 
             case CharacterStance.Hurt_Crouching:
                 RequestStanceChange(CharacterStance.Broken_Crouching);
+                _animator.SetBool("Broken", true);
+                _maskAnimator.SetBool("Broken", true);
                 break;
         }
     }
@@ -376,12 +399,12 @@ public class EmMovement : MonoBehaviour
 
     public void OnCrouch()
     {
-        if(!_isCrouching)
+        if (!_isCrouching)
         {
-            if(_trackMemoryState._hurtCanTrigger)
-                    RequestStanceChange(CharacterStance.Hurt_Crouching);
-                else if(_trackMemoryState._traumaCanTrigger)
-                    RequestStanceChange(CharacterStance.Broken_Crouching);
+            if (_trackMemoryState._hurtCanTrigger)
+                RequestStanceChange(CharacterStance.Hurt_Crouching);
+            else if (_trackMemoryState._traumaCanTrigger)
+                RequestStanceChange(CharacterStance.Broken_Crouching);
             else
                 RequestStanceChange(CharacterStance.Crouching);
 
@@ -400,7 +423,7 @@ public class EmMovement : MonoBehaviour
                 RequestStanceChange(CharacterStance.Broken_Standing);
             else
                 RequestStanceChange(CharacterStance.Standing);
-            
+
             _isCrouching = false;
             Debug.Log("Standing");
         }
@@ -416,21 +439,21 @@ public class EmMovement : MonoBehaviour
             case CharacterStance.Standing:
                 if (newStance == CharacterStance.Crouching)
                 {
-                        _animator.SetBool("IsCrouching", true);
+                    _animator.SetBool("IsCrouching", true);
                     _maskAnimator.SetBool("IsCrouching", true);
 
                     _characterCrouching = true;
 
-                        _runSpeed = _crouchingSpeed.x;
-                        _sprintingSpeed = _crouchingSpeed.y;
-                        _stance = newStance;
-                        _animator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
-                        _maskAnimator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
-                        SetCapsuleDimensions(_crouchingCapsule);
+                    _runSpeed = _crouchingSpeed.x;
+                    _sprintingSpeed = _crouchingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+                    _maskAnimator.CrossFadeInFixedTime(_standToCrouch, 0.1f);
+                    SetCapsuleDimensions(_crouchingCapsule);
 
-                        return true;
+                    return true;
                 }
-                else if(newStance == CharacterStance.Hurt_Standing)
+                else if (newStance == CharacterStance.Hurt_Standing)
                 {
                     _animator.SetBool("IsCrouching", false);
                     _maskAnimator.SetBool("IsCrouching", false);
@@ -456,14 +479,14 @@ public class EmMovement : MonoBehaviour
 
                     _characterCrouching = false;
 
-                            _runSpeed = _standingSpeed.x;
-                            _sprintingSpeed = _standingSpeed.y;
-                            _stance = newStance;
-                            _animator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
-                            _maskAnimator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
-                            SetCapsuleDimensions(_standingCapsule);
+                    _runSpeed = _standingSpeed.x;
+                    _sprintingSpeed = _standingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
+                    _maskAnimator.CrossFadeInFixedTime(_crouchToStand, 0.5f);
+                    SetCapsuleDimensions(_standingCapsule);
 
-                            return true;
+                    return true;
                 }
                 else if (newStance == CharacterStance.Hurt_Crouching)
                 {
@@ -530,15 +553,15 @@ public class EmMovement : MonoBehaviour
 
                     _characterCrouching = false;
 
-                        _runSpeed = _standingSpeed.x;
-                        _sprintingSpeed = _standingSpeed.y;
-                        _stance = newStance;
-                        _animator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.5f);
+                    _runSpeed = _standingSpeed.x;
+                    _sprintingSpeed = _standingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.5f);
 
-                        _maskAnimator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.5f);
-                        SetCapsuleDimensions(_standingCapsule);
+                    _maskAnimator.CrossFadeInFixedTime(_hurtCrouchToStand, 0.5f);
+                    SetCapsuleDimensions(_standingCapsule);
 
-                        return true;
+                    return true;
                 }
                 else if (newStance == CharacterStance.Broken_Crouching)
                 {
@@ -588,15 +611,15 @@ public class EmMovement : MonoBehaviour
 
                     _characterCrouching = false;
 
-                        _runSpeed = _standingSpeed.x;
-                        _sprintingSpeed = _standingSpeed.y;
-                        _stance = newStance;
-                        _animator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.5f);
+                    _runSpeed = _standingSpeed.x;
+                    _sprintingSpeed = _standingSpeed.y;
+                    _stance = newStance;
+                    _animator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.5f);
 
-                        _maskAnimator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.5f);
-                        SetCapsuleDimensions(_standingCapsule);
+                    _maskAnimator.CrossFadeInFixedTime(_brokenCrouchToStand, 0.5f);
+                    SetCapsuleDimensions(_standingCapsule);
 
-                        return true;
+                    return true;
                 }
                 break;
         }

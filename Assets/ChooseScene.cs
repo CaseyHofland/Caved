@@ -12,7 +12,11 @@ public class ChooseScene : MonoBehaviour
     public EmMovement _blockControls;
     public PlayableDirector _finalPlayableDirectorRemember;
     public PlayableDirector _finalplayableDirectorForget;
+
     public GameObject _ZimsThings;
+
+    public GameObject _camRemember;
+    public GameObject _camForget;
 
     public SceneReference _Remember;
     public SceneReference _Forget;
@@ -26,7 +30,7 @@ public class ChooseScene : MonoBehaviour
     {
         inventorySystem = FindObjectOfType<InventorySystem>();
 
-        if(inventorySystem._hurtCanTrigger)
+        if (inventorySystem._hurtCanTrigger)
         {
             _decalRemember.SetActive(true);
             Destroy(_decalForget);
@@ -34,6 +38,7 @@ public class ChooseScene : MonoBehaviour
         else
         {
             _decalForget.SetActive(true);
+            _ZimsThings.SetActive(false);
             Destroy(_decalRemember);
         }
 
@@ -44,10 +49,16 @@ public class ChooseScene : MonoBehaviour
     {
         _blockControls.enabled = false; //!
         //_crossfadePanel.Play("A_CrossfadeStart");
-        if (inventorySystem._hurtCanTrigger)
-            _finalPlayableDirectorRemember.Play(); //!
+        if (inventorySystem._traumaCanTrigger)
+        {
+            _camRemember.SetActive(true);
+            _finalPlayableDirectorRemember.Play();
+        }
         else
+        {
+            _camForget.SetActive(true);
             _finalplayableDirectorForget.Play();
+        }
     }
 
 
@@ -89,6 +100,6 @@ public class ChooseScene : MonoBehaviour
                 yield return null;
             }
         }
-        
+
     }
 }

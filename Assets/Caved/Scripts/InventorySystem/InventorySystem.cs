@@ -55,11 +55,13 @@ public class InventorySystem : MonoBehaviour
 
     private void Update()
     {
-        if (_rememberedMemories > 5)
-            _hurtCanTrigger = true;
-        else if (_rememberedMemories > 7)
+        if (_rememberedMemories > 8)
+        {
             _traumaCanTrigger = true;
-        else
+        }
+        if(_rememberedMemories > 6)
+            _hurtCanTrigger = true;
+        if(_rememberedMemories <=5)
             _forgetCanTrigger = true;
     }
 
