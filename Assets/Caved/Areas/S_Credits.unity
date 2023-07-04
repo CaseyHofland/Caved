@@ -2866,7 +2866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dylan Smid
+  m_text: 'Dylan Smit
 
     Mikey Woudstra'
   m_isRightToLeft: 0
@@ -3570,7 +3570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Development
+  m_text: Tech Support
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5c1128c360f5284fa5c6190e6740fd5, type: 2}
   m_sharedMaterial: {fileID: 3732113833909389352, guid: f5c1128c360f5284fa5c6190e6740fd5, type: 2}
